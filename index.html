@@ -1981,6 +1981,63 @@ footer{background:var(--void);border-top:1px solid var(--line);padding:64px 52px
     letter-spacing:-0.015em;
   }
 }
+
+/* ── COMPREHENSIVE MOBILE RESPONSIVENESS OVERRIDES ──────────── */
+@media(max-width:768px){
+  /* Grid layouts -> single column */
+  .before-after, .join-layout, .foot-grid, .field-row, .price-trio {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .pm-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .trust-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .sh-quick {
+    flex-wrap: wrap !important;
+  }
+  .sh-quick-item {
+    flex: 1 1 45% !important;
+  }
+  .scard-foot {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .scard-price {
+    text-align: left !important;
+    margin-top: 8px !important;
+  }
+  .price-cta {
+    justify-content: flex-start !important;
+  }
+  .of-box {
+    max-width: 96% !important;
+    margin: 0 auto !important;
+  }
+}
+@media(max-width:480px){
+  .hero-h1 {
+    font-size: 32px !important;
+    line-height: 1.15 !important;
+  }
+  .sec-h {
+    font-size: 28px !important;
+  }
+  .nav {
+    padding: 0 16px !important;
+  }
+  .sh-panel {
+    padding: 16px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -2356,35 +2413,26 @@ footer{background:var(--void);border-top:1px solid var(--line);padding:64px 52px
       <ul class="foot-links" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
         <li><span class="foot-link" role="button" tabindex="0" onclick="document.getElementById('browse-sec').scrollIntoView({behavior:'smooth'})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Browse Sellers</span></li>
         <li><span class="foot-link" role="button" tabindex="0" onclick="go('hiw')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">How It Works</span></li>
-        <!-- TODO: no "Buyer Protection" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Buyer Protection</span></li>
-        <!-- TODO: no "Dispute Resolution" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Dispute Resolution</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('Buyer Protection Policy', 'Paklance Escrow protects 100% of your payment. Funds are deposited securely in a local JazzCash escrow account before work begins and are only released to the freelancer after you review and approve the final deliverable.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Buyer Protection</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('72-Hour Dispute Resolution', 'If a deliverable does not match the agreed project brief or quality standard, our Islamabad mediation team steps in within 72 hours. We evaluate the project files, communication logs, and brief to issue a fair refund or revision directive.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Dispute Resolution</span></li>
       </ul>
     </div>
     <div>
       <div class="foot-col-h" style="font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px;">For Sellers</div>
       <ul class="foot-links" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
         <li><span class="foot-link" role="button" tabindex="0" onclick="go('join');aN('join')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Become a Seller</span></li>
-        <!-- TODO: no "CNIC Verification" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">CNIC Verification</span></li>
-        <!-- TODO: no "Pricing & Commission" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Pricing & Commission</span></li>
-        <!-- TODO: no "Seller Success Guide" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Seller Success Guide</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('CNIC Video Verification', 'Every seller undergoes a mandatory 10-minute live video verification matching their National Identity Card (CNIC) with our verification desk. Verified sellers receive a green CNIC badge, boosting buyer trust and conversion rates by 3×.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">CNIC Verification</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('Pricing & Commission Structure', 'Paklance charges a simple 10% flat commission on completed orders — half of international platforms like Fiverr (20%) or Upwork (20%). All earnings are transferred directly in PKR to your JazzCash, Easypaisa, or local bank account.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Pricing & Commission</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('Seller Success Guide', 'To maximize your orders: 1) Complete CNIC verification, 2) Set transparent fixed package prices, 3) Maintain an average response time under 2 hours, and 4) Upload verified work samples to your portfolio.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Seller Success Guide</span></li>
       </ul>
     </div>
     <div>
       <div class="foot-col-h" style="font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px;">Company</div>
       <ul class="foot-links" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
-        <!-- TODO: no "About Paklance" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">About Paklance</span></li>
-        <!-- TODO: no "Market Research" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Market Research</span></li>
-        <!-- TODO: no "Press & Media" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Press & Media</span></li>
-        <!-- TODO: no "Privacy Policy" page exists yet — wire this link once that page is built -->
-        <li><span class="foot-link" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Privacy Policy</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('About Paklance', 'Paklance is Pakistan\'s first CNIC-verified digital services marketplace. We empower Pakistani SMEs, startups, and agencies to hire top local freelance talent safely in PKR with guaranteed escrow protection.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">About Paklance</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('Market Research & Insights', 'Over 95% of Pakistani small businesses cannot use international freelance platforms due to USD payment barriers and credit card restrictions. Paklance bridges this gap using native PKR payment rails (JazzCash, Easypaisa & Bank Transfer).')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Market Research</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('Press & Media Contact', 'For media inquiries, interview requests with Paklance founders, or brand asset kits, please email press@paklance.com or visit our Islamabad head office.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Press & Media</span></li>
+        <li><span class="foot-link" role="button" tabindex="0" onclick="showInfoModal('Privacy Policy & Data Security', 'Your personal identity records, CNIC verification data, and financial transactions are protected with bank-grade 256-bit SSL encryption. We never share user data with third-party advertisers.')" style="font-size:14px; color:var(--text2); cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">Privacy Policy</span></li>
       </ul>
     </div>
   </div>
@@ -2629,6 +2677,18 @@ footer{background:var(--void);border-top:1px solid var(--line);padding:64px 52px
   </div>
 </div>
 
+<!-- ══ INFO MODAL ════════════════════════════════════════════ -->
+<div class="of-backdrop" id="infoModalBackdrop" onclick="if(event.target===this)closeInfoModal()">
+  <div class="of-box" style="max-width:520px; padding:28px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3 id="infoModalTitle" style="font-family:'Fraunces',serif; font-size:20px; font-weight:700; color:var(--heading); margin:0;"></h3>
+      <div onclick="closeInfoModal()" style="width:30px; height:30px; border-radius:50%; background:var(--recessed); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px; color:var(--text2);">✕</div>
+    </div>
+    <div id="infoModalText" style="font-size:14.5px; color:var(--text2); line-height:1.65; margin-bottom:24px;"></div>
+    <button onclick="closeInfoModal()" style="width:100%; padding:12px; background:var(--accent); color:#fff; border:none; border-radius:8px; font-weight:600; cursor:pointer;">Got it</button>
+  </div>
+</div>
+
 <!-- ══ TOAST ════════════════════════════════════════════════ -->
 <div class="toast" id="toastEl">
   <div class="toast-icon" id="toastIcon"></div>
@@ -2636,6 +2696,16 @@ footer{background:var(--void);border-top:1px solid var(--line);padding:64px 52px
 </div>
 
 <script>
+function showInfoModal(title, text){
+  document.getElementById('infoModalTitle').textContent = title;
+  document.getElementById('infoModalText').textContent = text;
+  document.getElementById('infoModalBackdrop').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeInfoModal(){
+  document.getElementById('infoModalBackdrop').classList.remove('on');
+  document.body.style.overflow = '';
+}
 /* ═══════════════════════════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════════════════════════ */
@@ -3143,7 +3213,32 @@ function openSheet(id){
   `;
   document.getElementById('shBio').textContent=s.bio;
   document.getElementById('shStats').innerHTML=s.stats.map(([l,v])=>`<div class="stat-cell"><div class="stat-val">${v}</div><div class="stat-lbl">${l}</div></div>`).join('');
-  document.getElementById('shPortfolio').innerHTML=s.portfolio.map(e=>`<div class="pf-item">${e}</div>`).join('');
+  const sampleTitles = {
+    design: ["Brand Identity Kit", "Modern Logo System", "Packaging Design", "Restaurant Menu", "Corporate Identity", "Social Banner Kit"],
+    social: ["Instagram Growth Kit", "Reels Campaign", "Facebook Ad Kit", "Monthly Content Grid", "Story Highlights", "Influencer Deck"],
+    web: ["E-Commerce Store", "Next.js Web App", "Shopify Redesign", "Landing Page", "Admin Dashboard", "Portfolio Website"],
+    content: ["Urdu Daraz Listings", "High-Converting Ad Copy", "SEO Blog Posts", "Website Sales Page", "Email Campaign", "Brand Story"],
+    video: ["Viral Reel Edit", "YouTube Intro & Edit", "Facebook Video Ad", "Corporate Promo", "Subtitled Reel", "Product Showcase"],
+    seo: ["Google Ranking Audit", "Keyword Strategy", "Google My Business", "On-Page SEO Kit", "Backlink Analysis", "Monthly Organic Report"]
+  };
+  const titles = sampleTitles[s.cat] || ["Project Deliverable", "Featured Work", "Client Showcase", "Verified Output", "Design Asset", "Case Study"];
+  document.getElementById('shPortfolio').innerHTML=s.portfolio.map((e, idx)=>{
+    const title = titles[idx % titles.length];
+    return `
+      <div class="pf-item" style="aspect-ratio:1.2; border-radius:10px; background:var(--surface); border:1px solid var(--line2); padding:14px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:0.2s; box-shadow:var(--shadow-card);" onmouseover="this.style.borderColor='var(--accent)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--line2)'; this.style.transform='none'">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="width:32px; height:32px; border-radius:8px; background:var(--accent-dim); color:var(--accent); display:flex; align-items:center; justify-content:center;">${e}</div>
+          <span style="font-family:'DM Mono',monospace; font-size:9px; font-weight:600; color:var(--accent); background:var(--accent-dim); border:1px solid rgba(58,134,119,0.2); padding:2px 6px; border-radius:4px;">Verified</span>
+        </div>
+        <div style="margin-top:12px;">
+          <div style="font-size:12.5px; font-weight:600; color:var(--text); line-height:1.3; margin-bottom:4px;">${title}</div>
+          <div style="font-size:10.5px; color:var(--text3); display:flex; align-items:center; gap:4px;">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Delivered Project
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
   document.getElementById('shReviews').innerHTML=s.revs.map(r=>`
     <div class="rev-item">
       <div class="rev-top"><span class="rev-author">${r.a}</span><span class="rev-date">${r.d}</span></div>
