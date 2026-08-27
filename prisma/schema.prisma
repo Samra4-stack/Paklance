@@ -1,0 +1,273 @@
+generator client {
+binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                             String          @id @default(uuid())
+  email                          String          @unique
+  name                           String?
+  passwordHash                   String
+  role                           Role
+  createdAt                      DateTime        @default(now())
+  updatedAt                      DateTime        @updatedAt
+  availability                   Availability    @default(AVAILABLE)
+  avatarUrl                      String?
+  bio                            String?
+  city                           String?
+  country                        String?
+  headline                       String?
+  hourlyRate                     Decimal?
+  skills                         String[]
+  contractsAsClient              Contract[]      @relation("ClientContracts")
+  contractsAsSpecialist          Contract[]      @relation("SpecialistContracts")
+  disputesRaised                 Dispute[]       @relation("UserDisputes")
+  escrows                        Escrow[]        @relation("UserEscrows")
+  jobs                           Job[]
+  portfolioItems                 PortfolioItem[]
+  Proposal                       Proposal[]
+  Review_Review_revieweeIdToUser Review[]        @relation("Review_revieweeIdToUser")
+  Review_Review_reviewerIdToUser Review[]        @relation("Review_reviewerIdToUser")
+  verification                   Verification?
+  wallets                        Wallet[]
+}
+
+model Verification {
+  id          String             @id @default(uuid())
+  userId      String             @unique
+  documentUrl String
+  status      VerificationStatus @default(PENDING)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  user        User               @relation(fields: [userId], references: [id])
+}
+
+model Job {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  budget      Decimal
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  clientId    String
+  contracts   Contract[]
+  client      User       @relation(fields: [clientId], references: [id])
+  Proposal    Proposal[]
+}
+
+model Contract {
+  id           String         @id @default(uuid())
+  jobId        String
+  clientId     String
+  specialistId String
+  status       ContractStatus @default(DRAFT)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  client       User           @relation("ClientContracts", fields: [clientId], references: [id])
+  job          Job            @relation(fields: [jobId], references: [id])
+  specialist   User           @relation("SpecialistContracts", fields: [specialistId], references: [id])
+  disputes     Dispute[]
+  escrow       Escrow?
+  milestones   Milestone[]
+  Review       Review[]
+}
+
+model Milestone {
+  id          String          @id @default(uuid())
+  contractId  String
+  title       String
+  description String
+  amount      Decimal
+  dueDate     DateTime?
+  status      MilestoneStatus @default(PENDING)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  contract    Contract        @relation(fields: [contractId], references: [id])
+}
+
+model Escrow {
+  id            String        @id @default(uuid())
+  contractId    String        @unique
+  balance       Decimal       @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  userId        String
+  contract      Contract      @relation(fields: [contractId], references: [id])
+  user          User          @relation("UserEscrows", fields: [userId], references: [id])
+  ledgerEntries LedgerEntry[]
+}
+
+model LedgerEntry {
+  id                  String       @id @default(uuid())
+  escrowId            String
+  sourceWalletId      String
+  destinationWalletId String
+  amount              Decimal
+  status              LedgerStatus @default(PENDING)
+  createdAt           DateTime     @default(now())
+  escrow              Escrow       @relation(fields: [escrowId], references: [id])
+}
+
+model Dispute {
+  id               String        @id @default(uuid())
+  contractId       String
+  raisedByUserId   String
+  reason           String
+  status           DisputeStatus @default(OPEN)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  resolution       String?
+  resolvedByUserId String?
+  contract         Contract      @relation(fields: [contractId], references: [id])
+  raisedByUser     User          @relation("UserDisputes", fields: [raisedByUserId], references: [id])
+}
+
+model Wallet {
+  id           String              @id @default(uuid())
+  userId       String
+  balance      Decimal             @default(0)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  user         User                @relation(fields: [userId], references: [id])
+  transactions WalletTransaction[]
+}
+
+model WalletTransaction {
+  id        String   @id @default(uuid())
+  walletId  String
+  amount    Decimal
+  type      String
+  createdAt DateTime @default(now())
+  wallet    Wallet   @relation(fields: [walletId], references: [id])
+}
+
+model PortfolioItem {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String
+  description String?
+  imageUrl    String?
+  projectUrl  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Conversation {
+  id             String    @id @default(uuid())
+  participant1Id String
+  participant2Id String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  Message        Message[]
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  senderId       String
+  content        String
+  isRead         Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  Conversation   Conversation @relation(fields: [conversationId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Proposal {
+  id           String         @id @default(uuid())
+  jobId        String
+  freelancerId String
+  coverLetter  String
+  bidAmount    Decimal
+  deliveryDays Int
+  status       ProposalStatus @default(PENDING)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  User         User           @relation(fields: [freelancerId], references: [id])
+  job          Job            @relation(fields: [jobId], references: [id])
+}
+
+model Review {
+  id                           String   @id @default(uuid())
+  contractId                   String
+  reviewerId                   String
+  revieweeId                   String
+  rating                       Int
+  comment                      String?
+  createdAt                    DateTime @default(now())
+  Contract                     Contract @relation(fields: [contractId], references: [id])
+  User_Review_revieweeIdToUser User     @relation("Review_revieweeIdToUser", fields: [revieweeId], references: [id])
+  User_Review_reviewerIdToUser User     @relation("Review_reviewerIdToUser", fields: [reviewerId], references: [id])
+}
+
+model playing_with_neon {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value Float? @db.Real
+}
+
+enum Availability {
+  AVAILABLE
+  BUSY
+  NOT_AVAILABLE
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+  SPECIALIST
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ContractStatus {
+  DRAFT
+  FUNDED
+  IN_PROGRESS
+  COMPLETED
+  DISPUTED
+  CLOSED
+}
+
+enum MilestoneStatus {
+  PENDING
+  FUNDED
+  RELEASED
+  DISPUTED
+}
+
+enum LedgerStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum DisputeStatus {
+  OPEN
+  RESOLVED
+  CLOSED
+}
+
+enum ProposalStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
