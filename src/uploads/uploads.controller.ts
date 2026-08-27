@@ -16,6 +16,10 @@ import {
 import { StorageService } from '../storage/storage.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+
 @ApiTags('Uploads')
 @Controller('uploads')
 export class UploadsController {
@@ -26,11 +30,36 @@ export class UploadsController {
   @ApiConsumes('multipart/form-data')
   @UseGuards(JwtAuthGuard)
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: { fileSize: MAX_FILE_SIZE },
+    }),
+  )
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     if (!file) {
       throw new BadRequestException('File is required');
     }
+
+    if (file.size > MAX_FILE_SIZE) {
+      throw new BadRequestException('File exceeds maximum allowed size of 5MB');
+    }
+
+    if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+      throw new BadRequestException(
+        'Invalid file type. Only JPEG, PNG, WebP, and GIF images are allowed.',
+      );
+    }
+
+    const ext = (file.originalname || '').toLowerCase();
+    const hasValidExt = ALLOWED_EXTENSIONS.some((allowed) =>
+      ext.endsWith(allowed),
+    );
+    if (!hasValidExt) {
+      throw new BadRequestException(
+        'Invalid file extension. Allowed extensions: .jpg, .jpeg, .png, .webp, .gif',
+      );
+    }
+
     const url = await this.storageService.uploadFile(file);
     return { url };
   }

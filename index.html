@@ -3001,7 +3001,10 @@
         background: white;
         border-bottom: 1px solid #dfe6e1;
         padding: 10px 14px;
-        box-shadow: 0 14px 25px rgba(0, 0, 0, .08)
+        box-shadow: 0 14px 25px rgba(0, 0, 0, .08);
+        max-height: 82vh;
+        overflow-y: auto;
+        z-index: 999;
       }
 
       .mobile-menu button {
@@ -6216,6 +6219,35 @@
             <span id="saveProfileBtnText">Save changes</span>
           </button>
         </div>
+
+        <!-- Portfolio Management Section (for Specialists) -->
+        <div id="epPortfolioSection" style="margin-top:28px;border-top:1px solid var(--line);padding-top:20px;">
+          <h3 style="font-size:16px;margin:0 0 4px;color:var(--forest);">Portfolio Projects</h3>
+          <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Showcase your real projects, screenshots, and live/repository links to clients.</p>
+
+          <div id="epPortfolioList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;"></div>
+
+          <div style="background:var(--mint);padding:16px;border-radius:12px;border:1px solid #cbe9d4;">
+            <h4 style="margin:0 0 10px;font-size:13px;color:var(--forest);">+ Add New Portfolio Project</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <label style="grid-column:1/-1;font-size:11px;">Project title *
+                <input id="newPortTitle" type="text" placeholder="e.g. E-Commerce Platform" style="background:#fff;" />
+              </label>
+              <label style="grid-column:1/-1;font-size:11px;">Description
+                <textarea id="newPortDesc" rows="2" placeholder="Explain what you built, architecture, technologies used..." style="background:#fff;"></textarea>
+              </label>
+              <label style="font-size:11px;">Live Project / GitHub URL
+                <input id="newPortUrl" type="url" placeholder="https://myproject.com or https://github.com/..." style="background:#fff;" />
+              </label>
+              <label style="font-size:11px;">Screenshot / Image URL
+                <input id="newPortImg" type="url" placeholder="https://... image URL" style="background:#fff;" />
+              </label>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:12px;">
+              <button class="btn btn-primary" id="addPortfolioBtn" type="button" style="padding:7px 16px;font-size:12px;">+ Add to Portfolio</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -6662,8 +6694,14 @@
         const initials = f.initials || (f.name || 'U').slice(0, 2).toUpperCase();
         const skillsHtml = (f.skills || []).map(s => `<span class="skill">${escHtml(s)}</span>`).join('');
         const portfolioHtml = (f.portfolio && f.portfolio.length > 0)
-          ? f.portfolio.map(p => `<div class="portfolio-tile">${escHtml(p.title)}</div>`).join('')
-          : '<div class="portfolio-tile">Portfolio item 1</div><div class="portfolio-tile">Portfolio item 2</div><div class="portfolio-tile">Portfolio item 3</div>';
+          ? f.portfolio.map(p => `
+              <div class="portfolio-item-card" style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;">
+                ${p.imageUrl ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.title)}" style="width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:4px;" />` : ''}
+                <strong style="font-size:15px;color:var(--forest);">${escHtml(p.title)}</strong>
+                ${p.description ? `<p style="font-size:13px;color:var(--muted);margin:0;line-height:1.45;">${escHtml(p.description)}</p>` : ''}
+                ${p.projectUrl ? `<a href="${escHtml(p.projectUrl)}" target="_blank" rel="noopener noreferrer" class="text-link" style="font-size:12px;margin-top:auto;font-weight:600;display:inline-block;">View Project &rarr;</a>` : ''}
+              </div>`).join('')
+          : '<p style="color:var(--muted);font-size:13px;grid-column:1/-1;margin:12px 0;">No portfolio projects showcased yet.</p>';
         $('#profilePage').innerHTML = `<section class="profile-hero-card"><div class="profile-avatar">${escHtml(initials)}</div><div class="profile-title"><div class="freelancer-name"><h1>${escHtml(f.name)}</h1><span class="mini-check">&#10003;</span></div><p>${escHtml(f.role)} &middot; ${escHtml(f.city)}</p><div class="profile-tags"><span class="badge verified">&#10003; Verified</span><span class="badge verified">${escHtml(f.badge || 'Verified')}</span></div><div class="profile-assurance-strip"><div><strong>&#10003; Identity</strong><small>Verified status</small></div><div><strong>&#8705; NDA / IP</strong><small>Ready for contract</small></div><div><strong>&#9679; Availability</strong><small>${f.available ? 'Available now' : 'Booked'}</small></div></div></div><div class="profile-actions"><button class="btn btn-outline save-profile" id="saveProfile" aria-label="Save to shortlist">&#9825;</button><button class="btn btn-outline" id="interviewBtn">Interview</button><button class="btn btn-primary" id="hireBtn">Hire Me</button></div></section><div class="profile-layout"><div><section class="profile-panel"><h2>About</h2><p>${escHtml(f.bio || 'Specialist profile.')}</p><div class="skill-row">${skillsHtml}</div></section><section class="profile-panel"><h2>Selected work</h2><div class="portfolio-grid">${portfolioHtml}</div></section></div><aside><section class="profile-panel"><span class="micro-label">HOURLY RATE</span><div class="big-budget">${money(f.rate || 0)}/hr</div><div class="side-list"><div><span>Standing</span><strong>${escHtml(f.badge || 'Verified')}</strong></div><div><span>Availability</span><strong>${f.available ? 'Available now' : 'Booked'}</strong></div></div></section></aside></div>`;
         $('#hireBtn').onclick = () => { openPostJob(); toast(`Starting a job for ${f.name}`); };
         $('#saveProfile').onclick = () => { $('#saveProfile').textContent = '&#9829;'; toast(`${f.name} added to shortlist`); };
@@ -7139,7 +7177,81 @@
         if (scr) scr.classList.remove('open');
       }
 
-      // === 22. HEADER AUTH STATE ===
+      // === 22. HEADER & MOBILE AUTH STATE ===
+      function closeMobileMenu() {
+        const m = $('#mobileMenuPanel');
+        if (m) m.classList.remove('open');
+        if ($('#menuButton')) $('#menuButton').setAttribute('aria-expanded', 'false');
+      }
+
+      function updateMobileMenu() {
+        const m = $('#mobileMenuPanel');
+        if (!m) return;
+        const token = getToken();
+        const user = getUser();
+        const role = user?.role || 'CLIENT';
+        const displayName = user?.name || user?.email?.split('@')[0] || 'User';
+
+        if (token) {
+          if (role === 'SPECIALIST') {
+            m.innerHTML = `
+              <div style="padding:10px 14px;background:var(--mint);border-radius:10px;margin-bottom:8px;font-weight:600;color:var(--forest);font-size:13px;display:flex;justify-content:space-between;align-items:center;">
+                <span>${escHtml(displayName)}</span>
+                <span class="badge verified" style="font-size:10px;padding:2px 7px;">Specialist</span>
+              </div>
+              <button data-route="dashboard" id="mobNavDash" style="text-align:left;padding:12px;font-weight:600;">⌂ Dashboard</button>
+              <button id="mobNavEditProfile" style="text-align:left;padding:12px;">⚙ Edit Profile</button>
+              <button data-route="jobs" id="mobNavJobs" style="text-align:left;padding:12px;">⌕ Browse Jobs</button>
+              <button data-route="messages" id="mobNavMessages" style="text-align:left;padding:12px;">✉ Messages</button>
+              <button data-route="contract" id="mobNavContracts" style="text-align:left;padding:12px;">◆ Contracts</button>
+              <button data-route="wallet" id="mobNavWallet" style="text-align:left;padding:12px;">₨ Payments / Wallet</button>
+              <button data-route="disputes" id="mobNavDisputes" style="text-align:left;padding:12px;">⚖ Resolution Centre</button>
+              <button data-route="how" id="mobNavHow" style="text-align:left;padding:12px;">How It Works</button>
+              <button id="mobNavLogout" style="text-align:left;padding:12px;color:var(--danger);font-weight:600;border-top:1px solid var(--line);margin-top:6px;">Log out</button>
+            `;
+          } else if (role === 'CLIENT') {
+            m.innerHTML = `
+              <div style="padding:10px 14px;background:var(--mint);border-radius:10px;margin-bottom:8px;font-weight:600;color:var(--forest);font-size:13px;display:flex;justify-content:space-between;align-items:center;">
+                <span>${escHtml(displayName)}</span>
+                <span class="badge verified" style="font-size:10px;padding:2px 7px;">Client</span>
+              </div>
+              <button data-route="dashboard" id="mobNavDash" style="text-align:left;padding:12px;font-weight:600;">⌂ Dashboard</button>
+              <button id="mobNavPostJob" style="text-align:left;padding:12px;">＋ Post a Job</button>
+              <button data-route="talent" id="mobNavTalent" style="text-align:left;padding:12px;">Hire Talent</button>
+              <button data-route="match" id="mobNavMatch" style="text-align:left;padding:12px;">Paklance Match™</button>
+              <button data-route="messages" id="mobNavMessages" style="text-align:left;padding:12px;">✉ Messages</button>
+              <button data-route="contract" id="mobNavContracts" style="text-align:left;padding:12px;">◆ Contracts</button>
+              <button data-route="wallet" id="mobNavWallet" style="text-align:left;padding:12px;">₨ Payments / Escrow</button>
+              <button data-route="disputes" id="mobNavDisputes" style="text-align:left;padding:12px;">⚖ Resolution Centre</button>
+              <button data-route="how" id="mobNavHow" style="text-align:left;padding:12px;">How It Works</button>
+              <button id="mobNavLogout" style="text-align:left;padding:12px;color:var(--danger);font-weight:600;border-top:1px solid var(--line);margin-top:6px;">Log out</button>
+            `;
+          } else {
+            m.innerHTML = `
+              <button data-route="admin" id="mobNavAdmin" style="text-align:left;padding:12px;font-weight:600;">Admin Console</button>
+              <button data-route="dashboard" id="mobNavDash" style="text-align:left;padding:12px;">Dashboard</button>
+              <button id="mobNavLogout" style="text-align:left;padding:12px;color:var(--danger);font-weight:600;border-top:1px solid var(--line);">Log out</button>
+            `;
+          }
+
+          if ($('#mobNavEditProfile')) $('#mobNavEditProfile').onclick = () => { closeMobileMenu(); openEditProfile(); };
+          if ($('#mobNavPostJob')) $('#mobNavPostJob').onclick = () => { closeMobileMenu(); openPostJob(); };
+          if ($('#mobNavLogout')) $('#mobNavLogout').onclick = () => { closeMobileMenu(); logout(); };
+        } else {
+          m.innerHTML = `
+            <button data-route="jobs" id="mobNavJobs" style="text-align:left;padding:12px;">Browse Jobs</button>
+            <button data-route="talent" id="mobNavTalent" style="text-align:left;padding:12px;">Hire Talent</button>
+            <button data-route="how" id="mobNavHow" style="text-align:left;padding:12px;">How It Works</button>
+            <button data-route="global" id="mobNavGlobal" style="text-align:left;padding:12px;">Global Hiring</button>
+            <button data-route="match" id="mobNavMatch" style="text-align:left;padding:12px;">Paklance Match™</button>
+            <button id="mobNavLogin" style="text-align:left;padding:12px;font-weight:600;">Log in</button>
+            <button id="mobNavSignup" class="btn btn-primary" style="margin-top:8px;text-align:center;justify-content:center;">Get Started</button>
+          `;
+          if ($('#mobNavLogin')) $('#mobNavLogin').onclick = () => { closeMobileMenu(); openModal('#authModal'); showLoginTab(); };
+          if ($('#mobNavSignup')) $('#mobNavSignup').onclick = () => { closeMobileMenu(); openModal('#authModal'); showSignupTab(); };
+        }
+      }
+
       function updateHeaderAuthState() {
         const token = getToken();
         const navActions = $('.nav-actions');
@@ -7184,6 +7296,7 @@
           $('#headerEditProfileBtn')?.remove();
           $('#logoutBtn')?.remove();
         }
+        updateMobileMenu();
       }
 
       function logout(redirect = true) {
@@ -7371,6 +7484,60 @@
        * Opens the Edit Profile modal and pre-fills it with current profile data.
        * Fetches GET /api/profiles/me to show the freshest values from the server.
        */
+      // === 29. EDIT PROFILE & PORTFOLIO ===
+
+      function renderEpPortfolioItems(items) {
+        const listEl = $('#epPortfolioList');
+        if (!listEl) return;
+        if (!items || items.length === 0) {
+          listEl.innerHTML = '<p style="color:var(--muted);font-size:12px;margin:0;">No portfolio projects added yet.</p>';
+          return;
+        }
+        listEl.innerHTML = items.map(item => `
+          <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              ${item.imageUrl ? `<img src="${escHtml(item.imageUrl)}" alt="${escHtml(item.title)}" style="width:44px;height:44px;object-fit:cover;border-radius:6px;" />` : `<span style="width:44px;height:44px;background:#e2ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">📁</span>`}
+              <div>
+                <strong style="font-size:13px;color:var(--forest);display:block;">${escHtml(item.title)}</strong>
+                ${item.description ? `<small style="color:var(--muted);font-size:11px;display:block;">${escHtml(item.description.slice(0, 60))}${item.description.length > 60 ? '...' : ''}</small>` : ''}
+                ${item.projectUrl ? `<a href="${escHtml(item.projectUrl)}" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--emerald);font-weight:600;">Link &nearr;</a>` : ''}
+              </div>
+            </div>
+            <button type="button" class="btn btn-outline delete-port-btn" data-port-id="${escHtml(item.id)}" style="padding:4px 9px;font-size:11px;color:var(--danger);border-color:#fecaca;">Delete</button>
+          </div>
+        `).join('');
+
+        // Wire delete buttons
+        listEl.querySelectorAll('.delete-port-btn').forEach(btn => {
+          btn.onclick = async () => {
+            const id = btn.dataset.portId;
+            if (!id) return;
+            btn.disabled = true;
+            btn.textContent = 'Deleting…';
+            try {
+              const delRes = await apiAuth(`/profiles/me/portfolio/${id}`, { method: 'DELETE' });
+              if (delRes.ok) {
+                toast('Portfolio project deleted');
+                const ref = await apiAuth('/profiles/me');
+                if (ref.ok && ref.data) renderEpPortfolioItems(ref.data.portfolioItems || []);
+              } else {
+                toast('Failed to delete portfolio project');
+                btn.disabled = false;
+                btn.textContent = 'Delete';
+              }
+            } catch (e) {
+              toast('Error deleting portfolio project');
+              btn.disabled = false;
+              btn.textContent = 'Delete';
+            }
+          };
+        });
+      }
+
+      /**
+       * Opens the Edit Profile modal and pre-fills it with current profile data.
+       * Fetches GET /api/profiles/me to show the freshest values from the server.
+       */
       async function openEditProfile() {
         if (!getToken()) { toast('Please log in to edit your profile.'); openModal('#authModal'); return; }
 
@@ -7395,6 +7562,55 @@
           if ($('#epSkills'))   $('#epSkills').value   = (cached.skills || []).join(', ');
         }
 
+        // Show/hide portfolio section based on role
+        if ($('#epPortfolioSection')) {
+          $('#epPortfolioSection').style.display = (cached?.role === 'CLIENT') ? 'none' : 'block';
+        }
+
+        // Wire add portfolio project button
+        if ($('#addPortfolioBtn')) {
+          $('#addPortfolioBtn').onclick = async () => {
+            const title = $('#newPortTitle')?.value.trim();
+            const description = $('#newPortDesc')?.value.trim() || undefined;
+            const projectUrl = $('#newPortUrl')?.value.trim() || undefined;
+            const imageUrl = $('#newPortImg')?.value.trim() || undefined;
+
+            if (!title) {
+              toast('Project title is required');
+              $('#newPortTitle')?.focus();
+              return;
+            }
+
+            const btn = $('#addPortfolioBtn');
+            btn.disabled = true;
+            btn.textContent = 'Adding…';
+
+            try {
+              const res = await apiAuth('/profiles/me/portfolio', {
+                method: 'POST',
+                body: JSON.stringify({ title, description, projectUrl, imageUrl })
+              });
+              if (res.ok) {
+                toast('Portfolio project added!');
+                if ($('#newPortTitle')) $('#newPortTitle').value = '';
+                if ($('#newPortDesc')) $('#newPortDesc').value = '';
+                if ($('#newPortUrl')) $('#newPortUrl').value = '';
+                if ($('#newPortImg')) $('#newPortImg').value = '';
+                const ref = await apiAuth('/profiles/me');
+                if (ref.ok && ref.data) renderEpPortfolioItems(ref.data.portfolioItems || []);
+              } else {
+                const msg = Array.isArray(res.data?.message) ? res.data.message.join(', ') : (res.data?.message || 'Failed to add portfolio project');
+                toast(msg);
+              }
+            } catch (e) {
+              toast('Network error adding portfolio project');
+            } finally {
+              btn.disabled = false;
+              btn.textContent = '+ Add to Portfolio';
+            }
+          };
+        }
+
         // Then fetch fresh data from the server
         try {
           const r = await apiAuth('/profiles/me');
@@ -7408,6 +7624,7 @@
             if ($('#epRate'))     $('#epRate').value     = p.hourlyRate || '';
             if ($('#epAvail'))    $('#epAvail').value    = p.availability || 'AVAILABLE';
             if ($('#epSkills'))   $('#epSkills').value   = (p.skills || []).join(', ');
+            renderEpPortfolioItems(p.portfolioItems || []);
           }
         } catch (e) {
           // Non-fatal — user can still edit from cached values
@@ -7482,6 +7699,9 @@
           const existing = getUser() || {};
           const merged = { ...existing, ...updated };
           localStorage.setItem('paklance_user', JSON.stringify(merged));
+
+          // Update header and mobile menu with updated user info
+          updateHeaderAuthState();
 
           // Show success banner
           if (okEl) okEl.style.display = 'block';
