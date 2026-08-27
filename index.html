@@ -2267,150 +2267,277 @@
       font-size: 8.5px
     }
 
+    /* === MESSAGING SYSTEM (CORE ARCHITECTURE) === */
     .messages-main {
-      padding: 0
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .messages-shell {
       height: calc(100vh - 74px);
       display: grid;
-      grid-template-columns: 310px 1fr;
-      background: white
+      grid-template-columns: 320px 1fr;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
     }
 
     .conversation-list {
-      border-right: 1px solid #dfe6e1;
-      overflow: auto
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--line);
+      background: #fbfdfc;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
     }
 
     .conversation-head {
-      padding: 20px;
-      border-bottom: 1px solid #e6ece8
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      box-sizing: border-box;
     }
 
     .conversation-head h2 {
-      font-size: 18px;
-      margin: 0 0 12px
+      font-size: 16px;
+      margin: 0;
+      color: var(--forest);
     }
 
     .conversation-item {
-      padding: 13px 16px;
+      padding: 12px 14px;
       display: flex;
-      gap: 10px;
-      border-bottom: 1px solid #edf1ee;
-      cursor: pointer
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      background: #fff;
+      transition: background 0.15s ease;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .conversation-item:hover {
+      background: #f4faf6;
     }
 
     .conversation-item.active {
-      background: #edf7f0
+      background: var(--mint);
     }
 
     .conversation-copy {
-      flex: 1;
-      min-width: 0
+      flex: 1 1 0%;
+      min-width: 0;
+      overflow: hidden;
     }
 
-    .conversation-copy>div {
+    .conversation-copy > div {
       display: flex;
-      justify-content: space-between
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
     }
 
     .conversation-copy strong {
-      font-size: 10.5px
-    }
-
-    .conversation-copy time {
-      font-size: 8px;
-      color: var(--muted)
-    }
-
-    .conversation-copy p {
-      font-size: 9.5px;
-      color: var(--muted);
+      font-size: 13px;
+      color: var(--forest);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin: 3px 0 0
+    }
+
+    .conversation-copy time {
+      font-size: 10px;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-left: 6px;
+    }
+
+    .conversation-copy p {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .chat-pane {
       display: flex;
       flex-direction: column;
-      min-width: 0
+      height: 100%;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+      background: #fff;
     }
 
     .chat-head {
-      padding: 15px 20px;
-      border-bottom: 1px solid #e3e9e5;
+      flex-shrink: 0;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
       display: flex;
+      align-items: center;
       gap: 10px;
-      align-items: center
+      background: #fbfdfc;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
     }
 
-    .chat-head>div {
-      display: flex;
-      flex-direction: column
+    #backToConversationsBtn {
+      display: none;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--forest);
+      flex-shrink: 0;
+      align-items: center;
+      gap: 4px;
     }
 
-    .chat-head strong {
-      font-size: 11px
+    .chat-head-user {
+      flex: 1 1 0%;
+      min-width: 0;
+      overflow: hidden;
     }
 
-    .chat-head small {
-      font-size: 9px;
-      color: #0d6935 /* ≥4.5:1 on white — online status */
+    .chat-head-user strong {
+      font-size: 14px;
+      color: var(--forest);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-head-user small {
+      font-size: 11px;
+      color: var(--muted);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .chat-body {
-      flex: 1;
-      background: #f7f9f7;
-      padding: 22px;
-      overflow: auto;
+      flex: 1 1 0%;
+      min-height: 0;
+      background: #f8faf9;
+      padding: 16px;
+      overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      gap: 10px
+      gap: 10px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
     }
 
     .bubble {
-      max-width: 68%;
-      padding: 10px 12px;
-      border-radius: 13px;
-      font-size: 10.5px;
-      box-shadow: 0 2px 7px rgba(0, 0, 0, .03)
+      max-width: 75%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.4;
+      box-sizing: border-box;
+      word-break: break-word;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
 
     .bubble.them {
-      background: white;
-      border: 1px solid #e0e7e2;
-      border-bottom-left-radius: 4px
+      align-self: flex-start;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-bottom-left-radius: 4px;
     }
 
     .bubble.me {
       align-self: flex-end;
-      background: var(--green);
-      color: white;
-      border-bottom-right-radius: 4px
+      background: var(--forest);
+      color: #fff;
+      border-bottom-right-radius: 4px;
     }
 
     .bubble small {
       display: block;
-      opacity: .6;
-      font-size: 7.5px;
-      margin-top: 5px
+      font-size: 9px;
+      margin-top: 4px;
+      opacity: 0.75;
+    }
+
+    .bubble.me small {
+      text-align: right;
+      color: #bfe8ce;
+    }
+
+    .bubble.them small {
+      text-align: left;
+      color: var(--muted);
     }
 
     .chat-compose {
+      flex-shrink: 0;
       display: flex;
       gap: 8px;
-      padding: 13px 16px;
-      border-top: 1px solid #e3e9e5
+      align-items: center;
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
     }
 
-    .chat-compose input {
-      flex: 1;
-      border: 1px solid #d8e2db;
-      border-radius: 11px;
-      padding: 11px
+    .chat-compose input#chatInput {
+      flex: 1 1 0%;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .chat-compose input#chatInput:focus {
+      outline: none;
+      border-color: var(--emerald);
+    }
+
+    .chat-compose button#sendChat {
+      flex-shrink: 0;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      border-radius: 8px;
     }
 
     .process-page,
@@ -2804,11 +2931,76 @@
       transition: background .15s
     }
 
-    .dash-edit-profile-btn:hover {
-      background: rgba(18,161,80,.25);
-      color: #cdf5da
-    }
+    /* === RESPONSIVE MESSAGING (<= 768px: Single Panel View with Header & Bottom Nav Support) === */
+    @media (max-width: 768px) {
+      .dash-main.messages-main {
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
 
+      .messages-shell {
+        display: flex !important;
+        flex-direction: column !important;
+        height: calc(100vh - 64px - 58px) !important;
+        height: calc(100dvh - 122px) !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        border: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
+
+      /* When not in an active chat: show conversation list full width */
+      .messages-shell:not(.chat-open) .conversation-list {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        flex: 1 1 auto !important;
+        border-right: none !important;
+      }
+
+      .messages-shell:not(.chat-open) .chat-pane {
+        display: none !important;
+      }
+
+      /* When inside an active chat: show chat pane full width, hide conversation list */
+      .messages-shell.chat-open .conversation-list {
+        display: none !important;
+      }
+
+      .messages-shell.chat-open .chat-pane {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        flex: 1 1 auto !important;
+      }
+
+      .messages-shell.chat-open #backToConversationsBtn {
+        display: inline-flex !important;
+      }
+
+      .chat-compose {
+        padding: 8px 10px !important;
+        background: #fff !important;
+        z-index: 10 !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .chat-compose input#chatInput {
+        font-size: 14px !important;
+      }
+    }
 
     .rtl .desktop-nav,
     .rtl .nav-actions,
@@ -6254,6 +6446,189 @@
       </div>
     </div>
 
+    <!-- === ADD FUNDS / GATEWAYS INFO MODAL === -->
+    <div class="modal-backdrop" id="addFundsModal" aria-hidden="true">
+      <div class="modal wide-modal" role="dialog" aria-modal="true" aria-labelledby="addFundsTitle" style="max-height:92vh;overflow-y:auto">
+        <button class="modal-close" data-close-modal aria-label="Close dialog">×</button>
+        <span class="section-kicker">Wallet &amp; Gateways</span>
+        <h2 id="addFundsTitle" style="margin:6px 0 4px;font-size:22px">Supported Pakistani Payment Methods</h2>
+        <p style="color:var(--muted);font-size:12px;margin:0 0 18px">Paklance uses official merchant gateway architecture for client payments and specialist payouts.</p>
+
+        <!-- Gateway integration status notice -->
+        <div style="background:#fffbeb;color:#92400e;border:1px solid #fde68a;border-radius:10px;padding:14px;font-size:12px;margin-bottom:18px;line-height:1.45;">
+          <strong>Live Gateway Integration Notice:</strong>
+          <p style="margin:4px 0 0;">Live production merchant accounts for <strong>JazzCash (Mobilink)</strong> and <strong>Easypaisa (Telenor Bank)</strong> are currently in onboarding/partner integration. Simulated successful transactions are strictly disabled on production to prevent false accounting. All contract milestone payments are securely verified server-side before escrow release.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <strong style="font-size:14px;color:var(--forest);display:block;">JazzCash Merchant Checkout</strong>
+              <small style="color:var(--muted);font-size:11px;">HMAC-SHA256 signed mobile account &amp; debit card gateway</small>
+            </div>
+            <span class="badge" style="background:#fef3c7;color:#92400e;font-size:11px;">Merchant Onboarding</span>
+          </div>
+
+          <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <strong style="font-size:14px;color:var(--forest);display:block;">Easypaisa IPG Checkout</strong>
+              <small style="color:var(--muted);font-size:11px;">Telenor Microfinance Bank hosted checkout &amp; MA payments</small>
+            </div>
+            <span class="badge" style="background:#fef3c7;color:#92400e;font-size:11px;">Merchant Onboarding</span>
+          </div>
+
+          <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <strong style="font-size:14px;color:var(--forest);display:block;">1Link / Raast Interbank Payout</strong>
+              <small style="color:var(--muted);font-size:11px;">State Bank of Pakistan instant interbank clearing for specialist withdrawals</small>
+            </div>
+            <span class="badge" style="background:#e0f2fe;color:#0369a1;font-size:11px;">Active Ledger</span>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-top:20px;">
+          <button class="btn btn-outline" data-close-modal>Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- === ADD PAYOUT METHOD MODAL === -->
+    <div class="modal-backdrop" id="addPayoutMethodModal" aria-hidden="true">
+      <div class="modal wide-modal" role="dialog" aria-modal="true" aria-labelledby="addPmTitle" style="max-height:92vh;overflow-y:auto">
+        <button class="modal-close" data-close-modal aria-label="Close dialog">×</button>
+        <span class="section-kicker">Specialist Payouts</span>
+        <h2 id="addPmTitle" style="margin:6px 0 4px;font-size:22px">Add Payout Method</h2>
+        <p style="color:var(--muted);font-size:12px;margin:0 0 16px">Save your local Pakistani bank account, JazzCash, Easypaisa, or Raast account for instant withdrawals.</p>
+
+        <div id="addPmError" style="display:none;background:#fef2f2;color:#DC2626;border:1px solid #fecaca;border-radius:10px;padding:10px 13px;font-size:11px;margin-bottom:14px"></div>
+
+        <div class="edit-profile-grid" style="grid-template-columns:1fr 1fr;gap:12px;">
+          <label style="grid-column:1/-1;">Payout Channel Type *
+            <select id="newPmType">
+              <option value="BANK">Bank Account / 1Link (IBAN)</option>
+              <option value="JAZZCASH">JazzCash Mobile Wallet</option>
+              <option value="EASYPAISA">Easypaisa Mobile Wallet</option>
+              <option value="RAAST">Raast ID / Number</option>
+            </select>
+          </label>
+          <label>Account Title / Beneficiary Name *
+            <input id="newPmTitle" type="text" placeholder="e.g. Areeba Batool" />
+          </label>
+          <label>Account / IBAN / Mobile Number *
+            <input id="newPmNumber" type="text" placeholder="e.g. PK36SCBL0000001123456701" />
+          </label>
+          <label style="grid-column:1/-1;">Bank Name (Optional for Mobile Wallets)
+            <input id="newPmBank" type="text" placeholder="e.g. Standard Chartered / HBL / Meezan" />
+          </label>
+          <label style="grid-column:1/-1;flex-direction:row;align-items:center;gap:8px;cursor:pointer;">
+            <input id="newPmDefault" type="checkbox" style="width:auto;margin:0;" />
+            <span style="font-size:12px;color:var(--forest);">Set as my default withdrawal method</span>
+          </label>
+        </div>
+
+        <div style="display:flex;gap:9px;justify-content:flex-end;margin-top:20px">
+          <button class="btn btn-outline" data-close-modal>Cancel</button>
+          <button class="btn btn-primary" id="savePayoutMethodBtn">Save Payout Method</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- === CLIENT FUND ESCROW MODAL === -->
+    <div class="modal-backdrop" id="clientFundModal" aria-hidden="true">
+      <div class="modal wide-modal" role="dialog" aria-modal="true" aria-labelledby="fundEscrowTitle" style="max-height:92vh;overflow-y:auto">
+        <button class="modal-close" data-close-modal aria-label="Close dialog">×</button>
+        <span class="section-kicker">SafePay Escrow</span>
+        <h2 id="fundEscrowTitle" style="margin:6px 0 4px;font-size:22px">Fund Milestone Escrow</h2>
+        <p style="color:var(--muted);font-size:12px;margin:0 0 16px">Deposit funds securely into SafePay Escrow. Funds are protected and only released when you approve the milestone.</p>
+
+        <div id="fundError" style="display:none;background:#fef2f2;color:#DC2626;border:1px solid #fecaca;border-radius:10px;padding:10px 13px;font-size:11px;margin-bottom:14px"></div>
+        <div id="fundSuccess" style="display:none;background:#edf8f1;color:#067a38;border:1px solid #bbddca;border-radius:10px;padding:10px 13px;font-size:11px;margin-bottom:14px">&#10003; Escrow successfully funded! Work can now begin.</div>
+
+        <div style="background:var(--mint);border:1px solid #cbe9d4;border-radius:10px;padding:14px;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:12px;color:var(--forest);font-weight:600;">Contract Milestone:</span>
+            <strong id="fundContractTitle" style="font-size:13px;color:var(--forest);">-</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:12px;color:var(--forest);">Deposit Amount:</span>
+            <strong id="fundAmountText" style="font-size:18px;color:var(--forest);">PKR 0</strong>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px;">
+          <label style="font-size:11px;font-weight:700;color:#4d5952;">Select Payment Gateway</label>
+          <select id="fundGatewaySelect" style="padding:11px;border:1px solid #d7e1da;border-radius:10px;font:inherit;">
+            <option value="JAZZCASH">JazzCash (Mobile Account / Card Checkout)</option>
+            <option value="EASYPAISA">Easypaisa (Telenor Bank IPG)</option>
+            <option value="BANK_TRANSFER">Direct Bank Transfer (1Link Enterprise)</option>
+          </select>
+        </div>
+
+        <div id="gatewayInfoBox" style="background:#fbfdfc;border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12px;margin-bottom:18px;line-height:1.45;">
+          <strong id="gwNoticeTitle" style="color:var(--forest);display:block;margin-bottom:4px;">Official Gateway Protocol:</strong>
+          <p id="gwNoticeText" style="margin:0;color:var(--muted);">Payment session with HMAC-SHA256 signature verification will be initiated on the server.</p>
+        </div>
+
+        <div style="display:flex;gap:9px;justify-content:flex-end;">
+          <button class="btn btn-outline" data-close-modal>Cancel</button>
+          <button class="btn btn-primary" id="confirmFundBtn">Initiate Checkout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- === WITHDRAWAL MODAL === -->
+    <div class="modal-backdrop" id="withdrawModal" aria-hidden="true">
+      <div class="modal wide-modal" role="dialog" aria-modal="true" aria-labelledby="withdrawTitle" style="max-height:92vh;overflow-y:auto">
+        <button class="modal-close" data-close-modal aria-label="Close dialog">×</button>
+        <span class="section-kicker">Wallet Payout</span>
+        <h2 id="withdrawTitle" style="margin:6px 0 4px;font-size:22px">Withdraw Funds</h2>
+        <p style="color:var(--muted);font-size:12px;margin:0 0 16px">Transfer your available balance to your local Pakistani bank account or mobile wallet.</p>
+
+        <!-- Feedback banners -->
+        <div id="withdrawError" style="display:none;background:#fef2f2;color:#DC2626;border:1px solid #fecaca;border-radius:10px;padding:10px 13px;font-size:11px;margin-bottom:14px"></div>
+        <div id="withdrawSuccess" style="display:none;background:#edf8f1;color:#067a38;border:1px solid #bbddca;border-radius:10px;padding:10px 13px;font-size:11px;margin-bottom:14px">&#10003; Withdrawal request submitted! Funds reserved pending 1Link settlement.</div>
+
+        <div style="background:var(--mint);border:1px solid #cbe9d4;border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;color:var(--forest);font-weight:500;">Available for Withdrawal:</span>
+          <strong id="wdAvailBalance" style="font-size:16px;color:var(--forest);">PKR 0</strong>
+        </div>
+
+        <div class="edit-profile-grid" style="grid-template-columns:1fr 1fr;gap:12px;">
+          <label style="grid-column:1/-1;">Choose Saved Payout Method
+            <select id="wdSavedMethodSelect">
+              <option value="">-- Select Saved Payout Method --</option>
+            </select>
+          </label>
+          <label style="grid-column:1/-1;">Or Payout Channel
+            <select id="wdMethod">
+              <option value="BANK">Bank Account / 1Link (IBAN)</option>
+              <option value="JAZZCASH">JazzCash Mobile Wallet</option>
+              <option value="EASYPAISA">Easypaisa Mobile Wallet</option>
+              <option value="RAAST">Raast ID / Mobile</option>
+            </select>
+          </label>
+          <label>Account Title / Beneficiary Name *
+            <input id="wdAccountTitle" type="text" placeholder="e.g. Areeba Batool" />
+          </label>
+          <label>Account / IBAN / Mobile Number *
+            <input id="wdAccountNum" type="text" placeholder="e.g. PK36SCBL0000001123456701" />
+          </label>
+          <label style="grid-column:1/-1;">Withdrawal Amount (PKR) *
+            <input id="wdAmount" type="number" min="500" step="100" placeholder="e.g. 5000 (Min. PKR 500)" />
+          </label>
+        </div>
+
+        <p style="font-size:11px;color:var(--muted);margin:14px 0 0;line-height:1.4;">
+          <strong>Settlement note:</strong> Withdrawal requests reserve your available funds into a locked balance until batch processed via 1Link interbank clearing.
+        </p>
+
+        <div style="display:flex;gap:9px;justify-content:flex-end;margin-top:20px">
+          <button class="btn btn-outline" data-close-modal>Cancel</button>
+          <button class="btn btn-primary" id="confirmWithdrawBtn">Submit Withdrawal</button>
+        </div>
+      </div>
+    </div>
+
     <aside class="notification-drawer" id="notificationDrawer" aria-hidden="true">
       <div class="notification-head">
         <div><span class="micro-label">ACTIVITY</span>
@@ -6277,7 +6652,7 @@
 
       // === 1. CENTRAL API CONFIGURATION ===
       // All requests go through this single base URL. Never scatter localhost elsewhere.
-      const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
         ? 'http://localhost:3000/api'
         : '/api';
 
@@ -6400,7 +6775,6 @@
       function money(n) { return 'PKR ' + Number(n || 0).toLocaleString('en-PK'); }
       function escHtml(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
       function greeting() { const h = new Date().getHours(); return h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'; }
-
       const $ = (s, root = document) => root.querySelector(s);
       const $$ = (s, root = document) => [...root.querySelectorAll(s)];
       function toast(msg) { const t = $('#toast'); if (!t) return; t.textContent = msg; t.classList.add('show'); clearTimeout(window._toast); window._toast = setTimeout(() => t.classList.remove('show'), 2800); }
@@ -6408,14 +6782,12 @@
       function safeGetInitialRoute() { try { return (window.location && typeof window.location.hash === 'string') ? window.location.hash.replace('#', '') : ''; } catch { return ''; } }
 
       // === 7. ROUTING ===
-      function route(name) {
+      function route(name, payload = null) {
         const user = getUser();
-        // Guard admin route — both client-side and backend enforce this
         if (name === 'admin' && (!user || user.role !== 'ADMIN')) {
           toast('Admin access required.');
           return;
         }
-        // Guard dashboard routes for unauthenticated users
         const protectedViews = ['dashboard', 'contract', 'wallet', 'messages', 'disputes', 'admin'];
         if (protectedViews.includes(name) && !getToken()) {
           toast('Please log in to continue.');
@@ -6425,7 +6797,6 @@
         $$('.view').forEach(v => v.classList.toggle('active', v.dataset.view === name));
         $$('.desktop-nav button, .mobile-menu button, nav.mobile-menu button').forEach(b => {
           b.classList.toggle('active', b.dataset.route === name);
-          // WCAG: mark the current page in navigation
           if (b.dataset.route) b.setAttribute('aria-current', b.dataset.route === name ? 'page' : 'false');
         });
         $$('.mobile-bottom-nav button').forEach(b => {
@@ -6433,40 +6804,30 @@
           if (b.dataset.route) b.setAttribute('aria-current', b.dataset.route === name ? 'page' : 'false');
         });
         window.scrollTo(0, 0);
+
         const dashViews = ['dashboard', 'contract', 'wallet', 'messages', 'disputes', 'admin'];
         if ($('#siteFooter')) $('#siteFooter').style.display = dashViews.includes(name) ? 'none' : '';
         if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && dashViews.includes(name)) ? 'grid' : 'none';
         if ($('#mobileMenuPanel')) $('#mobileMenuPanel').classList.remove('open');
         if ($('#menuButton')) $('#menuButton').setAttribute('aria-expanded', 'false');
+
         if (name === 'jobs') loadJobsFromAPI();
         if (name === 'talent') renderTalent();
-        if (name === 'match') renderMatch();
         if (name === 'contract') renderContract();
         if (name === 'dashboard') renderDashboard();
         if (name === 'wallet') renderWallet();
-        if (name === 'messages') renderMessages();
+        if (name === 'messages') renderMessages(payload);
         if (name === 'disputes') renderDisputes();
-        if (name === 'how') renderHow();
-        if (name === 'pricing') renderPricing();
         if (name === 'admin') renderAdmin();
         if (typeof updateHeaderAuthState === 'function') updateHeaderAuthState();
         safeReplaceState(name);
       }
-      function bindRoutes() { document.addEventListener('click', e => { const b = e.target.closest('[data-route]'); if (b) route(b.dataset.route); }); }
 
-      // === 8. CATEGORY ICONS ===
-      function categoryIcon(key) {
-        const icons = {
-          development: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8 4 12l4 4M16 8l4 4-4 4M14 5l-4 14"/></svg>',
-          design: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5M8 8h8l2 4-6 8-6-8 2-4Z"/><path d="M8 8 12 20 16 8"/></svg>',
-          marketing: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V11M10 18V7M16 18v-4M3 20h18"/><path d="m5 9 5-4 5 5 5-5"/></svg>',
-          writing: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6Z"/><path d="M14 3v4h4M9 12h6M9 16h4"/></svg>',
-          video: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3Z"/></svg>',
-          ai: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="7" r="1.5"/><circle cx="19" cy="7" r="1.5"/><circle cx="5" cy="17" r="1.5"/><circle cx="19" cy="17" r="1.5"/><path d="M7 8.5 9.5 10M17 8.5 14.5 10M7 15.5 9.5 14M17 15.5 14.5 14"/></svg>',
-          business: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5h6v2M4 12h16M10 12v2h4v-2"/></svg>',
-          engineering: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>'
-        };
-        return icons[key] || icons.development;
+      function bindRoutes() {
+        document.addEventListener('click', e => {
+          const b = e.target.closest('[data-route]');
+          if (b) route(b.dataset.route);
+        });
       }
 
       // === 9. ROLE-BASED DASHBOARD NAVIGATION ===
@@ -6485,24 +6846,52 @@
             <button data-route="wallet" class="${active === 'wallet' ? 'active' : ''}">&#8360; Wallet</button>`;
         } else if (role === 'SPECIALIST') {
           navLinks = `
-            <button data-route="dashboard" class="${active === 'dashboard' ? 'active' : ''}">&#8962; Overview</button>
-            <button data-route="jobs">&#8981; Browse Jobs</button>
-            <button data-route="contract" class="${active === 'contract' ? 'active' : ''}">&#9670; Contracts</button>
-            <button data-route="wallet" class="${active === 'wallet' ? 'active' : ''}">&#8360; Earnings</button>
+            <button data-route="dashboard" class="${active === 'dashboard' ? 'active' : ''}">&#8962; Dashboard</button>
+            <button data-route="jobs">&#128269; Find Work</button>
+            <button data-route="contract" class="${active === 'contract' ? 'active' : ''}">&#9670; My Contracts</button>
+            <button data-route="wallet" class="${active === 'wallet' ? 'active' : ''}">&#8360; Earnings &amp; Wallet</button>
             <button data-route="messages" class="${active === 'messages' ? 'active' : ''}">&#9993; Messages</button>
-            <button data-route="disputes" class="${active === 'disputes' ? 'active' : ''}">&#9878; Resolution</button>`;
+            <button data-route="disputes" class="${active === 'disputes' ? 'active' : ''}">&#9878; Resolution Centre</button>`;
         } else {
           navLinks = `
             <button data-route="dashboard" class="${active === 'dashboard' ? 'active' : ''}">&#8962; Overview</button>
             <button id="sidePostJob">&#65291; Post a Job</button>
-            <button data-route="jobs">&#8981; My Jobs</button>
+            <button data-route="dashboard" class="${active === 'my-jobs' ? 'active' : ''}">&#128269; My Jobs</button>
             <button data-route="contract" class="${active === 'contract' ? 'active' : ''}">&#9670; Contracts</button>
             <button data-route="wallet" class="${active === 'wallet' ? 'active' : ''}">&#8360; Payments</button>
             <button data-route="messages" class="${active === 'messages' ? 'active' : ''}">&#9993; Messages</button>
             <button data-route="disputes" class="${active === 'disputes' ? 'active' : ''}">&#9878; Resolution Centre</button>`;
         }
 
-        return `<div class="dash-user"><span class="avatar">${escHtml(initials)}</span><div><strong>${escHtml(displayName)}</strong><small>${escHtml(roleLabel)}</small></div></div><button class="dash-edit-profile-btn" id="sideEditProfile" onclick="openEditProfile()">&#9881; Edit Profile</button><nav class="dash-nav">${navLinks}</nav>`;
+        return `
+          <div class="dash-user">
+            <span class="avatar">${escHtml(initials)}</span>
+            <div style="flex:1;overflow:hidden">
+              <strong style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block">${escHtml(displayName)}</strong>
+              <small>${roleLabel}</small>
+            </div>
+          </div>
+          ${role === 'SPECIALIST' ? `<button class="dash-edit-profile-btn" id="dashEditProfileBtn">&#9881; Edit Profile</button>` : ''}
+          <div class="dash-nav">${navLinks}</div>`;
+      }
+
+      document.addEventListener('click', e => {
+        if (e.target && e.target.closest('#dashEditProfileBtn')) openEditProfile();
+      });
+
+      // === 8. CATEGORY ICONS ===
+      function categoryIcon(key) {
+        const icons = {
+          development: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8 4 12l4 4M16 8l4 4-4 4M14 5l-4 14"/></svg>',
+          design: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5M8 8h8l2 4-6 8-6-8 2-4Z"/><path d="M8 8 12 20 16 8"/></svg>',
+          marketing: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V11M10 18V7M16 18v-4M3 20h18"/><path d="m5 9 5-4 5 5 5-5"/></svg>',
+          writing: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6Z"/><path d="M14 3v4h4M9 12h6M9 16h4"/></svg>',
+          video: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3Z"/></svg>',
+          ai: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="7" r="1.5"/><circle cx="19" cy="7" r="1.5"/><circle cx="5" cy="17" r="1.5"/><circle cx="19" cy="17" r="1.5"/><path d="M7 8.5 9.5 10M17 8.5 14.5 10M7 15.5 9.5 14M17 15.5 14.5 14"/></svg>',
+          business: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5h6v2M4 12h16M10 12v2h4v-2"/></svg>',
+          engineering: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>'
+        };
+        return icons[key] || icons.development;
       }
 
       // === 10. HOME PAGE ===
@@ -6512,13 +6901,14 @@
             `<button class="category-card" data-route="talent"><span class="category-icon">${categoryIcon(c.icon)}</span><strong>${c.name}</strong><small>${c.desc}</small></button>`
           ).join('');
         }
-        // Show loading skeleton, then fill with real API data
-        if ($('#homeFreelancers')) {
-          $('#homeFreelancers').innerHTML = '<div class="empty-state" style="min-height:120px"><p style="color:var(--muted);font-size:12px">Loading specialists&hellip;</p></div>';
-        }
-        api('/profiles/search').then(r => {
-          if (!$('#homeFreelancers')) return;
-          if (r.ok && Array.isArray(r.data) && r.data.length > 0) {
+      }
+
+      // === 11. TALENT SEARCH ===
+      async function renderTalent() {
+        if ($('#talentGrid')) $('#talentGrid').innerHTML = '<div class="empty-state"><p style="color:var(--muted);font-size:12px">Loading specialists&hellip;</p></div>';
+        try {
+          const r = await api('/profiles');
+          if (r.ok && Array.isArray(r.data)) {
             liveFreelancers = r.data.map(u => ({
               id: u.id,
               initials: (u.name || u.email || 'U').slice(0, 2).toUpperCase(),
@@ -6526,155 +6916,68 @@
               role: u.headline || 'Freelancer',
               city: u.city || u.country || 'Pakistan',
               rate: Number(u.hourlyRate) || 0,
-              rating: '–',
               available: u.availability === 'AVAILABLE',
               bio: u.bio || '',
-              skills: u.skills || [],
-              badge: 'Verified',
-              _isReal: true
+              skills: u.skills || []
             }));
-            $('#homeFreelancers').innerHTML = liveFreelancers.slice(0, 3).map(homeFreelancerCard).join('');
-          } else {
-            $('#homeFreelancers').innerHTML = '<div class="empty-state"><strong>No specialists listed yet.</strong><p>Be the first to <button class="text-link" onclick="openModal(\"#onboardingModal\")">create a profile</button> on Paklance.</p></div>';
           }
-        }).catch(() => {
-          if ($('#homeFreelancers')) {
-            $('#homeFreelancers').innerHTML = '<div class="empty-state"><p style="color:var(--muted);font-size:12px">Could not load specialists. Check your connection.</p></div>';
-          }
-        });
+        } catch (e) { liveFreelancers = []; }
+
+        if ($('#talentGrid')) {
+          $('#talentGrid').innerHTML = liveFreelancers.length ? liveFreelancers.map((f, i) => `
+            <article class="freelancer-card">
+              <div class="freelancer-top">
+                <span class="avatar large">${escHtml(f.initials)}</span>
+                <div>
+                  <div class="freelancer-name"><strong>${escHtml(f.name)}</strong><span class="mini-check">&#10003;</span></div>
+                  <p>${escHtml(f.role)} &middot; ${escHtml(f.city)}</p>
+                </div>
+              </div>
+              <div class="freelancer-actions">
+                <button class="btn btn-primary" data-profile="${i}" data-profile-uid="${escHtml(f.id)}">View Profile</button>
+              </div>
+            </article>`).join('') : '<div class="empty-state">No specialists found.</div>';
+        }
       }
 
-      function homeFreelancerCard(f, i) {
-        const initials = f.initials || (f.name || 'U').slice(0, 2).toUpperCase();
-        const rate = Number(f.rate || f.hourlyRate || 0);
-        const city = f.city || 'Pakistan';
-        const rating = f.rating || '–';
-        return `<article class="home-freelancer-card"><div class="freelancer-top"><div class="avatar">${escHtml(initials)}</div><div><div class="freelancer-name"><strong>${escHtml(f.name || 'Specialist')}</strong><span class="mini-check">&#10003;</span></div><p>${escHtml(f.role || f.headline || 'Specialist')}</p></div></div><div class="home-freelancer-bottom"><span>&#9733; ${rating} &middot; ${escHtml(city)}</span><span><strong>${money(rate)}</strong>/hr</span><button class="job-cta" data-profile="${i}" data-profile-uid="${escHtml(f.id || '')}">View &rarr;</button></div></article>`;
-      }
-
-      // === 11. JOBS (real API + demo fallback) ===
+      // === 12. JOBS ===
       async function loadJobsFromAPI() {
         try {
           const r = await api('/jobs');
-          if (!r.ok) throw new Error('API error');
-          const apiJobs = (r.data || []).map(j => ({
+          jobs = (r.ok && Array.isArray(r.data)) ? r.data.map(j => ({
+            ...j,
             id: j.id,
-            title: j.title,
-            description: j.description,
-            client: j.client?.name || j.client?.email?.split('@')[0] || 'Verified Client',
             clientId: j.client?.id || j.clientId,
-            city: 'Pakistan',
-            category: guessCategory(j.title, j.description),
-            budget: Number(j.budget) || 50000,
-            duration: '2\u20133 weeks',
-            skills: j.skills?.length ? j.skills : [guessCategory(j.title, j.description)],
-            proposals: j._count?.Proposal || 0,
-            posted: timeAgo(j.createdAt),
-            verified: true,
-            safepay: true,
-            _isReal: true
-          }));
-          jobs = apiJobs; // real data only — no demo mixing
-        } catch (err) {
-          console.warn('Jobs API unavailable:', err.message);
-          jobs = [];
-          toast('Could not load jobs. Please check your connection and try again.');
-        }
+            clientName: j.client?.name || 'Client'
+          })) : [];
+        } catch (e) { jobs = []; }
         renderJobs();
       }
 
-      function jobCard(j, i) {
-        const skillsHtml = (j.skills || []).slice(0, 2).map(s => `<span class="skill">${escHtml(s)}</span>`).join('');
-        const trust = `${j.verified ? '&#10003; Verified client' : ''}${j.verified && j.safepay ? ' &middot; ' : ''}${j.safepay ? '&#9670; SafePay' : ''}`;
-        const desc = (j.description || '').slice(0, 120) + ((j.description || '').length > 120 ? '...' : '');
-        return `<article class="job-card simplified-job-card"><div class="job-card-head"><div><span class="micro-label">${escHtml((j.category || 'General').toUpperCase())}</span><h3>${escHtml(j.title)}</h3><div class="job-meta"><span>${escHtml(j.client || 'Client')}</span><span>&bull;</span><span>${escHtml(j.posted)}</span></div></div><div class="job-budget"><strong>${money(j.budget)}</strong><small>Fixed</small></div></div><p>${escHtml(desc)}</p><div class="skill-row">${skillsHtml}</div><div class="job-trust-row"><span class="trust-pill">${trust}</span><span class="job-meta">${j.proposals} proposals</span><button class="job-cta" data-job="${i}" data-job-id="${escHtml(j.id || '')}">View &rarr;</button></div></article>`;
-      }
-
       function renderJobs() {
-        const q = ($('#jobSearch')?.value || '').toLowerCase();
-        const cat = $('#jobCategory')?.value || 'all';
-        const min = Number($('#jobBudget')?.value || 0);
-        const trust = $('#jobTrust')?.value || 'all';
-        const sort = $('#jobSort')?.value || 'newest';
-        let list = jobs.map((j, i) => ({ ...j, _i: i })).filter(j =>
-          (!q || [j.title, j.client, ...(j.skills || [])].join(' ').toLowerCase().includes(q)) &&
-          (cat === 'all' || j.category === cat) &&
-          j.budget >= min &&
-          (trust === 'all' || j.verified)
-        );
-        if (sort === 'high') list.sort((a, b) => b.budget - a.budget);
-        if (sort === 'low') list.sort((a, b) => a.budget - b.budget);
-        if ($('#jobCount')) $('#jobCount').textContent = `${list.length} job${list.length === 1 ? '' : 's'}`;
-        if ($('#jobList')) $('#jobList').innerHTML = list.length
-          ? list.map(j => jobCard(j, j._i)).join('')
-          : '<div class="empty-state"><strong>No jobs found.</strong><p>Try adjusting your search or filters.</p></div>';
-      }
-
-      // === 12. TALENT SEARCH (real API only) ===
-      async function renderTalent() {
-        const q = ($('#talentSearch')?.value || '').toLowerCase();
-        const avail = $('#talentAvailability')?.value || 'all';
-        const rate = $('#talentRate')?.value || 'all';
-
-        // Show loading state
-        if ($('#talentGrid')) {
-          $('#talentGrid').innerHTML = '<div class="empty-state"><p style="color:var(--muted);font-size:12px">Loading specialists&hellip;</p></div>';
+        if ($('#jobList')) {
+          if ($('#jobCount')) $('#jobCount').textContent = `${jobs.length} jobs`;
+          $('#jobList').innerHTML = jobs.map((j, i) => `
+            <article class="job-card" data-job="${i}">
+              <h3>${escHtml(j.title)}</h3>
+              <p>${escHtml(j.description.slice(0, 100))}</p>
+              <button class="job-cta" data-job="${i}">View Job</button>
+            </article>`).join('');
         }
-
-        try {
-          const params = new URLSearchParams();
-          if (q) params.set('skill', q);
-          if (avail === 'available') params.set('availability', 'AVAILABLE');
-          if (rate !== 'all') params.set('maxRate', rate);
-          const r = await api(`/profiles/search?${params}`);
-          if (r.ok && r.data && r.data.length > 0) {
-            liveFreelancers = r.data.map(u => ({
-              id: u.id,
-              initials: (u.name || u.email || 'U').slice(0, 2).toUpperCase(),
-              name: u.name || u.email?.split('@')[0] || 'Specialist',
-              role: u.headline || 'Freelancer',
-              city: u.city || u.country || 'Pakistan',
-              rate: Number(u.hourlyRate) || 0,
-              rating: '–',
-              jobs: 0,
-              available: u.availability === 'AVAILABLE',
-              bio: u.bio || '',
-              skills: u.skills || [],
-              badge: 'Verified',
-              _isReal: true
-            }));
-            if ($('#talentGrid')) $('#talentGrid').innerHTML = liveFreelancers.map((f, i) => freelancerCard(f, i)).join('');
-          } else {
-            // API responded but returned zero results
-            const noMatchMsg = q || avail !== 'all' || rate !== 'all'
-              ? '<strong>No specialists match your filters.</strong><p>Try broadening your search — remove a filter or use a different skill term.</p>'
-              : '<strong>No specialists found.</strong><p>The specialist directory is empty. <button class="text-link" onclick="openModal(\"#onboardingModal\")">Join as a specialist</button> to be listed here.</p>';
-            if ($('#talentGrid')) $('#talentGrid').innerHTML = `<div class="empty-state">${noMatchMsg}</div>`;
-          }
-        } catch (err) {
-          console.warn('Profile search error:', err.message);
-          if ($('#talentGrid')) {
-            $('#talentGrid').innerHTML = '<div class="empty-state"><strong>Could not load specialists.</strong><p>The API may be unavailable. Please try again shortly.</p></div>';
-          }
-        }
-      }
-
-      function freelancerCard(f, i) {
-        const initials = f.initials || (f.name || 'U').slice(0, 2).toUpperCase();
-        const rate = Number(f.rate || f.hourlyRate || 0);
-        const skillsHtml = (f.skills || []).slice(0, 3).map(s => `<span class="skill">${escHtml(s)}</span>`).join('');
-        return `<article class="freelancer-card"><span class="availability-dot" style="background:${f.available ? '#20b15a' : '#9da8a1'}"></span><div class="freelancer-top"><div class="avatar">${escHtml(initials)}</div><div><div class="freelancer-name"><strong>${escHtml(f.name || 'Specialist')}</strong><span class="mini-check">&#10003;</span></div><p>${escHtml(f.role || f.headline || 'Specialist')} &middot; ${escHtml(f.city || 'Pakistan')}</p></div></div><p class="freelancer-bio">${escHtml((f.bio || '').slice(0, 100))}</p><div class="skill-row">${skillsHtml}</div><div class="freelancer-metrics"><div><small>Standing</small><strong>${escHtml((f.badge || 'Verified').replace('Top ', ''))}</strong></div><div><small>Rate</small><strong>${money(rate)}/hr</strong></div></div><div class="card-footer"><span class="rate"><strong>${money(rate)}</strong><small> / hour</small></span><button class="job-cta" data-profile="${i}" data-profile-uid="${escHtml(f.id || '')}">View profile &rarr;</button></div></article>`;
       }
 
       // === 13. JOB DETAIL ===
-      function renderJobDetail(i) {
+      async function renderJobDetail(i) {
+        state.currentJob = i;
         const j = jobs[i];
         if (!j) return;
-        state.currentJob = i;
-        state.currentJobId = j.id || null;
-        const skillsHtml = (j.skills || []).map(s => `<span class="skill">${escHtml(s)}</span>`).join('');
-        $('#jobDetailMain').innerHTML = `<span class="micro-label">${escHtml((j.category || 'General').toUpperCase())}</span><h1>${escHtml(j.title)}</h1><div class="job-meta"><span>${escHtml(j.client || 'Client')}</span><span>&bull;</span><span>${escHtml(j.city || 'Pakistan')}</span><span>&bull;</span><span>${escHtml(j.posted)}</span><span>&bull;</span><span>${j.proposals} proposals</span></div><div class="detail-section"><h3>About this project</h3><p class="lead">${escHtml(j.description)}</p></div><div class="detail-section"><h3>Skills required</h3><div class="skill-row">${skillsHtml}</div></div><div class="detail-section"><h3>How protection works</h3><p class="lead">Before protected work starts, the client funds an agreed milestone. The freelancer submits work inside the contract workspace. Funds are released after approval, with a structured dispute route if the parties disagree.</p></div>`;
-        $('#jobDetailSide').innerHTML = `<div class="side-card"><span class="micro-label">PROJECT BUDGET</span><div class="big-budget">${money(j.budget)}</div><div class="side-list"><div><span>Type</span><strong>Fixed price</strong></div><div><span>Duration</span><strong>${escHtml(j.duration || '2\u20133 weeks')}</strong></div><div><span>Proposals</span><strong>${j.proposals}</strong></div></div><button class="btn btn-primary btn-full" id="applyBtn" onclick="openProposal()">Apply for this job</button></div><div class="side-card"><h3>About the client</h3><div class="client-card-head"><span class="avatar">${escHtml((j.client || 'CL').slice(0, 2).toUpperCase())}</span><div><strong>${escHtml(j.client || 'Client')}</strong><small>${escHtml(j.city || 'Pakistan')}</small></div></div><div class="side-list"><div><span>Identity</span><strong>${j.verified ? '&#10003; Verified' : 'Not verified'}</strong></div><div><span>SafePay</span><strong>${j.safepay ? '&#10003; Enabled' : 'Optional'}</strong></div></div></div>`;
+        $('#jobDetailMain').innerHTML = `<h1>${escHtml(j.title)}</h1><p>${escHtml(j.description)}</p>`;
+        $('#jobDetailSide').innerHTML = `<button class="btn btn-primary" id="applyBtn" onclick="openProposal()">Apply</button><button class="btn btn-outline" id="messageClientBtn">Message Client</button>`;
+        
+        $('#messageClientBtn').onclick = () => {
+          if (!getToken()) { toast('Log in first.'); openModal('#authModal'); return; }
+          route('messages', { id: j.clientId, name: j.clientName, role: 'Client' });
+        };
       }
 
       // === 14. FREELANCER PROFILE (real API only) ===
@@ -6702,7 +7005,6 @@
             }
           } catch (err) { console.warn('Profile load error:', err.message); }
         }
-        // If we reach here: no userId or API failed — show a clear not-found state
         if ($('#profilePage')) {
           $('#profilePage').innerHTML = `
             <div class="empty-state" style="padding:60px 20px;text-align:center">
@@ -6725,12 +7027,14 @@
                 ${p.projectUrl ? `<a href="${escHtml(p.projectUrl)}" target="_blank" rel="noopener noreferrer" class="text-link" style="font-size:12px;margin-top:auto;font-weight:600;display:inline-block;">View Project &rarr;</a>` : ''}
               </div>`).join('')
           : '<p style="color:var(--muted);font-size:13px;grid-column:1/-1;margin:12px 0;">No portfolio projects showcased yet.</p>';
-        $('#profilePage').innerHTML = `<section class="profile-hero-card"><div class="profile-avatar">${escHtml(initials)}</div><div class="profile-title"><div class="freelancer-name"><h1>${escHtml(f.name)}</h1><span class="mini-check">&#10003;</span></div><p>${escHtml(f.role)} &middot; ${escHtml(f.city)}</p><div class="profile-tags"><span class="badge verified">&#10003; Verified</span><span class="badge verified">${escHtml(f.badge || 'Verified')}</span></div><div class="profile-assurance-strip"><div><strong>&#10003; Identity</strong><small>Verified status</small></div><div><strong>&#8705; NDA / IP</strong><small>Ready for contract</small></div><div><strong>&#9679; Availability</strong><small>${f.available ? 'Available now' : 'Booked'}</small></div></div></div><div class="profile-actions"><button class="btn btn-outline save-profile" id="saveProfile" aria-label="Save to shortlist">&#9825;</button><button class="btn btn-outline" id="interviewBtn">Interview</button><button class="btn btn-primary" id="hireBtn">Hire Me</button></div></section><div class="profile-layout"><div><section class="profile-panel"><h2>About</h2><p>${escHtml(f.bio || 'Specialist profile.')}</p><div class="skill-row">${skillsHtml}</div></section><section class="profile-panel"><h2>Selected work</h2><div class="portfolio-grid">${portfolioHtml}</div></section></div><aside><section class="profile-panel"><span class="micro-label">HOURLY RATE</span><div class="big-budget">${money(f.rate || 0)}/hr</div><div class="side-list"><div><span>Standing</span><strong>${escHtml(f.badge || 'Verified')}</strong></div><div><span>Availability</span><strong>${f.available ? 'Available now' : 'Booked'}</strong></div></div></section></aside></div>`;
+        $('#profilePage').innerHTML = `<section class="profile-hero-card"><div class="profile-avatar">${escHtml(initials)}</div><div class="profile-title"><div class="freelancer-name"><h1>${escHtml(f.name)}</h1><span class="mini-check">&#10003;</span></div><p>${escHtml(f.role)} &middot; ${escHtml(f.city)}</p><div class="profile-tags"><span class="badge verified">&#10003; Verified</span><span class="badge verified">${escHtml(f.badge || 'Verified')}</span></div><div class="profile-assurance-strip"><div><strong>&#10003; Identity</strong><small>Verified status</small></div><div><strong>&#8705; NDA / IP</strong><small>Ready for contract</small></div><div><strong>&#9679; Availability</strong><small>${f.available ? 'Available now' : 'Booked'}</small></div></div></div><div class="profile-actions"><button class="btn btn-outline save-profile" id="saveProfile" aria-label="Save to shortlist">&#9825;</button><button class="btn btn-outline" id="messageSpecialistBtn">✉ Message</button><button class="btn btn-primary" id="hireBtn">Hire Me</button></div></section><div class="profile-layout"><div><section class="profile-panel"><h2>About</h2><p>${escHtml(f.bio || 'Specialist profile.')}</p><div class="skill-row">${skillsHtml}</div></section><section class="profile-panel"><h2>Selected work</h2><div class="portfolio-grid">${portfolioHtml}</div></section></div><aside><section class="profile-panel"><span class="micro-label">HOURLY RATE</span><div class="big-budget">${money(f.rate || 0)}/hr</div><div class="side-list"><div><span>Standing</span><strong>${escHtml(f.badge || 'Verified')}</strong></div><div><span>Availability</span><strong>${f.available ? 'Available now' : 'Booked'}</strong></div></div></section></aside></div>`;
         $('#hireBtn').onclick = () => { openPostJob(); toast(`Starting a job for ${f.name}`); };
         $('#saveProfile').onclick = () => { $('#saveProfile').textContent = '&#9829;'; toast(`${f.name} added to shortlist`); };
-        $('#interviewBtn').onclick = () => toast(`Interview request prepared for ${f.name}`);
+        $('#messageSpecialistBtn').onclick = () => {
+          if (!getToken()) { toast('Please log in to message this specialist.'); openModal('#authModal'); return; }
+          route('messages', { id: f.id, name: f.name, role: 'Specialist' });
+        };
       }
-
       // === 15. ROLE-BASED DASHBOARD ===
       async function renderDashboard() {
         const user = getUser();
@@ -6876,6 +7180,9 @@
       }
 
       // === 16. CONTRACT (real API) ===
+      let _activeFundContract = null;
+      let _activeFundMilestone = null;
+
       async function renderContract() {
         const s = $('#clientSidebar');
         if (s) { s.innerHTML = dashNav('contract'); if ($('#sidePostJob')) $('#sidePostJob').onclick = openPostJob; }
@@ -6890,9 +7197,27 @@
           return;
         }
         const c = contracts[0];
-        const milestonesHtml = (c.milestones || []).map((m, i) =>
-          `<div class="mile-row ${m.status === 'RELEASED' ? 'done' : m.status === 'FUNDED' ? 'active' : ''}"><span class="mile-state">${m.status === 'RELEASED' ? '&#10003;' : i + 1}</span><div class="mile-copy"><strong>${escHtml(m.title)}</strong><small>${m.status}</small></div><div class="mile-money"><strong>${money(m.amount)}</strong><small>${m.status}</small></div></div>`
-        ).join('') || '<p style="color:var(--muted);font-size:12px">No milestones defined.</p>';
+        const user = getUser();
+        const isClient = user?.role === 'CLIENT' || c.clientId === user?.id;
+
+        const milestonesHtml = (c.milestones || []).map((m, i) => {
+          const isFunded = m.status === 'FUNDED';
+          const isReleased = m.status === 'RELEASED';
+          const canFund = isClient && !isFunded && !isReleased;
+
+          return `
+            <div class="mile-row ${isReleased ? 'done' : isFunded ? 'active' : ''}">
+              <span class="mile-state">${isReleased ? '&#10003;' : i + 1}</span>
+              <div class="mile-copy">
+                <strong>${escHtml(m.title)}</strong>
+                <small>Status: <span class="badge ${isFunded || isReleased ? 'verified' : ''}">${m.status}</span></small>
+              </div>
+              <div class="mile-money" style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+                <strong>${money(m.amount)}</strong>
+                ${canFund ? `<button class="btn btn-primary fund-milestone-btn" data-contract-id="${escHtml(c.id)}" data-milestone-id="${escHtml(m.id)}" data-amount="${m.amount}" data-title="${escHtml(m.title)}" style="padding:4px 10px;font-size:11px;">Fund Escrow</button>` : ''}
+              </div>
+            </div>`;
+        }).join('') || '<p style="color:var(--muted);font-size:12px">No milestones defined.</p>';
 
         if ($('#contractPage')) $('#contractPage').innerHTML = `
           <div class="contract-topbar">
@@ -6914,15 +7239,16 @@
             </div>
             <aside>
               <section class="workspace-card">
-                <h3 style="margin-top:0">SafePay status</h3>
+                <h3 style="margin-top:0">SafePay Escrow</h3>
                 <div class="side-list">
-                  <div><span>Status</span><strong>${c.status}</strong></div>
-                  <div><span>Escrow balance</span><strong>${money(c.escrow?.balance || 0)}</strong></div>
+                  <div><span>Contract Status</span><strong>${c.status}</strong></div>
+                  <div><span>Escrow Balance</span><strong>${money(c.escrow?.balance || 0)}</strong></div>
                 </div>
                 <button class="btn btn-light btn-full" id="openDisputeFromContract">Need help with a milestone?</button>
               </section>
             </aside>
           </div>`;
+
         $('#openDisputeFromContract')?.addEventListener('click', () => openModal('#disputeModal'));
         $$('#contractTabs button').forEach(btn => {
           btn.onclick = () => {
@@ -6931,122 +7257,670 @@
             if (btn.dataset.tab !== 'overview') toast(`${btn.textContent.trim()} view coming soon.`);
           };
         });
+
+        $$('.fund-milestone-btn').forEach(btn => {
+          btn.onclick = () => {
+            _activeFundContract = { id: btn.dataset.contractId, title: c.job?.title || 'Contract' };
+            _activeFundMilestone = { id: btn.dataset.milestoneId, amount: Number(btn.dataset.amount) || 0, title: btn.dataset.title };
+
+            if ($('#fundContractTitle')) $('#fundContractTitle').textContent = `${_activeFundContract.title} — ${_activeFundMilestone.title}`;
+            if ($('#fundAmountText')) $('#fundAmountText').textContent = money(_activeFundMilestone.amount);
+            if ($('#fundError')) { $('#fundError').style.display = 'none'; $('#fundError').textContent = ''; }
+            if ($('#fundSuccess')) $('#fundSuccess').style.display = 'none';
+
+            openModal('#clientFundModal');
+          };
+        });
       }
 
-      // === 17. WALLET (real API) ===
+      // Wire Client Escrow Funding Checkout
+      if ($('#confirmFundBtn')) {
+        $('#confirmFundBtn').onclick = async () => {
+          if (!_activeFundContract || !_activeFundMilestone) {
+            toast('No active milestone selected.');
+            return;
+          }
+
+          const gateway = $('#fundGatewaySelect')?.value || 'JAZZCASH';
+          const errEl = $('#fundError');
+          const okEl = $('#fundSuccess');
+          if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+          if (okEl) okEl.style.display = 'none';
+
+          const btn = $('#confirmFundBtn');
+          btn.disabled = true;
+          btn.textContent = 'Initiating Checkout…';
+
+          try {
+            const res = await apiAuth('/payments/checkout/initiate', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contractId: _activeFundContract.id,
+                milestoneId: _activeFundMilestone.id,
+                amount: _activeFundMilestone.amount,
+                provider: gateway
+              })
+            });
+
+            if (res.ok && res.data) {
+              if (okEl) {
+                okEl.textContent = `✔ Payment checkout initiated (${res.data.referenceId || 'Ref Generated'}). Gateway: ${res.data.provider}`;
+                okEl.style.display = 'block';
+              }
+              toast(`✔ Checkout initiated (${res.data.referenceId})`);
+              setTimeout(() => {
+                closeModals();
+                renderContract();
+              }, 1800);
+            } else {
+              if (errEl) {
+                errEl.textContent = res.data?.message || 'Unable to initiate gateway checkout.';
+                errEl.style.display = 'block';
+              }
+            }
+          } catch (e) {
+            if (errEl) {
+              errEl.textContent = 'Network error connecting to payment gateway.';
+              errEl.style.display = 'block';
+            }
+          } finally {
+            btn.disabled = false;
+            btn.textContent = 'Initiate Checkout';
+          }
+        };
+      }
+
+      // === 17. WALLET (real API with Payout Methods and Two-Phase Withdrawals) ===
+      let _savedPayoutMethods = [];
+
       async function renderWallet() {
         const s = $('#walletSidebar');
         if (s) { s.innerHTML = dashNav('wallet'); if ($('#sidePostJob')) $('#sidePostJob').onclick = openPostJob; }
-        let balance = 0, transactions = [];
+
+        let totalBalance = 0, lockedBalance = 0, availableBalance = 0;
+        let transactions = [];
+        let withdrawals = [];
+        _savedPayoutMethods = [];
+
         try {
           const r = await apiAuth('/wallet/balance');
-          if (r.ok) balance = Number(r.data?.balance) || 0;
+          if (r.ok && r.data) {
+            totalBalance = Number(r.data.balance) || 0;
+            lockedBalance = Number(r.data.lockedBalance) || 0;
+            availableBalance = Number(r.data.availableBalance ?? (totalBalance - lockedBalance)) || 0;
+          }
         } catch (e) {}
+
         try {
           const r = await apiAuth('/wallet/transactions');
           if (r.ok) transactions = r.data || [];
         } catch (e) {}
 
+        try {
+          const r = await apiAuth('/wallet/payout-methods');
+          if (r.ok) _savedPayoutMethods = r.data || [];
+        } catch (e) {}
+
+        try {
+          const r = await apiAuth('/wallet/withdrawals');
+          if (r.ok) withdrawals = r.data || [];
+        } catch (e) {}
+
         const txHtml = transactions.length
-          ? transactions.slice(0, 10).map(tx => `<div class="tx-row"><span class="tx-icon">${tx.type === 'DEPOSIT' ? '&#65291;' : '&minus;'}</span><div class="tx-copy"><strong>${escHtml(tx.type)}</strong><small>${new Date(tx.createdAt).toLocaleDateString()}</small></div><div class="tx-amount"><strong>${tx.type === 'DEPOSIT' ? '+ ' : '&minus; '}${money(tx.amount)}</strong><small>${tx.type}</small></div></div>`).join('')
-          : '<p style="color:var(--muted);font-size:12px;padding:12px 0">No transactions yet. Add funds to get started.</p>';
+          ? transactions.slice(0, 10).map(tx => `
+            <div class="tx-row">
+              <span class="tx-icon">${tx.type === 'DEPOSIT' || tx.type === 'MILESTONE_RELEASE' ? '&#65291;' : '&minus;'}</span>
+              <div class="tx-copy">
+                <strong>${escHtml(tx.type)}</strong>
+                <small>${new Date(tx.createdAt).toLocaleDateString()} ${tx.description ? '&middot; ' + escHtml(tx.description) : ''}</small>
+              </div>
+              <div class="tx-amount">
+                <strong style="color:${tx.type === 'DEPOSIT' || tx.type === 'MILESTONE_RELEASE' ? 'var(--forest)' : 'var(--ink)'}">
+                  ${tx.type === 'DEPOSIT' || tx.type === 'MILESTONE_RELEASE' ? '+ ' : '&minus; '}${money(tx.amount)}
+                </strong>
+                <small>${tx.type}</small>
+              </div>
+            </div>`).join('')
+          : '<p style="color:var(--muted);font-size:12px;padding:12px 0">No transactions recorded yet.</p>';
+
+        const pmHtml = _savedPayoutMethods.length
+          ? _savedPayoutMethods.map(pm => `
+            <div class="proposal-row" style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);">
+              <div style="display:flex;gap:12px;align-items:center;">
+                <span class="tx-icon" style="background:#eef7f2;color:var(--forest);font-weight:700;">${pm.type.slice(0,2)}</span>
+                <div>
+                  <div style="display:flex;gap:6px;align-items:center;">
+                    <strong style="font-size:13px;color:var(--forest);">${escHtml(pm.accountTitle)}</strong>
+                    ${pm.isDefault ? '<span class="badge verified" style="font-size:10px;padding:2px 6px;">Default</span>' : ''}
+                  </div>
+                  <small style="color:var(--muted);font-size:11px;">${pm.type} &middot; ${escHtml(pm.accountNumber)} ${pm.bankName ? '(' + escHtml(pm.bankName) + ')' : ''}</small>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;">
+                ${!pm.isDefault ? `<button class="btn btn-outline set-default-pm-btn" data-id="${escHtml(pm.id)}" style="padding:4px 8px;font-size:11px;">Set Default</button>` : ''}
+                <button class="btn btn-outline delete-pm-btn" data-id="${escHtml(pm.id)}" style="padding:4px 8px;font-size:11px;color:#dc2626;">Delete</button>
+              </div>
+            </div>`).join('')
+          : '<p style="color:var(--muted);font-size:12px;padding:10px 0;">No saved payout accounts yet. Add a JazzCash, Easypaisa, or 1Link bank account to withdraw funds.</p>';
+
+        const wdHtml = withdrawals.length
+          ? withdrawals.slice(0, 5).map(w => {
+            const statusClass = w.status === 'COMPLETED' ? 'verified' : w.status === 'PROCESSING' ? 'badge' : w.status === 'FAILED' ? 'badge' : '';
+            return `
+              <div class="proposal-row" style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);">
+                <div>
+                  <div style="display:flex;gap:6px;align-items:center;">
+                    <strong style="font-size:13px;">${money(w.amount)}</strong>
+                    <span class="badge ${statusClass}" style="font-size:10px;">${w.status}</span>
+                  </div>
+                  <small style="color:var(--muted);font-size:11px;">Ref: ${escHtml(w.referenceId || w.id.slice(0,8))} &middot; ${new Date(w.createdAt).toLocaleDateString()} ${w.channel ? '&middot; ' + w.channel : ''}</small>
+                </div>
+                ${w.status === 'REQUESTED' ? `<button class="btn btn-outline cancel-wd-btn" data-id="${escHtml(w.id)}" style="padding:4px 8px;font-size:11px;">Cancel</button>` : ''}
+              </div>`;
+          }).join('')
+          : '<p style="color:var(--muted);font-size:12px;padding:8px 0">No withdrawal requests.</p>';
 
         if ($('#walletMain')) $('#walletMain').innerHTML = `
-          <div class="dash-head"><div><h1>Payments &amp; Wallet</h1><p>Track your balance and transaction history.</p></div></div>
-          <div class="wallet-balance">
-            <div><small>Available balance</small><strong>${money(balance)}</strong></div>
-            <div class="wallet-actions">
-              <button class="btn btn-white" id="topupBtn">Add funds</button>
-              <button class="btn btn-glass" id="withdrawBtn">Withdraw</button>
+          <div class="dash-head">
+            <div><h1>Payments &amp; Wallet</h1><p>Track earnings, manage payout accounts, and submit 1Link withdrawals.</p></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:16px;margin-bottom:24px;">
+            <div style="background:var(--forest);color:#fff;border-radius:12px;padding:18px;">
+              <small style="opacity:0.8;font-size:12px;display:block;margin-bottom:4px;">Available for Withdrawal</small>
+              <strong style="font-size:24px;display:block;margin-bottom:12px;">${money(availableBalance)}</strong>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-white" id="withdrawBtn" style="padding:6px 14px;font-size:12px;">Withdraw</button>
+                <button class="btn btn-glass" id="topupBtn" style="padding:6px 14px;font-size:12px;">Payment Info</button>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;">
+              <small style="color:var(--muted);font-size:12px;display:block;margin-bottom:4px;">Locked / In-Flight Payouts</small>
+              <strong style="font-size:24px;color:var(--ink);display:block;margin-bottom:4px;">${money(lockedBalance)}</strong>
+              <span class="badge" style="font-size:10px;background:#fef3c7;color:#92400e;">Reserved for pending withdrawals</span>
+            </div>
+
+            <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;">
+              <small style="color:var(--muted);font-size:12px;display:block;margin-bottom:4px;">Total Wallet Balance</small>
+              <strong style="font-size:24px;color:var(--forest);display:block;margin-bottom:4px;">${money(totalBalance)}</strong>
+              <span style="font-size:11px;color:var(--muted);">Ledger &amp; Escrow Releases</span>
             </div>
           </div>
+
           <div class="wallet-grid">
             <section class="dash-card">
-              <div class="dash-card-head"><h3>Recent transactions</h3></div>
-              ${txHtml}
+              <div class="dash-card-head" style="display:flex;justify-content:space-between;align-items:center;">
+                <h3>Saved Payout Methods</h3>
+                <button class="btn btn-outline" id="addPayoutMethodBtn" style="padding:5px 12px;font-size:12px;">+ Add Method</button>
+              </div>
+              <div id="payoutMethodsList">
+                ${pmHtml}
+              </div>
             </section>
+
             <section class="dash-card">
-              <div class="dash-card-head"><h3>Payment methods</h3></div>
-              ${['Raast', 'JazzCash', 'Easypaisa', 'Bank Transfer'].map((x, i) => `<div class="proposal-row"><span class="tx-icon">${i === 0 ? '&#10003;' : '&#8360;'}</span><div><strong>${x}</strong><small>Available to connect</small></div><button class="job-cta">Connect</button></div>`).join('')}
+              <div class="dash-card-head"><h3>Withdrawal Requests</h3></div>
+              ${wdHtml}
             </section>
-          </div>`;
-        if ($('#topupBtn')) $('#topupBtn').onclick = () => toast('Choose a local payment method to add funds');
-        if ($('#withdrawBtn')) $('#withdrawBtn').onclick = () => toast('Withdrawal flow coming soon');
+          </div>
+
+          <section class="dash-card" style="margin-top:20px;">
+            <div class="dash-card-head"><h3>Recent Transactions</h3></div>
+            ${txHtml}
+          </section>`;
+
+        if ($('#topupBtn')) $('#topupBtn').onclick = () => openModal('#addFundsModal');
+        if ($('#addPayoutMethodBtn')) {
+          $('#addPayoutMethodBtn').onclick = () => {
+            const errEl = $('#addPmError');
+            if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+            if ($('#newPmTitle')) $('#newPmTitle').value = '';
+            if ($('#newPmNumber')) $('#newPmNumber').value = '';
+            if ($('#newPmBank')) $('#newPmBank').value = '';
+            if ($('#newPmDefault')) $('#newPmDefault').checked = false;
+            openModal('#addPayoutMethodModal');
+          };
+        }
+
+        // Payout Methods event handlers
+        $$('.set-default-pm-btn').forEach(btn => {
+          btn.onclick = async () => {
+            const id = btn.dataset.id;
+            try {
+              const res = await apiAuth(`/wallet/payout-methods/${id}/default`, { method: 'PATCH' });
+              if (res.ok) {
+                toast('✔ Default payout method updated.');
+                renderWallet();
+              } else {
+                toast(res.data?.message || 'Could not set default.');
+              }
+            } catch (e) {
+              toast('Network error.');
+            }
+          };
+        });
+
+        $$('.delete-pm-btn').forEach(btn => {
+          btn.onclick = async () => {
+            if (!confirm('Are you sure you want to remove this payout method?')) return;
+            const id = btn.dataset.id;
+            try {
+              const res = await apiAuth(`/wallet/payout-methods/${id}`, { method: 'DELETE' });
+              if (res.ok) {
+                toast('✔ Payout method removed.');
+                renderWallet();
+              } else {
+                toast(res.data?.message || 'Could not delete payout method.');
+              }
+            } catch (e) {
+              toast('Network error.');
+            }
+          };
+        });
+
+        // Cancel withdrawal request handler
+        $$('.cancel-wd-btn').forEach(btn => {
+          btn.onclick = async () => {
+            const id = btn.dataset.id;
+            try {
+              const res = await apiAuth(`/wallet/withdrawals/${id}/cancel`, { method: 'POST' });
+              if (res.ok) {
+                toast('✔ Withdrawal cancelled. Funds restored to available balance.');
+                renderWallet();
+              } else {
+                toast(res.data?.message || 'Could not cancel withdrawal.');
+              }
+            } catch (e) {
+              toast('Network error.');
+            }
+          };
+        });
+
+        // Open Withdraw Modal with saved payout methods populated
+        if ($('#withdrawBtn')) {
+          $('#withdrawBtn').onclick = () => {
+            const errEl = $('#withdrawError'), okEl = $('#withdrawSuccess');
+            if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+            if (okEl) okEl.style.display = 'none';
+            if ($('#wdAvailBalance')) $('#wdAvailBalance').textContent = money(availableBalance);
+            if ($('#wdAmount')) $('#wdAmount').value = '';
+
+            const sel = $('#wdSavedMethodSelect');
+            if (sel) {
+              sel.innerHTML = '<option value="">-- Select Saved Payout Method --</option>' +
+                _savedPayoutMethods.map(pm => `<option value="${pm.id}" data-type="${pm.type}" data-title="${escHtml(pm.accountTitle)}" data-num="${escHtml(pm.accountNumber)}">${pm.type} - ${escHtml(pm.accountTitle)} (${escHtml(pm.accountNumber)}) ${pm.isDefault ? '[Default]' : ''}</option>`).join('');
+
+              const defPm = _savedPayoutMethods.find(p => p.isDefault) || _savedPayoutMethods[0];
+              if (defPm) {
+                sel.value = defPm.id;
+                if ($('#wdAccountTitle')) $('#wdAccountTitle').value = defPm.accountTitle;
+                if ($('#wdAccountNum')) $('#wdAccountNum').value = defPm.accountNumber;
+                if ($('#wdMethod')) $('#wdMethod').value = defPm.type;
+              } else {
+                if ($('#wdAccountTitle')) $('#wdAccountTitle').value = '';
+                if ($('#wdAccountNum')) $('#wdAccountNum').value = '';
+              }
+
+              sel.onchange = () => {
+                const opt = sel.selectedOptions[0];
+                if (opt && opt.value) {
+                  if ($('#wdAccountTitle')) $('#wdAccountTitle').value = opt.dataset.title;
+                  if ($('#wdAccountNum')) $('#wdAccountNum').value = opt.dataset.num;
+                  if ($('#wdMethod')) $('#wdMethod').value = opt.dataset.type;
+                }
+              };
+            }
+
+            openModal('#withdrawModal');
+          };
+        }
       }
 
-      // === 18. MESSAGES (real API) ===
-      // =============================================================
-      // FEATURE: Messaging — FULLY IMPLEMENTED (production-ready)
-      // Backend: POST /messaging/send, GET /messaging/conversations,
-      //          GET /messaging/conversations/:id/messages
-      // Database: Conversation + Message models in schema.prisma
-      // An empty conversation list for a new user is EXPECTED BEHAVIOUR,
-      // not a bug. No mock or demo data is used here.
-      // =============================================================
-      async function renderMessages() {
+      // Wire Save Payout Method Modal button
+      if ($('#savePayoutMethodBtn')) {
+        $('#savePayoutMethodBtn').onclick = async () => {
+          const type = $('#newPmType')?.value;
+          const accountTitle = $('#newPmTitle')?.value.trim();
+          const accountNumber = $('#newPmNumber')?.value.trim();
+          const bankName = $('#newPmBank')?.value.trim() || undefined;
+          const isDefault = $('#newPmDefault')?.checked || false;
+          const errEl = $('#addPmError');
+
+          if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+
+          if (!accountTitle || !accountNumber) {
+            if (errEl) { errEl.textContent = 'Account title and account/IBAN number are required.'; errEl.style.display = 'block'; }
+            return;
+          }
+
+          const btn = $('#savePayoutMethodBtn');
+          btn.disabled = true;
+          btn.textContent = 'Saving…';
+
+          try {
+            const res = await apiAuth('/wallet/payout-methods', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ type, accountTitle, accountNumber, bankName, isDefault })
+            });
+
+            if (res.ok) {
+              toast('✔ Payout method added successfully!');
+              closeModals();
+              renderWallet();
+            } else {
+              if (errEl) { errEl.textContent = res.data?.message || 'Could not save payout method.'; errEl.style.display = 'block'; }
+            }
+          } catch (e) {
+            if (errEl) { errEl.textContent = 'Network error saving payout method.'; errEl.style.display = 'block'; }
+          } finally {
+            btn.disabled = false;
+            btn.textContent = 'Save Payout Method';
+          }
+        };
+      }
+
+      // Wire Confirm Withdrawal Modal button
+      if ($('#confirmWithdrawBtn')) {
+        $('#confirmWithdrawBtn').onclick = async () => {
+          const errEl = $('#withdrawError'), okEl = $('#withdrawSuccess');
+          if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+          if (okEl) okEl.style.display = 'none';
+
+          const amountRaw = $('#wdAmount')?.value;
+          const amount = Number(amountRaw);
+          const payoutMethodId = $('#wdSavedMethodSelect')?.value || undefined;
+          const accountTitle = $('#wdAccountTitle')?.value.trim();
+          const accountNumber = $('#wdAccountNum')?.value.trim();
+          const channel = $('#wdMethod')?.value || 'BANK';
+
+          if (!accountTitle || !accountNumber) {
+            if (errEl) { errEl.textContent = 'Account title and account number are required.'; errEl.style.display = 'block'; }
+            return;
+          }
+
+          if (isNaN(amount) || amount < 500) {
+            if (errEl) { errEl.textContent = 'Minimum withdrawal amount is PKR 500.'; errEl.style.display = 'block'; }
+            return;
+          }
+
+          const btn = $('#confirmWithdrawBtn');
+          btn.disabled = true;
+          btn.textContent = 'Submitting Request…';
+
+          try {
+            const res = await apiAuth('/wallet/withdraw', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ amount, payoutMethodId, accountTitle, accountNumber, channel })
+            });
+
+            if (res.ok) {
+              if (okEl) okEl.style.display = 'block';
+              toast('✔ Withdrawal request submitted! Funds reserved in locked balance.');
+              setTimeout(() => {
+                closeModals();
+                renderWallet();
+              }, 1500);
+            } else {
+              if (errEl) { errEl.textContent = res.data?.message || 'Withdrawal request failed.'; errEl.style.display = 'block'; }
+            }
+          } catch (e) {
+            if (errEl) { errEl.textContent = 'Network error processing withdrawal.'; errEl.style.display = 'block'; }
+          } finally {
+            btn.disabled = false;
+            btn.textContent = 'Submit Withdrawal';
+          }
+        };
+      }
+
+      // === 18. MESSAGES (real API with Responsive Mobile View) ===
+      async function renderMessages(targetUser = null) {
         const s = $('#messagesSidebar');
         if (s) { s.innerHTML = dashNav('messages'); if ($('#sidePostJob')) $('#sidePostJob').onclick = openPostJob; }
+
         let conversations = [];
         try {
           const r = await apiAuth('/messaging/conversations');
           if (r.ok) conversations = r.data || [];
         } catch (e) {}
 
-        const myId = getUser()?.id;
-        const convHtml = conversations.length
-          ? conversations.map((c, i) => {
-              const otherId = c.participant1Id === myId ? c.participant2Id : c.participant1Id;
-              return `<div class="conversation-item ${i === 0 ? 'active' : ''}" data-conv-id="${escHtml(c.id)}" data-other-id="${escHtml(otherId)}"><span class="avatar">${escHtml(otherId.slice(0, 2).toUpperCase())}</span><div class="conversation-copy"><div><strong>Conversation</strong><time>${timeAgo(c.updatedAt)}</time></div><p>Click to view messages</p></div></div>`;
-            }).join('')
-          : '<div style="padding:20px;color:var(--muted);font-size:12px">No conversations yet.</div>';
+        const myUser = getUser();
+        const myId = myUser?.id;
+        const isMobile = window.innerWidth <= 768;
 
-        if ($('#messagesMain')) $('#messagesMain').innerHTML = `
-          <div class="messages-shell">
-            <aside class="conversation-list">
-              <div class="conversation-head"><h2>Messages</h2></div>
-              ${convHtml}
-            </aside>
-            <section class="chat-pane">
-              <div class="chat-head" id="chatHeader"><span class="avatar">&ndash;</span><div><strong>Select a conversation</strong><small>Your messages appear here</small></div></div>
-              <div class="chat-body" id="chatBody"></div>
-              <div class="chat-compose"><input id="chatInput" placeholder="Write a message&hellip;" /><button class="btn btn-primary" id="sendChat">Send</button></div>
-            </section>
-          </div>`;
+        let activeConvId = null;
+        let activeOtherUser = null;
 
-        $$('.conversation-item').forEach(item => {
-          item.onclick = async () => {
-            $$('.conversation-item').forEach(x => x.classList.remove('active'));
-            item.classList.add('active');
-            const convId = item.dataset.convId;
-            try {
-              const r = await apiAuth(`/messaging/conversations/${convId}/messages`);
-              if (r.ok) {
-                const msgs = r.data || [];
-                const chatBody = $('#chatBody');
-                chatBody.innerHTML = msgs.length
-                  ? msgs.map(m => `<div class="bubble ${m.senderId === myId ? 'me' : 'them'}">${escHtml(m.content)}<small>${timeAgo(m.createdAt)}</small></div>`).join('')
-                  : '<div style="text-align:center;color:var(--muted);padding:20px;font-size:12px">No messages yet. Say hello!</div>';
-                chatBody.scrollTop = chatBody.scrollHeight;
+        if (targetUser && targetUser.id && targetUser.id !== myId) {
+          const existing = conversations.find(c =>
+            c.otherUser?.id === targetUser.id ||
+            c.participant1Id === targetUser.id ||
+            c.participant2Id === targetUser.id
+          );
+          if (existing) {
+            activeConvId = existing.id;
+            activeOtherUser = existing.otherUser;
+          } else {
+            activeOtherUser = {
+              id: targetUser.id,
+              name: targetUser.name || 'User',
+              email: '',
+              role: targetUser.role || 'User',
+              headline: null
+            };
+            conversations.unshift({
+              id: `draft_${targetUser.id}`,
+              isDraft: true,
+              otherUser: activeOtherUser,
+              lastMessage: { content: 'Draft conversation — write below to send.' },
+              updatedAt: new Date().toISOString()
+            });
+            activeConvId = `draft_${targetUser.id}`;
+          }
+        } else if (!isMobile && conversations.length > 0) {
+          activeConvId = conversations[0].id;
+          activeOtherUser = conversations[0].otherUser;
+        }
+
+        function buildConvListHtml() {
+          if (conversations.length === 0) {
+            return `
+              <div style="padding:40px 20px;text-align:center;color:var(--muted);box-sizing:border-box;">
+                <div style="width:48px;height:48px;border-radius:50%;background:#eaf4ed;color:var(--forest);display:grid;place-items:center;margin:0 auto 14px;font-size:22px;">💬</div>
+                <strong style="font-size:14px;color:var(--forest);display:block;margin-bottom:6px;">No conversations yet</strong>
+                <p style="font-size:12px;color:var(--muted);max-width:280px;margin:0 auto 16px;line-height:1.45;">Browse verified specialists or posted jobs to start a direct hiring conversation.</p>
+                <button class="btn btn-outline" data-route="talent" style="font-size:12px;padding:8px 16px;">Browse Specialists</button>
+              </div>`;
+          }
+          return conversations.map((c) => {
+            const other = c.otherUser || {};
+            const name = other.name || other.email?.split('@')[0] || 'User';
+            const initials = name.slice(0, 2).toUpperCase();
+            const lastSnippet = c.lastMessage?.content || 'No messages yet';
+            const isActive = c.id === activeConvId;
+            return `
+              <div class="conversation-item ${isActive ? 'active' : ''}" data-conv-id="${escHtml(c.id)}" data-other-id="${escHtml(other.id)}">
+                <span class="avatar" style="width:38px;height:38px;border-radius:50%;background:var(--forest);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;">${escHtml(initials)}</span>
+                <div class="conversation-copy">
+                  <div>
+                    <strong>${escHtml(name)}</strong>
+                    <time>${c.isDraft ? 'New' : timeAgo(c.updatedAt)}</time>
+                  </div>
+                  <p>${escHtml(lastSnippet)}</p>
+                </div>
+              </div>`;
+          }).join('');
+        }
+
+        if ($('#messagesMain')) {
+          $('#messagesMain').innerHTML = `
+            <div class="messages-shell" id="messagesShell">
+              <aside class="conversation-list">
+                <div class="conversation-head">
+                  <h2>Conversations</h2>
+                  <span class="badge">${conversations.length}</span>
+                </div>
+                <div id="convListItems" style="flex:1 1 0%;overflow-y:auto;min-height:0;">
+                  ${buildConvListHtml()}
+                </div>
+              </aside>
+              <section class="chat-pane">
+                <div class="chat-head" id="chatHeader">
+                  <button class="btn btn-outline" id="backToConversationsBtn" aria-label="Back to conversations">&larr; Back</button>
+                  <span class="avatar" id="chatHeadAvatar" style="width:36px;height:36px;border-radius:50%;background:var(--forest);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;">${activeOtherUser ? escHtml((activeOtherUser.name || 'U').slice(0, 2).toUpperCase()) : '–'}</span>
+                  <div class="chat-head-user">
+                    <strong id="chatHeadName">${activeOtherUser ? escHtml(activeOtherUser.name || activeOtherUser.email || 'Direct Conversation') : 'Select a conversation'}</strong>
+                    <small id="chatHeadRole">${activeOtherUser?.role || 'Secure Messenger'}</small>
+                  </div>
+                </div>
+                <div class="chat-body" id="chatBody"></div>
+                <div class="chat-compose" id="chatCompose">
+                  <input id="chatInput" placeholder="Write a message…" />
+                  <button class="btn btn-primary" id="sendChat">Send</button>
+                </div>
+              </section>
+            </div>`;
+        }
+
+        const shell = $('#messagesShell');
+        const backBtn = $('#backToConversationsBtn');
+
+        if (backBtn) {
+          backBtn.onclick = () => {
+            if (shell) shell.classList.remove('chat-open');
+            activeConvId = null;
+            $$('#convListItems .conversation-item').forEach(el => {
+              el.classList.remove('active');
+            });
+          };
+        }
+
+        async function loadMessages(convId, otherUser) {
+          activeConvId = convId;
+          activeOtherUser = otherUser;
+
+          if (shell) shell.classList.add('chat-open');
+
+          const headName = $('#chatHeadName');
+          const headAvatar = $('#chatHeadAvatar');
+          const headRole = $('#chatHeadRole');
+          if (headName) headName.textContent = otherUser?.name || otherUser?.email || 'Direct Message';
+          if (headAvatar) headAvatar.textContent = (otherUser?.name || 'U').slice(0, 2).toUpperCase();
+          if (headRole) headRole.textContent = otherUser?.role || 'Secure Messenger';
+
+          $$('#convListItems .conversation-item').forEach(el => {
+            const isThis = el.dataset.convId === convId;
+            el.classList.toggle('active', isThis);
+          });
+
+          const chatBody = $('#chatBody');
+          if (!chatBody) return;
+
+          if (convId.startsWith('draft_')) {
+            chatBody.innerHTML = `
+              <div style="text-align:center;color:var(--muted);padding:30px;font-size:13px;">
+                <p style="margin:0 0 6px;font-weight:600;color:var(--forest);">Starting conversation with ${escHtml(otherUser?.name || 'User')}</p>
+                <small>Write your message below and press Send to start the conversation.</small>
+              </div>`;
+            return;
+          }
+
+          chatBody.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:12px;">Loading messages…</div>';
+
+          try {
+            const r = await apiAuth(`/messaging/conversations/${convId}/messages`);
+            if (r.ok) {
+              const msgs = r.data || [];
+              if (msgs.length === 0) {
+                chatBody.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:12px;">No messages yet. Say hello!</div>';
+              } else {
+                chatBody.innerHTML = msgs.map(m => `
+                  <div class="bubble ${m.senderId === myId ? 'me' : 'them'}">
+                    <div>${escHtml(m.content)}</div>
+                    <small>${timeAgo(m.createdAt)}</small>
+                  </div>
+                `).join('');
               }
-            } catch (e) { toast('Could not load messages.'); }
+              chatBody.scrollTop = chatBody.scrollHeight;
+            }
+          } catch (e) {
+            chatBody.innerHTML = '<div style="text-align:center;color:var(--danger);padding:20px;font-size:12px;">Failed to load messages.</div>';
+          }
+        }
+
+        $$('#convListItems .conversation-item').forEach(item => {
+          item.onclick = () => {
+            const cId = item.dataset.convId;
+            const conv = conversations.find(c => c.id === cId);
+            if (conv) loadMessages(conv.id, conv.otherUser);
           };
         });
 
-        if ($('#sendChat')) $('#sendChat').onclick = async () => {
-          const v = $('#chatInput')?.value.trim();
-          if (!v) return;
-          const activeConv = $('.conversation-item.active');
-          if (!activeConv) { toast('Select a conversation first.'); return; }
-          const otherId = activeConv.dataset.otherId;
+        if (activeConvId && activeOtherUser) {
+          loadMessages(activeConvId, activeOtherUser);
+        }
+
+        async function doSendMessage() {
+          const input = $('#chatInput');
+          const content = input?.value.trim();
+          if (!content) return;
+          if (!activeOtherUser || !activeOtherUser.id) {
+            toast('Select a recipient first.');
+            return;
+          }
+
+          const sendBtn = $('#sendChat');
+          if (sendBtn) sendBtn.disabled = true;
+
           try {
-            const r = await apiAuth('/messaging/send', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ receiverId: otherId, content: v }) });
-            if (!r.ok) { toast(r.data?.message || 'Could not send message.'); return; }
-            const chatBody = $('#chatBody');
-            chatBody.insertAdjacentHTML('beforeend', `<div class="bubble me">${escHtml(v)}<small>Just now</small></div>`);
-            if ($('#chatInput')) $('#chatInput').value = '';
-            chatBody.scrollTop = chatBody.scrollHeight;
-          } catch (e) { toast('Could not send message.'); }
-        };
+            const res = await apiAuth('/messaging/send', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ receiverId: activeOtherUser.id, content })
+            });
+
+            if (res.ok) {
+              if (input) input.value = '';
+              const ref = await apiAuth('/messaging/conversations');
+              if (ref.ok && ref.data) {
+                conversations = ref.data;
+                const updatedConv = conversations.find(c =>
+                  c.otherUser?.id === activeOtherUser.id ||
+                  c.participant1Id === activeOtherUser.id ||
+                  c.participant2Id === activeOtherUser.id
+                );
+                if ($('#convListItems')) $('#convListItems').innerHTML = buildConvListHtml();
+                $$('#convListItems .conversation-item').forEach(item => {
+                  item.onclick = () => {
+                    const cId = item.dataset.convId;
+                    const conv = conversations.find(c => c.id === cId);
+                    if (conv) loadMessages(conv.id, conv.otherUser);
+                  };
+                });
+                if (updatedConv) loadMessages(updatedConv.id, updatedConv.otherUser);
+              }
+            } else {
+              toast(res.data?.message || 'Could not send message.');
+            }
+          } catch (e) {
+            toast('Network error sending message.');
+          } finally {
+            if (sendBtn) sendBtn.disabled = false;
+          }
+        }
+
+        if ($('#sendChat')) $('#sendChat').onclick = doSendMessage;
+        if ($('#chatInput')) {
+          $('#chatInput').onkeydown = (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              doSendMessage();
+            }
+          };
+        }
       }
 
       // === 19. DISPUTES (real API) ===
@@ -7065,7 +7939,7 @@
         if ($('#openCaseBtn')) $('#openCaseBtn').onclick = () => openModal('#disputeModal');
       }
 
-      // === 20. ADMIN PANEL (ADMIN role only — backend also enforces via RolesGuard) ===
+      // === 20. ADMIN PANEL (ADMIN role only — Financials, Payout Batching, Payments Log) ===
       async function renderAdmin() {
         const user = getUser();
         if (!user || user.role !== 'ADMIN') { toast('Admin access required.'); route('home'); return; }
@@ -7073,27 +7947,106 @@
         if (adminSidebar) adminSidebar.innerHTML = dashNav('admin');
         const adminMain = document.querySelector('[data-view="admin"] .admin-main');
         if (!adminMain) return;
-        adminMain.innerHTML = '<div class="dash-head"><div><h1>Admin Panel</h1><p>Loading platform data&hellip;</p></div></div>';
+        adminMain.innerHTML = '<div class="dash-head"><div><h1>Admin Panel</h1><p>Loading platform financials &amp; operational data&hellip;</p></div></div>';
 
-        let stats = {}, users = [], disputes = [];
+        let stats = {}, finStats = {}, users = [], disputes = [], withdrawals = [], payments = [];
         try { const r = await apiAuth('/admin/stats'); if (r.ok) stats = r.data || {}; } catch (e) {}
+        try { const r = await apiAuth('/admin/financials/stats'); if (r.ok) finStats = r.data || {}; } catch (e) {}
+        try { const r = await apiAuth('/admin/withdrawals'); if (r.ok) withdrawals = r.data || []; } catch (e) {}
+        try { const r = await apiAuth('/admin/payments'); if (r.ok) payments = r.data || []; } catch (e) {}
         try { const r = await apiAuth('/admin/users'); if (r.ok) users = r.data || []; } catch (e) {}
         try { const r = await apiAuth('/admin/disputes'); if (r.ok) disputes = r.data || []; } catch (e) {}
 
+        const wdRowsHtml = withdrawals.length
+          ? withdrawals.map(w => {
+            const statusClass = w.status === 'COMPLETED' ? 'verified' : w.status === 'PROCESSING' ? 'badge' : w.status === 'FAILED' ? 'badge' : '';
+            return `
+              <tr style="border-bottom:1px solid var(--line)">
+                <td style="padding:10px 12px;">
+                  <strong style="display:block;font-size:12px;">${escHtml(w.user?.name || w.user?.email || 'Specialist')}</strong>
+                  <small style="color:var(--muted);">${escHtml(w.user?.email || '')}</small>
+                </td>
+                <td style="padding:10px 12px;"><strong>${money(w.amount)}</strong></td>
+                <td style="padding:10px 12px;">
+                  <span style="font-size:12px;font-weight:600;">${w.channel || 'BANK'}</span><br>
+                  <small style="color:var(--muted);">${escHtml(w.accountTitle || '')} &middot; ${escHtml(w.accountNumber || '')}</small>
+                </td>
+                <td style="padding:10px 12px;"><span class="badge ${statusClass}">${w.status}</span></td>
+                <td style="padding:10px 12px;font-size:11px;color:var(--muted);">${new Date(w.createdAt).toLocaleDateString()}</td>
+                <td style="padding:10px 12px;">
+                  <div style="display:flex;gap:6px;">
+                    ${w.status === 'REQUESTED' ? `<button class="btn btn-outline admin-wd-action" data-id="${escHtml(w.id)}" data-status="PROCESSING" style="padding:4px 8px;font-size:11px;">Process 1Link</button>` : ''}
+                    ${w.status === 'PROCESSING' ? `<button class="btn btn-primary admin-wd-action" data-id="${escHtml(w.id)}" data-status="COMPLETED" style="padding:4px 8px;font-size:11px;">Mark Settled</button>` : ''}
+                    ${w.status === 'REQUESTED' || w.status === 'PROCESSING' ? `<button class="btn btn-outline admin-wd-action" data-id="${escHtml(w.id)}" data-status="FAILED" style="padding:4px 8px;font-size:11px;color:#dc2626;">Reject &amp; Refund</button>` : ''}
+                  </div>
+                </td>
+              </tr>`;
+          }).join('')
+          : '<tr><td colspan="6" style="padding:16px;text-align:center;color:var(--muted);">No withdrawal requests in queue.</td></tr>';
+
+        const paymentRowsHtml = payments.length
+          ? payments.slice(0, 15).map(p => `
+            <tr style="border-bottom:1px solid var(--line)">
+              <td style="padding:8px 12px;font-family:monospace;font-size:11px;">${escHtml(p.referenceId)}</td>
+              <td style="padding:8px 12px;"><strong>${money(p.amount)}</strong></td>
+              <td style="padding:8px 12px;"><span class="badge">${p.provider}</span></td>
+              <td style="padding:8px 12px;"><span class="badge ${p.status === 'COMPLETED' ? 'verified' : ''}">${p.status}</span></td>
+              <td style="padding:8px 12px;font-size:11px;color:var(--muted);">${p.gatewayTxnId || '&ndash;'}</td>
+              <td style="padding:8px 12px;font-size:11px;color:var(--muted);">${new Date(p.createdAt).toLocaleDateString()}</td>
+            </tr>`).join('')
+          : '<tr><td colspan="6" style="padding:16px;text-align:center;color:var(--muted);">No gateway payments recorded yet.</td></tr>';
+
         adminMain.innerHTML = `
           <div class="dash-head">
-            <div><h1>Admin Panel</h1><p>Platform overview &mdash; admin access only.</p></div>
+            <div><h1>Financial &amp; Platform Operations</h1><p>Escrow balances, withdrawal processing queue, and payment audits.</p></div>
           </div>
-          <div class="stats-grid">
-            <div class="stat-card"><small>Total Users</small><strong>${stats.totalUsers ?? '&ndash;'}</strong></div>
-            <div class="stat-card"><small>Total Jobs</small><strong>${stats.totalJobs ?? '&ndash;'}</strong></div>
-            <div class="stat-card"><small>Total Contracts</small><strong>${stats.totalContracts ?? '&ndash;'}</strong></div>
-            <div class="stat-card"><small>Total Proposals</small><strong>${stats.totalProposals ?? '&ndash;'}</strong></div>
-            <div class="stat-card"><small>Open Disputes</small><strong>${stats.openDisputes ?? '&ndash;'}</strong></div>
-            <div class="stat-card"><small>Pending Verifications</small><strong>${stats.pendingVerifications ?? '&ndash;'}</strong></div>
+
+          <h3 style="font-size:15px;color:var(--forest);margin:0 0 12px;">Financial Ledger &amp; Escrow Stats</h3>
+          <div class="stats-grid" style="margin-bottom:24px;">
+            <div class="stat-card"><small>Total Escrow Held</small><strong>${money(finStats.totalEscrowBalance || 0)}</strong></div>
+            <div class="stat-card"><small>Completed Payments</small><strong>${money(finStats.completedPaymentsVolume || 0)}</strong></div>
+            <div class="stat-card"><small>Pending Withdrawals</small><strong>${money(finStats.pendingWithdrawalsVolume || 0)} (${finStats.pendingWithdrawalsCount || 0})</strong></div>
+            <div class="stat-card"><small>Total Platform Users</small><strong>${stats.totalUsers ?? 0}</strong></div>
+            <div class="stat-card"><small>Total Contracts</small><strong>${stats.totalContracts ?? 0}</strong></div>
+            <div class="stat-card"><small>Open Disputes</small><strong>${stats.openDisputes ?? 0}</strong></div>
           </div>
-          <section class="dash-card" style="margin-top:24px">
-            <div class="dash-card-head"><h3>All Users (${users.length})</h3></div>
+
+          <section class="dash-card" style="margin-bottom:24px;">
+            <div class="dash-card-head"><h3>Specialist Withdrawal Queue (${withdrawals.length})</h3></div>
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:12px">
+                <thead><tr style="border-bottom:1px solid var(--line);background:#fbfdfc;">
+                  <th style="text-align:left;padding:10px 12px">Specialist</th>
+                  <th style="text-align:left;padding:10px 12px">Amount</th>
+                  <th style="text-align:left;padding:10px 12px">Payout Method</th>
+                  <th style="text-align:left;padding:10px 12px">Status</th>
+                  <th style="text-align:left;padding:10px 12px">Requested</th>
+                  <th style="text-align:left;padding:10px 12px">Action</th>
+                </tr></thead>
+                <tbody>${wdRowsHtml}</tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="dash-card" style="margin-bottom:24px;">
+            <div class="dash-card-head"><h3>Payment Transactions &amp; Audit Log</h3></div>
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:12px">
+                <thead><tr style="border-bottom:1px solid var(--line);background:#fbfdfc;">
+                  <th style="text-align:left;padding:8px 12px">Reference ID</th>
+                  <th style="text-align:left;padding:8px 12px">Amount</th>
+                  <th style="text-align:left;padding:8px 12px">Provider</th>
+                  <th style="text-align:left;padding:8px 12px">Status</th>
+                  <th style="text-align:left;padding:8px 12px">Gateway Txn ID</th>
+                  <th style="text-align:left;padding:8px 12px">Date</th>
+                </tr></thead>
+                <tbody>${paymentRowsHtml}</tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="dash-card">
+            <div class="dash-card-head"><h3>All Platform Users (${users.length})</h3></div>
             <div style="overflow-x:auto">
               <table style="width:100%;border-collapse:collapse;font-size:12px">
                 <thead><tr style="border-bottom:1px solid var(--line)">
@@ -7111,12 +8064,42 @@
               </table>
             </div>
           </section>
-          <section class="dash-card" style="margin-top:16px">
+
+          <section class="dash-card" style="margin-top:20px;">
             <div class="dash-card-head"><h3>Disputes (${disputes.length})</h3></div>
             ${disputes.length
               ? disputes.slice(0, 20).map(d => `<div class="proposal-row"><span class="avatar">${d.status.slice(0, 2).toUpperCase()}</span><div><strong>${escHtml(d.reason || 'Dispute')}</strong><small>${d.status} &middot; ${d.createdAt ? new Date(d.createdAt).toLocaleDateString() : ''}</small></div><span class="badge">${d.status}</span></div>`).join('')
               : '<p style="color:var(--muted);font-size:12px;padding:8px 0">No disputes filed.</p>'}
           </section>`;
+
+        // Wire admin withdrawal action buttons
+        $$('.admin-wd-action').forEach(btn => {
+          btn.onclick = async () => {
+            const id = btn.dataset.id;
+            const newStatus = btn.dataset.status;
+            let failureReason = undefined;
+            if (newStatus === 'FAILED') {
+              failureReason = prompt('Enter rejection/failure reason for the specialist:') || 'Administrative rejection';
+            }
+
+            try {
+              const res = await apiAuth(`/admin/withdrawals/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: newStatus, failureReason })
+              });
+
+              if (res.ok) {
+                toast(`✔ Withdrawal status updated to ${newStatus}`);
+                renderAdmin();
+              } else {
+                toast(res.data?.message || 'Could not update withdrawal.');
+              }
+            } catch (e) {
+              toast('Network error updating withdrawal.');
+            }
+          };
+        });
       }
 
       // === 21. MODAL HELPERS ===
@@ -7943,6 +8926,11 @@
           const active = $('.view.active')?.dataset.view;
           const dv = ['dashboard', 'contract', 'wallet', 'messages', 'disputes', 'admin'].includes(active);
           if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && dv) ? 'grid' : 'none';
+        });
+
+        window.addEventListener('hashchange', () => {
+          const h = safeGetInitialRoute();
+          if (h && $(`[data-view="${h}"]`)) route(h);
         });
 
         updateHeaderAuthState();
