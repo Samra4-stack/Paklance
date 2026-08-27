@@ -6242,6 +6242,9 @@
               <label style="font-size:11px;">Screenshot / Image URL
                 <input id="newPortImg" type="url" placeholder="https://... image URL" style="background:#fff;" />
               </label>
+              <label style="grid-column:1/-1;font-size:11px;">Or Upload Image File (JPG, PNG, WebP, GIF &le; 5MB)
+                <input id="newPortFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif" style="background:#fff;padding:6px;font-size:11px;" />
+              </label>
             </div>
             <div style="display:flex;justify-content:flex-end;margin-top:12px;">
               <button class="btn btn-primary" id="addPortfolioBtn" type="button" style="padding:7px 16px;font-size:12px;">+ Add to Portfolio</button>
@@ -6319,6 +6322,26 @@
           throw new Error('Unauthenticated');
         }
         return r;
+      }
+
+      // Multipart file upload helper
+      async function apiUpload(file) {
+        const token = getToken();
+        const formData = new FormData();
+        formData.append('file', file);
+        const headers = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        try {
+          const res = await fetch(`${API_BASE}/uploads`, {
+            method: 'POST',
+            headers,
+            body: formData
+          });
+          const data = await res.json();
+          return { ok: res.ok, status: res.status, data };
+        } catch (err) {
+          return { ok: false, status: 0, data: { message: 'Upload network error' } };
+        }
       }
 
       // === 4. STATE ===
@@ -7570,6 +7593,31 @@
           $('#epPortfolioSection').style.display = (cached?.role === 'CLIENT') ? 'none' : 'block';
         }
 
+        // Wire file upload for portfolio image
+        if ($('#newPortFile')) {
+          $('#newPortFile').onchange = async (e) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) {
+              toast('File size exceeds 5MB limit');
+              e.target.value = '';
+              return;
+            }
+            toast('Uploading image…');
+            try {
+              const uploadRes = await apiUpload(file);
+              if (uploadRes.ok && uploadRes.data?.url) {
+                if ($('#newPortImg')) $('#newPortImg').value = uploadRes.data.url;
+                toast('✔ Image uploaded successfully!');
+              } else {
+                toast(uploadRes.data?.message || 'Failed to upload image');
+              }
+            } catch (err) {
+              toast('Error uploading image');
+            }
+          };
+        }
+
         // Wire add portfolio project button
         if ($('#addPortfolioBtn')) {
           $('#addPortfolioBtn').onclick = async () => {
@@ -7599,6 +7647,7 @@
                 if ($('#newPortDesc')) $('#newPortDesc').value = '';
                 if ($('#newPortUrl')) $('#newPortUrl').value = '';
                 if ($('#newPortImg')) $('#newPortImg').value = '';
+                if ($('#newPortFile')) $('#newPortFile').value = '';
                 const ref = await apiAuth('/profiles/me');
                 if (ref.ok && ref.data) renderEpPortfolioItems(ref.data.portfolioItems || []);
               } else {
