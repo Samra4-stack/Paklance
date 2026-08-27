@@ -7538,7 +7538,10 @@
        * Opens the Edit Profile modal and pre-fills it with current profile data.
        * Fetches GET /api/profiles/me to show the freshest values from the server.
        */
+      let _saveProfileTimer = null;
+
       async function openEditProfile() {
+        if (_saveProfileTimer) { clearTimeout(_saveProfileTimer); _saveProfileTimer = null; }
         if (!getToken()) { toast('Please log in to edit your profile.'); openModal('#authModal'); return; }
 
         // Reset feedback banners
@@ -7725,7 +7728,8 @@
           }
 
           // Auto-close modal after a brief success display
-          setTimeout(() => closeModals(), 1600);
+          if (_saveProfileTimer) clearTimeout(_saveProfileTimer);
+          _saveProfileTimer = setTimeout(() => { closeModals(); _saveProfileTimer = null; }, 1600);
 
         } catch (e) {
           if (errEl) { errEl.textContent = 'Network error — could not reach the server. Is the backend running?'; errEl.style.display = 'block'; }
