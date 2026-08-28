@@ -72,8 +72,19 @@ export class ProfilesService {
   }
 
   async searchProfiles(query: SearchProfilesDto) {
+    const q = (query.q || query.search || '').trim();
     return this.prisma.user.findMany({
       where: {
+        ...(q
+          ? {
+              OR: [
+                { name: { contains: q, mode: 'insensitive' } },
+                { headline: { contains: q, mode: 'insensitive' } },
+                { bio: { contains: q, mode: 'insensitive' } },
+                { skills: { has: q } },
+              ],
+            }
+          : {}),
         skills: query.skill ? { has: query.skill } : undefined,
         country: query.country ?? undefined,
         availability: query.availability ?? undefined,

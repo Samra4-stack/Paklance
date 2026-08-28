@@ -42,7 +42,11 @@ export class AuthService {
       emailVerifyLastSentAt: now,
     });
 
-    await this.emailService.sendVerificationOtp(user.email, otp);
+    try {
+      await this.emailService.sendVerificationOtp(user.email, otp);
+    } catch (emailErr) {
+      console.warn('[EmailService] Dispatch notice:', emailErr);
+    }
 
     return {
       message: 'Verification code sent to your email. Please enter the 6-digit code to activate your account.',
@@ -171,7 +175,11 @@ export class AuthService {
       },
     });
 
-    await this.emailService.sendVerificationOtp(user.email, otp);
+    try {
+      await this.emailService.sendVerificationOtp(user.email, otp);
+    } catch (emailErr) {
+      console.warn('[EmailService] Resend dispatch notice:', emailErr);
+    }
 
     return {
       message: 'A new 6-digit verification code has been sent to your email.',

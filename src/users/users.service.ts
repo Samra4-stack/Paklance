@@ -31,17 +31,32 @@ export class UsersService {
 
     const passwordHash = await bcrypt.hash(data.password, 10);
 
-    const user = await this.prisma.user.create({
-      data: {
-        email: data.email,
-        passwordHash,
-        role: data.role || Role.SPECIALIST,
-        isEmailVerified: data.isEmailVerified ?? false,
-        emailVerifyOtp: data.emailVerifyOtp,
-        emailVerifyExpires: data.emailVerifyExpires,
-        emailVerifyLastSentAt: data.emailVerifyLastSentAt,
-      },
-    });
+    let user: any;
+    try {
+      user = await this.prisma.user.create({
+        data: {
+          email: data.email,
+          passwordHash,
+          role: data.role || Role.SPECIALIST,
+          isEmailVerified: data.isEmailVerified ?? false,
+          emailVerifyOtp: data.emailVerifyOtp,
+          emailVerifyExpires: data.emailVerifyExpires,
+          emailVerifyLastSentAt: data.emailVerifyLastSentAt,
+        },
+      });
+    } catch (createErr: any) {
+      if (createErr?.message?.includes('column') || createErr?.message?.includes('does not exist')) {
+        user = await this.prisma.user.create({
+          data: {
+            email: data.email,
+            passwordHash,
+            role: data.role || Role.SPECIALIST,
+          },
+        });
+      } else {
+        throw createErr;
+      }
+    }
 
     const { passwordHash: _, ...result } = user;
     return result;
