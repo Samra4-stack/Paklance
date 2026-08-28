@@ -52,6 +52,24 @@ export class ProposalsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.CLIENT, Role.ADMIN)
+  @Patch(':id/accept')
+  acceptProposal(@Req() req: Request, @Param('id') id: string) {
+    const userId = (req as any).user.id;
+    return this.proposalsService.acceptProposal(userId, id);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.CLIENT, Role.ADMIN)
+  @Patch(':id/reject')
+  rejectProposal(@Req() req: Request, @Param('id') id: string) {
+    const userId = (req as any).user.id;
+    return this.proposalsService.rejectProposal(userId, id);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.CLIENT, Role.ADMIN)
   @Patch(':id/status')
   updateStatus(
     @Req() req: Request,

@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
   Param,
   Body,
   UseGuards,
@@ -34,10 +35,25 @@ export class MessagingController {
     return this.messagingService.getMyConversations(userId);
   }
 
+  @ApiOperation({ summary: 'Sync delivered status for incoming messages' })
+  @Post('sync-delivered')
+  syncDelivered(@Req() req: Request) {
+    const userId = (req as any).user.id;
+    return this.messagingService.syncDelivered(userId);
+  }
+
   @ApiOperation({ summary: 'Get messages in a conversation' })
   @Get('conversations/:id/messages')
   getConversationMessages(@Req() req: Request, @Param('id') id: string) {
     const userId = (req as any).user.id;
     return this.messagingService.getConversationMessages(userId, id);
   }
+
+  @ApiOperation({ summary: 'Unsend a message (Sender only)' })
+  @Delete('messages/:id')
+  deleteMessage(@Req() req: Request, @Param('id') id: string) {
+    const userId = (req as any).user.id;
+    return this.messagingService.deleteMessage(userId, id);
+  }
 }
+

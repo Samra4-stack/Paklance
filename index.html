@@ -5591,7 +5591,303 @@
       white-space: nowrap;
       border-width: 0
     }
+
+    /* === PRIMARY CTA & APPLY NOW BUTTON STYLING === */
+    #applyBtn,
+    .detail-side #applyBtn,
+    .detail-side button.btn-primary {
+      background: var(--green) !important;
+      color: #ffffff !important;
+      border: 1px solid var(--green) !important;
+      border-radius: 11px !important;
+      padding: 13px 20px !important;
+      font-size: 15px !important;
+      font-weight: 750 !important;
+      cursor: pointer;
+      display: inline-flex !important;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      width: 100% !important;
+      box-shadow: 0 4px 14px rgba(1, 65, 28, 0.2) !important;
+      transition: all 0.18s ease;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+    #applyBtn:hover,
+    .detail-side #applyBtn:hover,
+    .detail-side button.btn-primary:hover {
+      background: #003817 !important;
+      border-color: #003817 !important;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(1, 65, 28, 0.28) !important;
+    }
+    #applyBtn:focus-visible {
+      outline: 3px solid #12a150;
+      outline-offset: 2px;
+    }
+
+    /* === PROFESSIONAL JOB DETAIL UI === */
+    .job-section-card {
+      background: #ffffff;
+      border: 1px solid #dfe6e1;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+    .job-section-card:last-child {
+      margin-bottom: 0;
+    }
+    .job-section-header {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--forest);
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .job-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 0;
+    }
+    .job-info-pill {
+      background: #f0f7f3;
+      border: 1px solid #d3eadc;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #074b25;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .proposal-received-card {
+      background: #ffffff;
+      border: 1px solid #dfe6e1;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+      transition: all 0.18s ease;
+    }
+    .proposal-received-card:hover {
+      border-color: #bcd1c3;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+    .proposal-spec-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .proposal-bid-strip {
+      background: #f4faf6;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 12px 0;
+      display: flex;
+      gap: 18px;
+      font-size: 12px;
+    }
+    .proposal-cover-letter {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #2e3a32;
+      background: #fafbf9;
+      border-left: 3px solid var(--emerald);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0;
+      white-space: pre-wrap;
+    }
+
+    /* === REAL-TIME MESSAGING UX (WHATSAPP/INSTAGRAM INSPIRED) === */
+    .msg-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      position: relative;
+    }
+    .msg-bubble-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      position: relative;
+    }
+    .msg-bubble-row.me {
+      justify-content: flex-end;
+    }
+    .msg-bubble-row.them {
+      justify-content: flex-start;
+    }
+    .bubble-wrapper {
+      position: relative;
+      max-width: 75%;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .msg-bubble-row.me .bubble-wrapper {
+      flex-direction: row-reverse;
+    }
+    .bubble {
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.45;
+      word-break: break-word;
+      position: relative;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: background 0.15s ease;
+    }
+    .bubble.them {
+      background: #ffffff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-bottom-left-radius: 4px;
+    }
+    .bubble.me {
+      background: var(--forest);
+      color: #ffffff;
+      border-bottom-right-radius: 4px;
+    }
+    .bubble.sending {
+      opacity: 0.75;
+    }
+    .msg-meta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      font-size: 10px;
+      margin-top: 4px;
+      user-select: none;
+    }
+    .bubble.them .msg-meta {
+      justify-content: flex-start;
+      color: var(--muted);
+    }
+    .bubble.me .msg-meta {
+      color: #c0ead0;
+    }
+    .msg-time {
+      font-size: 10px;
+      opacity: 0.85;
+    }
+    .msg-status-tick {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .msg-status-tick.sending {
+      font-size: 10px;
+      opacity: 0.8;
+      animation: msgPulse 1.2s infinite ease-in-out;
+    }
+    .msg-status-tick.sent {
+      color: #c0ead0;
+    }
+    .msg-status-tick.delivered {
+      color: #c0ead0;
+    }
+    .msg-status-tick.seen {
+      color: #60c5ff; /* WhatsApp blue double-tick on dark bubble */
+      font-weight: 800;
+    }
+    @keyframes msgPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    /* Message Action Menu */
+    .msg-menu-btn {
+      opacity: 0;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 4px 6px;
+      border-radius: 6px;
+      font-size: 14px;
+      line-height: 1;
+      transition: opacity 0.15s ease, background 0.15s ease;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+    .msg-bubble-row:hover .msg-menu-btn,
+    .msg-menu-btn:focus,
+    .msg-menu-btn.active {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .msg-action-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      z-index: 100;
+      min-width: 140px;
+      padding: 4px;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .msg-bubble-row.them .msg-action-menu {
+      right: auto;
+      left: 0;
+    }
+    .msg-action-menu.open {
+      display: flex;
+    }
+    .msg-action-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 550;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      box-sizing: border-box;
+      transition: background 0.12s ease;
+    }
+    .msg-action-item:hover {
+      background: #f4faf6;
+      color: var(--forest);
+    }
+    .msg-action-item.danger {
+      color: #c53030;
+    }
+    .msg-action-item.danger:hover {
+      background: #fff5f5;
+    }
+    @media (max-width: 768px) {
+      .msg-menu-btn {
+        opacity: 0.65;
+      }
+      .bubble-wrapper {
+        max-width: 86%;
+      }
+    }
   </style>
+
 </head>
 
 <body>
@@ -6292,6 +6588,21 @@
       </div>
     </div>
 
+    <div class="modal-backdrop" id="confirmAcceptProposalModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmAcceptTitle" style="max-width:480px;">
+        <button class="modal-close" data-close-modal aria-label="Close">×</button>
+        <span class="section-kicker" style="color:var(--green);font-weight:700;">HIRE SPECIALIST</span>
+        <h2 id="confirmAcceptTitle" style="font-size:22px;margin:8px 0 12px;color:var(--forest);">Accept Proposal &amp; Hire</h2>
+        <div id="confirmAcceptBody" style="font-size:14px;color:var(--ink);line-height:1.5;margin-bottom:20px;">
+          <!-- dynamic content -->
+        </div>
+        <div style="display:flex;gap:12px;justify-content:flex-end;">
+          <button class="btn btn-outline" data-close-modal style="padding:10px 18px;">Cancel</button>
+          <button id="btnConfirmAcceptSubmit" class="btn btn-primary" style="background:var(--green);padding:10px 22px;color:#fff;">Confirm &amp; Hire</button>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-backdrop" id="onboardingModal" aria-hidden="true">
       <div class="modal wide-modal onboarding-modal" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
         <button class="modal-close" data-close-modal aria-label="Close">×</button><span class="section-kicker">Start
@@ -6804,12 +7115,19 @@
           if (b.dataset.route) b.setAttribute('aria-current', b.dataset.route === name ? 'page' : 'false');
         });
         window.scrollTo(0, 0);
+        // Safety: always release any stuck modal/overflow when routing
+        closeModals();
 
         const dashViews = ['dashboard', 'contract', 'wallet', 'messages', 'disputes', 'admin'];
         if ($('#siteFooter')) $('#siteFooter').style.display = dashViews.includes(name) ? 'none' : '';
         if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && dashViews.includes(name)) ? 'grid' : 'none';
         if ($('#mobileMenuPanel')) $('#mobileMenuPanel').classList.remove('open');
         if ($('#menuButton')) $('#menuButton').setAttribute('aria-expanded', 'false');
+
+        if (name !== 'messages' && window._msgPollTimer) {
+          clearInterval(window._msgPollTimer);
+          window._msgPollTimer = null;
+        }
 
         if (name === 'jobs') loadJobsFromAPI();
         if (name === 'talent') renderTalent();
@@ -6971,14 +7289,320 @@
         state.currentJob = i;
         const j = jobs[i];
         if (!j) return;
-        $('#jobDetailMain').innerHTML = `<h1>${escHtml(j.title)}</h1><p>${escHtml(j.description)}</p>`;
-        $('#jobDetailSide').innerHTML = `<button class="btn btn-primary" id="applyBtn" onclick="openProposal()">Apply</button><button class="btn btn-outline" id="messageClientBtn">Message Client</button>`;
-        
-        $('#messageClientBtn').onclick = () => {
-          if (!getToken()) { toast('Log in first.'); openModal('#authModal'); return; }
-          route('messages', { id: j.clientId, name: j.clientName, role: 'Client' });
-        };
+        state.currentJobId = j.id || null;
+
+        const user = getUser();
+        const isJobOwner = user && (user.id === j.clientId || user.id === (j.client?.id || j.clientId));
+        const isSpecialist = user?.role === 'SPECIALIST';
+
+        let jobProposals = [];
+        if (isJobOwner && j.id) {
+          try {
+            const pr = await apiAuth('/proposals/job/' + j.id);
+            if (pr.ok && Array.isArray(pr.data)) jobProposals = pr.data;
+          } catch (e) {}
+        }
+
+        let myProposal = null;
+        if (isSpecialist && j.id) {
+          try {
+            const myPr = await apiAuth('/proposals/me');
+            if (myPr.ok && Array.isArray(myPr.data)) {
+              myProposal = myPr.data.find(p => p.jobId === j.id && p.status !== 'WITHDRAWN');
+            }
+          } catch (e) {}
+        }
+
+        // Parse description into structured sections if headings exist (e.g. Requirements, Responsibilities)
+        const descText = String(j.description || '').trim();
+        const descParagraphs = descText.split(/\n\s*\n/).filter(Boolean);
+
+        let sectionsHtml = '';
+        if (descParagraphs.length > 1) {
+          sectionsHtml = descParagraphs.map((para, idx) => {
+            const lines = para.split('\n').map(l => l.trim()).filter(Boolean);
+            const firstLine = lines[0] || '';
+            const isHeading = firstLine.endsWith(':') || firstLine.length < 40 && /^(Requirements|Responsibilities|Eligibility|Skills|Scope|Deliverables|About|Details)/i.test(firstLine);
+            if (isHeading && lines.length > 1) {
+              const headingText = firstLine.replace(/:$/, '');
+              const bodyLines = lines.slice(1).map(l => `<p style="margin:4px 0;line-height:1.6;color:#3d4840;">${escHtml(l)}</p>`).join('');
+              return `
+                <div class="job-section-card">
+                  <h3 class="job-section-header">${escHtml(headingText)}</h3>
+                  ${bodyLines}
+                </div>`;
+            }
+            return `
+              <div class="job-section-card">
+                ${idx === 0 ? '<h3 class="job-section-header">Project Overview</h3>' : ''}
+                <p style="margin:0;line-height:1.7;color:#3d4840;white-space:pre-wrap;">${escHtml(para)}</p>
+              </div>`;
+          }).join('');
+        } else {
+          sectionsHtml = `
+            <div class="job-section-card">
+              <h3 class="job-section-header">Project Overview</h3>
+              <p style="margin:0;line-height:1.7;color:#3d4840;white-space:pre-wrap;">${escHtml(descText || 'No description provided.')}</p>
+            </div>`;
+        }
+
+        // Skills badges (only if real skills array exists)
+        let skillsHtml = '';
+        if (Array.isArray(j.skills) && j.skills.length > 0) {
+          skillsHtml = `
+            <div class="job-section-card">
+              <h3 class="job-section-header">Required Skills &amp; Technologies</h3>
+              <div class="skill-row">
+                ${j.skills.map(s => `<span class="skill" style="font-size:12px;padding:6px 12px;">${escHtml(s)}</span>`).join('')}
+              </div>
+            </div>`;
+        }
+
+        // SafePay & Protection information
+        const protectionHtml = `
+          <div class="job-section-card" style="background:#f8fcf9;border-color:#d4eedc;">
+            <h3 class="job-section-header" style="color:#087335;">&#9670; Paklance SafePay&trade; Protection</h3>
+            <p style="margin:0;font-size:13px;line-height:1.6;color:#2c4033;">
+              Before protected work begins, the client funds an agreed milestone into escrow. Funds are securely released upon milestone approval with resolution support available.
+            </p>
+          </div>`;
+
+        // Proposals Received Section (visible only to the Client owner)
+        let proposalsListHtml = '';
+        if (isJobOwner) {
+          const hasAcceptedProposal = jobProposals.some(p => p.status === 'ACCEPTED');
+
+          const propRows = jobProposals.map(p => {
+            const spec = p.User || {};
+            const specName = spec.name || spec.email?.split('@')[0] || 'Specialist';
+            const specInitials = specName.slice(0, 2).toUpperCase();
+            const specHeadline = spec.headline || 'Verified Specialist';
+            const specCity = spec.city || spec.country || 'Pakistan';
+
+            let statusBadge = `<span class="badge ${p.status === 'ACCEPTED' ? 'verified' : ''}">${escHtml(p.status)}</span>`;
+            if (p.status === 'ACCEPTED') {
+              statusBadge = `<span class="badge verified" style="font-weight:700;padding:4px 10px;">&#10003; Accepted &amp; Hired</span>`;
+            } else if (p.status === 'REJECTED') {
+              statusBadge = `<span class="badge" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5;font-weight:600;padding:4px 10px;">&#10005; Rejected</span>`;
+            }
+
+            let actionsHtml = '';
+            if (p.status === 'ACCEPTED') {
+              actionsHtml = `
+                <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message Specialist</button>
+              `;
+            } else if (p.status === 'REJECTED') {
+              actionsHtml = `
+                <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message</button>
+              `;
+            } else {
+              // PENDING
+              if (!hasAcceptedProposal) {
+                actionsHtml = `
+                  <button class="btn btn-primary accept-proposal-action" style="font-size:12px;padding:8px 16px;background:var(--green);color:#fff;" data-prop-id="${escHtml(p.id)}" data-spec-name="${escHtml(specName)}" data-amount="${escHtml(p.bidAmount)}" data-delivery="${p.deliveryDays}">&#10003; Accept Proposal</button>
+                  <button class="btn btn-outline reject-proposal-action" style="font-size:12px;padding:8px 14px;color:#c53030;border-color:#e2b4b4;" data-prop-id="${escHtml(p.id)}" data-spec-name="${escHtml(specName)}">&#10005; Reject</button>
+                  <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message</button>
+                `;
+              } else {
+                actionsHtml = `
+                  <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message</button>
+                `;
+              }
+            }
+
+            return `
+              <div class="proposal-received-card" id="proposalCard_${escHtml(p.id)}">
+                <div class="proposal-spec-head">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <span class="avatar" style="width:40px;height:40px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;">${escHtml(specInitials)}</span>
+                    <div>
+                      <strong style="font-size:15px;color:var(--forest);display:block;">${escHtml(specName)}</strong>
+                      <span style="font-size:12px;color:var(--muted);">${escHtml(specHeadline)} &middot; ${escHtml(specCity)}</span>
+                    </div>
+                  </div>
+                  ${statusBadge}
+                </div>
+                <div class="proposal-bid-strip">
+                  <div><small style="color:var(--muted);display:block;">Proposed Price</small><strong style="color:var(--forest);font-size:14px;">${money(p.bidAmount)}</strong></div>
+                  <div><small style="color:var(--muted);display:block;">Delivery Time</small><strong>${p.deliveryDays} days</strong></div>
+                  <div><small style="color:var(--muted);display:block;">Submitted</small><span>${timeAgo(p.createdAt)}</span></div>
+                </div>
+                <div class="proposal-cover-letter">${escHtml(p.coverLetter)}</div>
+                <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center;">
+                  ${actionsHtml}
+                </div>
+              </div>`;
+          }).join('');
+
+          proposalsListHtml = `
+            <div class="job-section-card" style="border-color:#b8dcbf;">
+              <h3 class="job-section-header" style="color:var(--forest);">Proposals Received (${jobProposals.length})</h3>
+              ${jobProposals.length ? propRows : '<div class="empty-state" style="padding:24px;border-radius:12px;"><p style="margin:0;color:var(--muted);font-size:13px;">No proposals received yet. Specialists will submit bids here.</p></div>'}
+            </div>`;
+        }
+
+        // Main content assembly
+        $('#jobDetailMain').innerHTML = `
+          <div class="job-section-card" style="margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+              <span class="micro-label" style="color:var(--green);font-size:11px;font-weight:800;">JOB LISTING</span>
+              <span class="badge verified">&#10003; Active Post</span>
+            </div>
+            <h1 style="font-size:28px;margin:8px 0 10px;letter-spacing:-0.5px;color:var(--forest);">${escHtml(j.title)}</h1>
+            <div class="job-pills-row">
+              <span class="job-info-pill">&#128176; ${money(j.budget)} Fixed Budget</span>
+              <span class="job-info-pill">&#128197; Posted ${timeAgo(j.createdAt)}</span>
+              <span class="job-info-pill">&#128101; ${isJobOwner ? jobProposals.length : (j._count?.Proposal ?? 0)} proposals</span>
+            </div>
+          </div>
+          ${sectionsHtml}
+          ${skillsHtml}
+          ${protectionHtml}
+          ${proposalsListHtml}`;
+
+        // Sidebar action button logic
+        let applyBtnHtml = '';
+        if (isSpecialist) {
+          if (myProposal) {
+            applyBtnHtml = `
+              <div style="background:#eaf6ee;border:1px solid #d3eadc;color:#087335;border-radius:10px;padding:12px;text-align:center;font-weight:750;font-size:13px;margin-bottom:8px;">
+                &#10003; Proposal Submitted (${money(myProposal.bidAmount)})
+              </div>`;
+          } else {
+            applyBtnHtml = `<button class="btn btn-primary btn-full" id="applyBtn" onclick="openProposal()">Apply Now</button>`;
+          }
+          applyBtnHtml += `<button class="btn btn-outline btn-full" id="messageClientBtn" style="margin-top:8px;">&#9993; Message Client</button>`;
+        } else if (isJobOwner) {
+          applyBtnHtml = `
+            <div style="background:#f4faf6;border:1px solid #d8ebd0;color:#074b25;border-radius:10px;padding:12px;text-align:center;font-weight:750;font-size:13px;">
+              &#9881; Your Job Post &middot; ${jobProposals.length} Proposals
+            </div>`;
+        } else {
+          applyBtnHtml = `
+            <button class="btn btn-primary btn-full" id="applyBtn" onclick="openProposal()">Apply Now</button>
+            <button class="btn btn-outline btn-full" id="messageClientBtn" style="margin-top:8px;">&#9993; Message Client</button>`;
+        }
+
+        const clientName = j.clientName || j.client?.name || 'Client';
+        const clientInitials = clientName.slice(0, 2).toUpperCase();
+
+        $('#jobDetailSide').innerHTML = `
+          <div class="side-card">
+            <span class="micro-label">PROJECT BUDGET</span>
+            <div class="big-budget" style="margin:4px 0 12px;font-size:26px;font-weight:900;color:var(--forest);">${money(j.budget)}</div>
+            <div class="side-list">
+              <div><span>Project Type</span><strong>Fixed price</strong></div>
+              <div><span>Posted</span><strong>${timeAgo(j.createdAt)}</strong></div>
+              <div><span>Proposals</span><strong>${isJobOwner ? jobProposals.length : (j._count?.Proposal ?? 0)}</strong></div>
+            </div>
+            ${applyBtnHtml}
+          </div>
+          <div class="side-card">
+            <h3 style="font-size:15px;margin:0 0 12px;color:var(--forest);">About the client</h3>
+            <div class="client-card-head" style="margin-bottom:12px;">
+              <span class="avatar" style="width:38px;height:38px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px;">${escHtml(clientInitials)}</span>
+              <div>
+                <strong>${escHtml(clientName)}</strong>
+                <small style="color:var(--muted);">Pakistan</small>
+              </div>
+            </div>
+            <div class="side-list">
+              <div><span>Identity</span><strong style="color:#087335;">&#10003; Verified</strong></div>
+              <div><span>SafePay</span><strong style="color:#087335;">&#10003; Enabled</strong></div>
+            </div>
+          </div>`;
+
+        const msgBtn = $('#messageClientBtn');
+        if (msgBtn) {
+          msgBtn.onclick = () => {
+            if (!getToken()) { toast('Please log in first.'); openModal('#authModal'); return; }
+            route('messages', { id: j.clientId || j.client?.id, name: clientName, role: 'Client' });
+          };
+        }
+
+        // Proposal accept & reject event wiring
+        $$('.accept-proposal-action').forEach(btn => {
+          btn.onclick = () => {
+            const propId = btn.dataset.propId;
+            const specName = btn.dataset.specName;
+            const amount = btn.dataset.amount;
+            const days = btn.dataset.delivery;
+
+            const modalBody = $('#confirmAcceptBody');
+            if (modalBody) {
+              modalBody.innerHTML = `
+                <div style="background:#f4fbf6;border:1px solid #c9ebd4;border-radius:10px;padding:16px;margin-bottom:16px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                    <span style="color:var(--muted);font-size:13px;">Specialist:</span>
+                    <strong style="color:var(--forest);font-size:14px;">${escHtml(specName)}</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                    <span style="color:var(--muted);font-size:13px;">Proposed Bid:</span>
+                    <strong style="color:var(--green);font-size:15px;">${money(amount)}</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;">
+                    <span style="color:var(--muted);font-size:13px;">Delivery:</span>
+                    <strong style="color:var(--forest);font-size:13px;">${days} days</strong>
+                  </div>
+                </div>
+                <p style="margin:0;font-size:13px;color:var(--ink);">
+                  Accepting this proposal hires <strong>${escHtml(specName)}</strong> for this project. Remaining pending proposals for this job will be closed.
+                </p>
+              `;
+            }
+
+            const submitBtn = $('#btnConfirmAcceptSubmit');
+            if (submitBtn) {
+              submitBtn.onclick = async () => {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Accepting...';
+                try {
+                  const res = await apiAuth(`/proposals/${propId}/accept`, { method: 'PATCH' });
+                  if (res.ok) {
+                    toast('✔ Proposal accepted! Specialist hired.');
+                    closeModal();
+                    await renderJobDetail(i);
+                  } else {
+                    toast(res.data?.message || 'Failed to accept proposal.');
+                  }
+                } catch (err) {
+                  toast('Error accepting proposal: ' + err.message);
+                } finally {
+                  submitBtn.disabled = false;
+                  submitBtn.innerHTML = 'Confirm &amp; Hire';
+                }
+              };
+            }
+
+            openModal('#confirmAcceptProposalModal');
+          };
+        });
+
+        $$('.reject-proposal-action').forEach(btn => {
+          btn.onclick = async () => {
+            const propId = btn.dataset.propId;
+            const specName = btn.dataset.specName;
+            if (!confirm(`Are you sure you want to reject the proposal from ${specName}?`)) return;
+
+            btn.disabled = true;
+            btn.innerHTML = 'Rejecting...';
+            try {
+              const res = await apiAuth(`/proposals/${propId}/reject`, { method: 'PATCH' });
+              if (res.ok) {
+                toast('Proposal rejected.');
+                await renderJobDetail(i);
+              } else {
+                toast(res.data?.message || 'Failed to reject proposal.');
+              }
+            } catch (err) {
+              toast('Error rejecting proposal: ' + err.message);
+            } finally {
+              btn.disabled = false;
+            }
+          };
+        });
       }
+
 
       // === 14. FREELANCER PROFILE (real API only) ===
       async function renderProfile(i, userId) {
@@ -7186,6 +7810,10 @@
       async function renderContract() {
         const s = $('#clientSidebar');
         if (s) { s.innerHTML = dashNav('contract'); if ($('#sidePostJob')) $('#sidePostJob').onclick = openPostJob; }
+
+        // Stop any prior contract message poll
+        if (window._contractMsgPoll) { clearInterval(window._contractMsgPoll); window._contractMsgPoll = null; }
+
         let contracts = [];
         try {
           const r = await apiAuth('/contracts');
@@ -7199,6 +7827,7 @@
         const c = contracts[0];
         const user = getUser();
         const isClient = user?.role === 'CLIENT' || c.clientId === user?.id;
+        const myId = user?.id;
 
         const milestonesHtml = (c.milestones || []).map((m, i) => {
           const isFunded = m.status === 'FUNDED';
@@ -7219,6 +7848,11 @@
             </div>`;
         }).join('') || '<p style="color:var(--muted);font-size:12px">No milestones defined.</p>';
 
+        // Determine the other party for messaging
+        const otherParty = isClient
+          ? (c.specialist || { id: c.specialistId, name: 'Specialist', role: 'SPECIALIST' })
+          : (c.client || { id: c.clientId, name: 'Client', role: 'CLIENT' });
+
         if ($('#contractPage')) $('#contractPage').innerHTML = `
           <div class="contract-topbar">
             <div><span class="micro-label">CONTRACT &middot; ${c.status}</span><h1>${escHtml(c.job?.title || 'Contract')}</h1><p>Started ${c.createdAt ? new Date(c.createdAt).toLocaleDateString() : '&mdash;'}</p></div>
@@ -7229,7 +7863,9 @@
             <button data-tab="messages">Messages</button>
             <button data-tab="files">Files</button>
           </div>
-          <div class="contract-layout">
+
+          <!-- OVERVIEW TAB -->
+          <div id="contractTabOverview" class="contract-layout">
             <div>
               <section class="workspace-card">
                 <div class="dash-card-head"><h3>Milestones</h3><span class="micro-label">${c.status}</span></div>
@@ -7243,19 +7879,296 @@
                 <div class="side-list">
                   <div><span>Contract Status</span><strong>${c.status}</strong></div>
                   <div><span>Escrow Balance</span><strong>${money(c.escrow?.balance || 0)}</strong></div>
+                  <div><span>Client</span><strong>${escHtml(c.client?.name || c.client?.email || '—')}</strong></div>
+                  <div><span>Specialist</span><strong>${escHtml(c.specialist?.name || c.specialist?.headline || c.specialist?.email || '—')}</strong></div>
                 </div>
                 <button class="btn btn-light btn-full" id="openDisputeFromContract">Need help with a milestone?</button>
               </section>
             </aside>
+          </div>
+
+          <!-- MESSAGES TAB -->
+          <div id="contractTabMessages" style="display:none;">
+            <section class="workspace-card" style="padding:0;overflow:hidden;">
+              <div style="padding:16px 20px;border-bottom:1px solid #e8ede9;display:flex;align-items:center;gap:10px;">
+                <span style="width:36px;height:36px;border-radius:50%;background:var(--forest);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;">${escHtml((otherParty.name || 'U').slice(0,2).toUpperCase())}</span>
+                <div>
+                  <strong style="font-size:14px;display:block;">${escHtml(otherParty.name || otherParty.email || 'Contract Partner')}</strong>
+                  <small style="color:var(--muted);font-size:11px;">${escHtml(otherParty.role || '')}${otherParty.headline ? ' · ' + escHtml(otherParty.headline) : ''} — Private contract channel</small>
+                </div>
+              </div>
+              <div id="contractChatBody" style="height:340px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;background:#f8fbf9;">
+                <div style="text-align:center;color:var(--muted);font-size:12px;">Loading messages…</div>
+              </div>
+              <div style="padding:12px 16px;border-top:1px solid #e8ede9;display:flex;gap:8px;">
+                <input id="contractChatInput" placeholder="Write a message to ${escHtml(otherParty.name || 'your partner')}…" style="flex:1;padding:10px 14px;border:1px solid #d1dbd3;border-radius:10px;font-size:13px;outline:none;" />
+                <button class="btn btn-primary" id="contractSendChat" style="padding:10px 18px;">Send</button>
+              </div>
+            </section>
+          </div>
+
+          <!-- FILES TAB -->
+          <div id="contractTabFiles" style="display:none;">
+            <section class="workspace-card">
+              <div class="dash-card-head">
+                <h3>Contract Files</h3>
+                <label class="btn btn-outline" for="contractFileInput" style="cursor:pointer;font-size:12px;padding:6px 12px;">&#128194; Upload File</label>
+              </div>
+              <input type="file" id="contractFileInput" style="display:none;" accept=".pdf,.doc,.docx,.txt,.zip,.png,.jpg,.jpeg,.webp" />
+              <div id="contractFileUploadStatus" style="display:none;padding:8px 12px;border-radius:8px;font-size:12px;margin-bottom:12px;"></div>
+              <div id="contractFilesList">
+                <div style="text-align:center;color:var(--muted);padding:24px;font-size:13px;">Loading files…</div>
+              </div>
+              <p style="margin:12px 0 0;font-size:11px;color:var(--muted);">Supported: PDF, DOC, DOCX, TXT, ZIP, PNG, JPG, WEBP · Max 5 MB · Only contract participants can access these files.</p>
+            </section>
           </div>`;
 
         $('#openDisputeFromContract')?.addEventListener('click', () => openModal('#disputeModal'));
+
+        // ── Tab switching ──
+        let _contractChatPollTimer = null;
+        function stopContractChatPoll() { if (_contractChatPollTimer) { clearInterval(_contractChatPollTimer); _contractChatPollTimer = null; } }
+        window._contractMsgPoll = null;
+
+        let _contractConvId = null;
+        let _contractMsgs = [];
+        const formatCTime = (s) => { try { const d = new Date(s); if (isNaN(d)) return ''; return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); } catch { return ''; } };
+
+        function renderContractMessages(msgs, scroll = true) {
+          const body = $('#contractChatBody');
+          if (!body) return;
+          const uid = getUser()?.id;
+          if (!msgs || msgs.length === 0) {
+            body.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:12px;padding:24px;">No messages yet. Say hello!</div>';
+            return;
+          }
+          body.innerHTML = msgs.map(m => {
+            const isMe = m.senderId === uid || (m._isSending && !m.senderId);
+            let tick = '';
+            if (isMe) {
+              if (m._isSending) tick = '<span style="font-size:10px;color:#aaa;margin-left:4px;">⏳</span>';
+              else if (m.isRead) tick = '<span style="font-size:10px;color:#4a90d9;margin-left:4px;" title="Seen">✓✓</span>';
+              else if (m.isDelivered) tick = '<span style="font-size:10px;color:#888;margin-left:4px;" title="Delivered">✓✓</span>';
+              else tick = '<span style="font-size:10px;color:#aaa;margin-left:4px;" title="Sent">✓</span>';
+            }
+            return `<div style="display:flex;justify-content:${isMe?'flex-end':'flex-start'};margin-bottom:4px;">
+              <div style="max-width:72%;background:${isMe?'var(--forest)':'#fff'};color:${isMe?'#fff':'var(--ink)'};border-radius:${isMe?'14px 14px 4px 14px':'14px 14px 14px 4px'};padding:8px 12px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:13px;line-height:1.4;">
+                <div style="white-space:pre-wrap;">${escHtml(m.content)}</div>
+                <div style="display:flex;align-items:center;justify-content:flex-end;gap:2px;margin-top:3px;">
+                  <span style="font-size:10px;opacity:.65;">${formatCTime(m.createdAt)}</span>${tick}
+                </div>
+              </div>
+            </div>`;
+          }).join('');
+          if (scroll) body.scrollTop = body.scrollHeight;
+        }
+
+        async function loadContractMessages(forceScroll = true) {
+          if (!_contractConvId) {
+            // Find or create conversation with the other party
+            try {
+              const r = await apiAuth('/messaging/conversations');
+              if (r.ok && Array.isArray(r.data)) {
+                const existing = r.data.find(cv =>
+                  cv.otherUser?.id === otherParty.id ||
+                  cv.participant1Id === otherParty.id ||
+                  cv.participant2Id === otherParty.id
+                );
+                if (existing) { _contractConvId = existing.id; }
+              }
+            } catch {}
+          }
+          if (!_contractConvId) {
+            $('#contractChatBody').innerHTML = '<div style="text-align:center;color:var(--muted);font-size:12px;padding:24px;">Write a message below to start the conversation.</div>';
+            return;
+          }
+          try {
+            const r = await apiAuth(`/messaging/conversations/${_contractConvId}/messages`);
+            if (r.ok && Array.isArray(r.data)) {
+              _contractMsgs = r.data;
+              renderContractMessages(_contractMsgs, forceScroll);
+            }
+          } catch {}
+        }
+
+        async function sendContractMessage() {
+          const input = $('#contractChatInput');
+          const content = input?.value.trim();
+          if (!content || !otherParty?.id) return;
+          const sendBtn = $('#contractSendChat');
+          if (sendBtn) sendBtn.disabled = true;
+          const uid = getUser()?.id;
+          const temp = { id: 'temp_'+Date.now(), content, senderId: uid, isRead:false, isDelivered:false, createdAt: new Date().toISOString(), _isSending: true };
+          _contractMsgs.push(temp);
+          renderContractMessages(_contractMsgs, true);
+          if (input) input.value = '';
+          try {
+            const res = await apiAuth('/messaging/send', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ receiverId: otherParty.id, content })
+            });
+            if (res.ok) {
+              // Refresh conversation ID and messages
+              const r2 = await apiAuth('/messaging/conversations');
+              if (r2.ok && Array.isArray(r2.data)) {
+                const found = r2.data.find(cv =>
+                  cv.otherUser?.id === otherParty.id ||
+                  cv.participant1Id === otherParty.id ||
+                  cv.participant2Id === otherParty.id
+                );
+                if (found) { _contractConvId = found.id; }
+              }
+              await loadContractMessages(false);
+            } else {
+              _contractMsgs = _contractMsgs.filter(m => m.id !== temp.id);
+              renderContractMessages(_contractMsgs, false);
+              toast(res.data?.message || 'Could not send message.');
+            }
+          } catch {
+            _contractMsgs = _contractMsgs.filter(m => m.id !== temp.id);
+            renderContractMessages(_contractMsgs, false);
+            toast('Network error sending message.');
+          } finally {
+            if (sendBtn) sendBtn.disabled = false;
+          }
+        }
+
+        // ── File helpers ──
+        function formatBytes(b) {
+          if (b < 1024) return b + ' B';
+          if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+          return (b/1048576).toFixed(1) + ' MB';
+        }
+
+        async function loadContractFiles() {
+          const list = $('#contractFilesList');
+          if (!list) return;
+          try {
+            const r = await apiAuth(`/contracts/${c.id}/files`);
+            if (r.ok && Array.isArray(r.data) && r.data.length > 0) {
+              list.innerHTML = r.data.map(f => `
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f4f1;">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#eaf4ed;color:var(--forest);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📄</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${escHtml(f.originalName)}">${escHtml(f.originalName)}</div>
+                    <div style="font-size:11px;color:var(--muted);">By ${escHtml(f.uploader?.name || f.uploader?.email || 'Unknown')} · ${formatBytes(f.fileSize)} · ${new Date(f.createdAt).toLocaleDateString()}</div>
+                  </div>
+                  <button class="btn btn-outline contract-file-dl-btn" data-file-id="${escHtml(f.id)}" data-filename="${escHtml(f.originalName)}" style="font-size:11px;padding:5px 10px;flex-shrink:0;">↓ Download</button>
+                </div>`).join('');
+
+              $$('.contract-file-dl-btn', list).forEach(btn => {
+                btn.onclick = async () => {
+                  const fid = btn.dataset.fileId;
+                  const fname = btn.dataset.filename;
+                  try {
+                    const r2 = await apiAuth(`/contracts/${c.id}/files/${fid}`);
+                    if (r2.ok && r2.data?.fileData) {
+                      const a = document.createElement('a');
+                      a.href = r2.data.fileData;
+                      a.download = fname;
+                      a.click();
+                    } else { toast('Could not retrieve file.'); }
+                  } catch { toast('Network error downloading file.'); }
+                };
+              });
+            } else if (r.ok) {
+              list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:24px;font-size:13px;">No files uploaded yet. Upload the first file above.</div>';
+            } else {
+              list.innerHTML = '<div style="text-align:center;color:var(--danger);padding:24px;font-size:13px;">Failed to load files.</div>';
+            }
+          } catch {
+            list.innerHTML = '<div style="text-align:center;color:var(--danger);padding:24px;font-size:13px;">Network error loading files.</div>';
+          }
+        }
+
+        // ── Tab switching wiring ──
         $$('#contractTabs button').forEach(btn => {
           btn.onclick = () => {
             $$('#contractTabs button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            if (btn.dataset.tab !== 'overview') toast(`${btn.textContent.trim()} view coming soon.`);
+            const tab = btn.dataset.tab;
+            $('#contractTabOverview').style.display = tab === 'overview' ? '' : 'none';
+            $('#contractTabMessages').style.display = tab === 'messages' ? '' : 'none';
+            $('#contractTabFiles').style.display = tab === 'files' ? '' : 'none';
+
+            if (tab === 'messages') {
+              loadContractMessages(true);
+              // Poll for new messages while on the messages tab
+              stopContractChatPoll();
+              _contractChatPollTimer = setInterval(async () => {
+                const activeTab = document.querySelector('#contractTabs button.active');
+                if (activeTab?.dataset.tab !== 'messages') { stopContractChatPoll(); return; }
+                if (_contractConvId) {
+                  try {
+                    const r = await apiAuth(`/messaging/conversations/${_contractConvId}/messages`);
+                    if (r.ok && Array.isArray(r.data)) {
+                      const fresh = r.data;
+                      const changed = fresh.length !== _contractMsgs.length ||
+                        fresh.some((m, i) => m.isRead !== _contractMsgs[i]?.isRead || m.isDelivered !== _contractMsgs[i]?.isDelivered || m.id !== _contractMsgs[i]?.id);
+                      if (changed) { _contractMsgs = fresh; renderContractMessages(_contractMsgs, false); }
+                    }
+                  } catch {}
+                }
+              }, 2500);
+              window._contractMsgPoll = _contractChatPollTimer;
+            } else {
+              stopContractChatPoll();
+            }
+
+            if (tab === 'files') {
+              loadContractFiles();
+            }
           };
+        });
+
+        // Wire send button
+        $('#contractSendChat')?.addEventListener('click', sendContractMessage);
+        $('#contractChatInput')?.addEventListener('keydown', e => {
+          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendContractMessage(); }
+        });
+
+        // Wire file upload
+        $('#contractFileInput')?.addEventListener('change', async (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          const statusEl = $('#contractFileUploadStatus');
+          if (statusEl) { statusEl.style.display = 'block'; statusEl.style.background = '#eaf4ed'; statusEl.style.color = 'var(--forest)'; statusEl.textContent = `Uploading "${file.name}"…`; }
+
+          const MAX = 5 * 1024 * 1024;
+          if (file.size > MAX) { if (statusEl) { statusEl.style.background = '#fff0f0'; statusEl.style.color = 'var(--danger)'; statusEl.textContent = 'File exceeds 5 MB limit.'; } return; }
+
+          const allowedExts = ['.pdf','.doc','.docx','.txt','.zip','.png','.jpg','.jpeg','.webp'];
+          if (!allowedExts.some(ext => file.name.toLowerCase().endsWith(ext))) {
+            if (statusEl) { statusEl.style.background = '#fff0f0'; statusEl.style.color = 'var(--danger)'; statusEl.textContent = 'File type not supported.'; } return;
+          }
+
+          try {
+            const reader = new FileReader();
+            reader.onload = async (ev) => {
+              const fileData = ev.target.result; // data URI
+              try {
+                const res = await apiAuth(`/contracts/${c.id}/files`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ filename: file.name, mimeType: file.type, size: file.size, fileData })
+                });
+                if (res.ok) {
+                  if (statusEl) { statusEl.style.background = '#eaf4ed'; statusEl.textContent = `✔ "${file.name}" uploaded successfully.`; }
+                  await loadContractFiles();
+                  setTimeout(() => { if (statusEl) statusEl.style.display = 'none'; }, 3000);
+                } else {
+                  if (statusEl) { statusEl.style.background = '#fff0f0'; statusEl.style.color = 'var(--danger)'; statusEl.textContent = res.data?.message || 'Upload failed.'; }
+                }
+              } catch {
+                if (statusEl) { statusEl.style.background = '#fff0f0'; statusEl.style.color = 'var(--danger)'; statusEl.textContent = 'Network error uploading file.'; }
+              }
+            };
+            reader.readAsDataURL(file);
+          } catch {
+            if (statusEl) { statusEl.style.background = '#fff0f0'; statusEl.style.color = 'var(--danger)'; statusEl.textContent = 'Error reading file.'; }
+          }
+          e.target.value = ''; // reset so same file can be re-uploaded
         });
 
         $$('.fund-milestone-btn').forEach(btn => {
@@ -7676,23 +8589,48 @@
         };
       }
 
-      // === 18. MESSAGES (real API with Responsive Mobile View) ===
+      // === 18. MESSAGES (Real-Time Messaging with 2.5s Polling & Status States) ===
       async function renderMessages(targetUser = null) {
         const s = $('#messagesSidebar');
         if (s) { s.innerHTML = dashNav('messages'); if ($('#sidePostJob')) $('#sidePostJob').onclick = openPostJob; }
 
-        let conversations = [];
-        try {
-          const r = await apiAuth('/messaging/conversations');
-          if (r.ok) conversations = r.data || [];
-        } catch (e) {}
+        // Clear any prior poll timer
+        if (window._msgPollTimer) {
+          clearInterval(window._msgPollTimer);
+          window._msgPollTimer = null;
+        }
 
         const myUser = getUser();
         const myId = myUser?.id;
         const isMobile = window.innerWidth <= 768;
 
+        window._localDeletedMsgIds = window._localDeletedMsgIds || new Set();
+
+        let conversations = [];
         let activeConvId = null;
         let activeOtherUser = null;
+        let lastLoadedMessages = [];
+
+        function formatMsgTime(dateStr) {
+          if (!dateStr) return '';
+          try {
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) return '';
+            const now = new Date();
+            const isToday = d.toDateString() === now.toDateString();
+            const timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            if (isToday) return timeStr;
+            const monthStr = d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+            return `${monthStr}, ${timeStr}`;
+          } catch {
+            return '';
+          }
+        }
+
+        try {
+          const r = await apiAuth('/messaging/conversations');
+          if (r.ok) conversations = r.data || [];
+        } catch (e) {}
 
         if (targetUser && targetUser.id && targetUser.id !== myId) {
           const existing = conversations.find(c =>
@@ -7798,7 +8736,137 @@
           };
         }
 
-        async function loadMessages(convId, otherUser) {
+        function renderMessageList(msgs, forceScroll = false) {
+          const chatBody = $('#chatBody');
+          if (!chatBody) return;
+
+          const currentUserId = getUser()?.id;
+          const visibleMsgs = msgs.filter(m => !window._localDeletedMsgIds.has(m.id));
+
+          if (visibleMsgs.length === 0) {
+            chatBody.innerHTML = '<div style="text-align:center;color:var(--muted);padding:24px;font-size:13px;">No messages yet. Say hello!</div>';
+            return;
+          }
+
+          const wasNearBottom = (chatBody.scrollHeight - chatBody.scrollTop - chatBody.clientHeight) < 140;
+
+          chatBody.innerHTML = visibleMsgs.map(m => {
+            const isMe = m.senderId === currentUserId || m.senderId === 'me' || (m._isSending && !m.senderId);
+            let statusTickHtml = '';
+            if (isMe) {
+              if (m._isSending) {
+                statusTickHtml = '<span class="msg-status-tick sending" title="Sending...">⏳</span>';
+              } else if (m.isRead) {
+                statusTickHtml = '<span class="msg-status-tick seen" title="Seen">&#10003;&#10003;</span>';
+              } else if (m.isDelivered) {
+                statusTickHtml = '<span class="msg-status-tick delivered" title="Delivered">&#10003;&#10003;</span>';
+              } else {
+                statusTickHtml = '<span class="msg-status-tick sent" title="Sent">&#10003;</span>';
+              }
+            }
+
+            const actionsMenuHtml = `
+              <div class="msg-action-menu" id="menu_${escHtml(m.id)}">
+                <button class="msg-action-item copy-msg-btn" data-id="${escHtml(m.id)}">&#128203; Copy</button>
+                <button class="msg-action-item delete-me-msg-btn" data-id="${escHtml(m.id)}">&#128065; Delete for me</button>
+                ${isMe && !m._isSending ? `<button class="msg-action-item danger unsend-msg-btn" data-id="${escHtml(m.id)}">&#128465; Unsend</button>` : ''}
+              </div>`;
+
+            return `
+              <div class="msg-bubble-row ${isMe ? 'me' : 'them'}" id="msgRow_${escHtml(m.id)}">
+                <div class="bubble-wrapper">
+                  <div class="bubble ${isMe ? 'me' : 'them'} ${m._isSending ? 'sending' : ''}">
+                    <div class="msg-content" style="white-space:pre-wrap;">${escHtml(m.content)}</div>
+                    <div class="msg-meta">
+                      <span class="msg-time">${formatMsgTime(m.createdAt)}</span>
+                      ${statusTickHtml}
+                    </div>
+                  </div>
+                  <button class="msg-menu-btn" data-id="${escHtml(m.id)}" aria-label="Message options" title="Options">&#8942;</button>
+                  ${actionsMenuHtml}
+                </div>
+              </div>`;
+          }).join('');
+
+          // Wire action menu triggers
+          $$('.msg-menu-btn', chatBody).forEach(btn => {
+            btn.onclick = (e) => {
+              e.stopPropagation();
+              const id = btn.dataset.id;
+              const menu = $(`#menu_${id}`);
+              const isOpen = menu?.classList.contains('open');
+              $$('.msg-action-menu.open').forEach(m => m.classList.remove('open'));
+              $$('.msg-menu-btn.active').forEach(b => b.classList.remove('active'));
+              if (menu && !isOpen) {
+                menu.classList.add('open');
+                btn.classList.add('active');
+              }
+            };
+          });
+
+          // Wire Copy action
+          $$('.copy-msg-btn', chatBody).forEach(btn => {
+            btn.onclick = async (e) => {
+              e.stopPropagation();
+              const id = btn.dataset.id;
+              const target = visibleMsgs.find(m => m.id === id);
+              if (target && target.content) {
+                try {
+                  await navigator.clipboard.writeText(target.content);
+                  toast('✔ Message copied to clipboard');
+                } catch {
+                  toast('Copied message text');
+                }
+              }
+              $$('.msg-action-menu.open').forEach(m => m.classList.remove('open'));
+            };
+          });
+
+          // Wire Delete for me action
+          $$('.delete-me-msg-btn', chatBody).forEach(btn => {
+            btn.onclick = (e) => {
+              e.stopPropagation();
+              const id = btn.dataset.id;
+              window._localDeletedMsgIds.add(id);
+              toast('Message hidden for you.');
+              renderMessageList(lastLoadedMessages, false);
+            };
+          });
+
+          // Wire Unsend (Delete for everyone) action
+          $$('.unsend-msg-btn', chatBody).forEach(btn => {
+            btn.onclick = async (e) => {
+              e.stopPropagation();
+              const id = btn.dataset.id;
+              try {
+                const res = await apiAuth(`/messaging/messages/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                  toast('✔ Message unsent.');
+                  lastLoadedMessages = lastLoadedMessages.filter(m => m.id !== id);
+                  renderMessageList(lastLoadedMessages, false);
+                } else {
+                  toast(res.data?.message || 'Could not unsend message.');
+                }
+              } catch {
+                toast('Network error unsending message.');
+              }
+            };
+          });
+
+          if (forceScroll || wasNearBottom) {
+            chatBody.scrollTop = chatBody.scrollHeight;
+          }
+        }
+
+        // Close action menus when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.bubble-wrapper')) {
+            $$('.msg-action-menu.open').forEach(m => m.classList.remove('open'));
+            $$('.msg-menu-btn.active').forEach(b => b.classList.remove('active'));
+          }
+        });
+
+        async function loadMessages(convId, otherUser, forceScroll = true) {
           activeConvId = convId;
           activeOtherUser = otherUser;
 
@@ -7828,40 +8896,61 @@
             return;
           }
 
-          chatBody.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:12px;">Loading messages…</div>';
+          if (forceScroll && lastLoadedMessages.length === 0) {
+            chatBody.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:12px;">Loading messages…</div>';
+          }
 
           try {
             const r = await apiAuth(`/messaging/conversations/${convId}/messages`);
             if (r.ok) {
-              const msgs = r.data || [];
-              if (msgs.length === 0) {
-                chatBody.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:12px;">No messages yet. Say hello!</div>';
-              } else {
-                chatBody.innerHTML = msgs.map(m => `
-                  <div class="bubble ${m.senderId === myId ? 'me' : 'them'}">
-                    <div>${escHtml(m.content)}</div>
-                    <small>${timeAgo(m.createdAt)}</small>
-                  </div>
-                `).join('');
-              }
-              chatBody.scrollTop = chatBody.scrollHeight;
+              lastLoadedMessages = r.data || [];
+              renderMessageList(lastLoadedMessages, forceScroll);
             }
           } catch (e) {
-            chatBody.innerHTML = '<div style="text-align:center;color:var(--danger);padding:20px;font-size:12px;">Failed to load messages.</div>';
+            if (lastLoadedMessages.length === 0) {
+              chatBody.innerHTML = '<div style="text-align:center;color:var(--danger);padding:20px;font-size:12px;">Failed to load messages.</div>';
+            }
           }
         }
 
-        $$('#convListItems .conversation-item').forEach(item => {
-          item.onclick = () => {
-            const cId = item.dataset.convId;
-            const conv = conversations.find(c => c.id === cId);
-            if (conv) loadMessages(conv.id, conv.otherUser);
-          };
-        });
+        // Bind conversation item clicks
+        function bindConvClicks() {
+          $$('#convListItems .conversation-item').forEach(item => {
+            item.onclick = () => {
+              const cId = item.dataset.convId;
+              const conv = conversations.find(c => c.id === cId);
+              if (conv) loadMessages(conv.id, conv.otherUser, true);
+            };
+          });
+        }
+        bindConvClicks();
 
         if (activeConvId && activeOtherUser) {
-          loadMessages(activeConvId, activeOtherUser);
+          loadMessages(activeConvId, activeOtherUser, true);
         }
+
+        // Active 2.5-second background polling
+        window._msgPollTimer = setInterval(async () => {
+          if ($('.view.active')?.dataset.view !== 'messages') {
+            clearInterval(window._msgPollTimer);
+            window._msgPollTimer = null;
+            return;
+          }
+          if (activeConvId && !activeConvId.startsWith('draft_')) {
+            try {
+              const r = await apiAuth(`/messaging/conversations/${activeConvId}/messages`);
+              if (r.ok && Array.isArray(r.data)) {
+                const fresh = r.data;
+                const changed = fresh.length !== lastLoadedMessages.length ||
+                  fresh.some((m, idx) => m.isRead !== lastLoadedMessages[idx]?.isRead || m.id !== lastLoadedMessages[idx]?.id);
+                if (changed) {
+                  lastLoadedMessages = fresh;
+                  renderMessageList(lastLoadedMessages, false);
+                }
+              }
+            } catch {}
+          }
+        }, 2500);
 
         async function doSendMessage() {
           const input = $('#chatInput');
@@ -7875,6 +8964,20 @@
           const sendBtn = $('#sendChat');
           if (sendBtn) sendBtn.disabled = true;
 
+          // Optimistic local UI append
+          const currentUserId = getUser()?.id;
+          const tempMsg = {
+            id: 'temp_' + Date.now(),
+            content,
+            senderId: currentUserId || myId || 'me',
+            isRead: false,
+            createdAt: new Date().toISOString(),
+            _isSending: true
+          };
+          lastLoadedMessages.push(tempMsg);
+          renderMessageList(lastLoadedMessages, true);
+          if (input) input.value = '';
+
           try {
             const res = await apiAuth('/messaging/send', {
               method: 'POST',
@@ -7883,7 +8986,6 @@
             });
 
             if (res.ok) {
-              if (input) input.value = '';
               const ref = await apiAuth('/messaging/conversations');
               if (ref.ok && ref.data) {
                 conversations = ref.data;
@@ -7893,20 +8995,20 @@
                   c.participant2Id === activeOtherUser.id
                 );
                 if ($('#convListItems')) $('#convListItems').innerHTML = buildConvListHtml();
-                $$('#convListItems .conversation-item').forEach(item => {
-                  item.onclick = () => {
-                    const cId = item.dataset.convId;
-                    const conv = conversations.find(c => c.id === cId);
-                    if (conv) loadMessages(conv.id, conv.otherUser);
-                  };
-                });
-                if (updatedConv) loadMessages(updatedConv.id, updatedConv.otherUser);
+                bindConvClicks();
+                if (updatedConv) {
+                  await loadMessages(updatedConv.id, updatedConv.otherUser, false);
+                }
               }
             } else {
               toast(res.data?.message || 'Could not send message.');
+              lastLoadedMessages = lastLoadedMessages.filter(m => m.id !== tempMsg.id);
+              renderMessageList(lastLoadedMessages, false);
             }
           } catch (e) {
             toast('Network error sending message.');
+            lastLoadedMessages = lastLoadedMessages.filter(m => m.id !== tempMsg.id);
+            renderMessageList(lastLoadedMessages, false);
           } finally {
             if (sendBtn) sendBtn.disabled = false;
           }
@@ -8165,12 +9267,17 @@
           m.classList.remove('open');
           m.setAttribute('aria-hidden', 'true');
         });
+        // Always restore both body and html overflow so scroll is never stuck
         document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
         // Restore focus to the element that opened the modal
         if (_lastFocus && typeof _lastFocus.focus === 'function') {
           requestAnimationFrame(() => { try { _lastFocus.focus(); } catch(e){} });
         }
       }
+
+      // Singular alias — some call sites use closeModal() — both resolve correctly
+      function closeModal() { closeModals(); }
 
       function openNotifications() {
         const d = $('#notificationDrawer'), scr = $('#drawerScrim');
@@ -8263,6 +9370,7 @@
         const navActions = $('.nav-actions');
         if (!navActions) return;
         if (token) {
+          apiAuth('/messaging/sync-delivered', { method: 'POST' }).catch(() => {});
           if ($('#loginBtn')) $('#loginBtn').style.display = 'none';
           if ($('#signupBtn')) $('#signupBtn').style.display = 'none';
           if ($('#mobileLogin')) $('#mobileLogin').style.display = 'none';
@@ -8330,7 +9438,16 @@
         if (!getToken()) { toast('Please log in to post a job.'); openModal('#authModal'); return; }
         const user = getUser();
         if (user?.role === 'SPECIALIST') { toast('Only clients can post jobs.'); return; }
-        _wizardData = { title: '', description: '', budget: 85000, skills: '', duration: '2\u20133 weeks' };
+        _wizardData = {
+          title: '',
+          category: 'Development',
+          budget: 85000,
+          duration: '2–3 weeks',
+          skills: '',
+          description: '',
+          responsibilities: '',
+          requirements: ''
+        };
         wizardStep(1);
         openModal('#postJobModal');
       }
@@ -8341,32 +9458,164 @@
         prog.forEach((x, i) => x.classList.toggle('active', i < step));
         const w = $('#postJobWizard');
         if (!w) return;
-        if (step === 1) w.innerHTML = `<div class="wizard-head"><span class="section-kicker">Step 1 of 4</span><h2 id="postJobTitle">What do you need done?</h2><p>Start with a clear title. You can refine the scope before publishing.</p></div><label>Job title<input id="wizTitle" value="${escHtml(_wizardData.title || 'Build a responsive ecommerce website')}" /></label><div class="wizard-options">${['Development', 'Design', 'Marketing', 'Writing'].map((x, i) => `<button class="option-card ${i === 0 ? 'selected' : ''}"><strong>${x}</strong><small>Choose the closest category</small></button>`).join('')}</div><div class="wizard-actions"><button class="btn btn-primary" id="wizNext">Continue</button></div>`;
-        if (step === 2) w.innerHTML = `<div class="wizard-head"><span class="section-kicker">Step 2 of 4</span><h2>Set the budget &amp; timeline</h2><p>Use PKR so expectations are clear from the start.</p></div><label>Budget (PKR)<input id="wizBudget" value="${_wizardData.budget || 85000}" inputmode="numeric" /></label><label>Expected duration<select id="wizDuration"><option>2&ndash;3 weeks</option><option>Less than 1 week</option><option>1 month</option><option>Ongoing</option></select></label><div class="wizard-actions"><button class="btn btn-outline" id="wizBack">Back</button><button class="btn btn-primary" id="wizNext">Continue</button></div>`;
-        if (step === 3) w.innerHTML = `<div class="wizard-head"><span class="section-kicker">Step 3 of 4</span><h2>Add skills &amp; description</h2><p>Skills improve matching. Describe your project scope clearly.</p></div><label>Skills<input id="wizSkills" value="${escHtml(_wizardData.skills || 'WordPress, WooCommerce')}" /></label><label>Project description<textarea id="wizDesc" rows="5">${escHtml(_wizardData.description || 'Describe what you need done...')}</textarea></label><div class="wizard-actions"><button class="btn btn-outline" id="wizBack">Back</button><button class="btn btn-primary" id="wizNext">Review</button></div>`;
-        if (step === 4) w.innerHTML = `<div class="wizard-head"><span class="section-kicker">Step 4 of 4</span><h2>Review your job</h2><p>This is how your job will appear to verified freelancers.</p></div><div class="proposal-summary"><h4>${escHtml(_wizardData.title || 'Ecommerce website')}</h4><p>${money(_wizardData.budget)} &middot; ${escHtml(_wizardData.duration || '2\u20133 weeks')}</p></div><div class="safe-banner"><div class="safe-icon">&#9670;</div><div><strong>SafePay protection enabled</strong><span>Fund milestones after hiring a specialist.</span></div></div><div class="wizard-actions"><button class="btn btn-outline" id="wizBack">Back</button><button class="btn btn-primary" id="publishJob">Publish Job</button></div>`;
+        if (step === 1) {
+          w.innerHTML = `
+            <div class="wizard-head">
+              <span class="section-kicker">Step 1 of 4</span>
+              <h2 id="postJobTitle">What do you need done?</h2>
+              <p>Start with a clear project title and category.</p>
+            </div>
+            <label>Job title
+              <input id="wizTitle" placeholder="e.g. Build a responsive ecommerce platform" value="${escHtml(_wizardData.title || '')}" />
+            </label>
+            <div class="wizard-options">
+              ${['Development', 'Design', 'Marketing', 'Writing', 'AI & Data'].map((x, i) =>
+                `<button type="button" class="option-card ${(_wizardData.category || 'Development') === x ? 'selected' : ''}" data-cat="${x}">
+                  <strong>${x}</strong>
+                  <small>Choose project category</small>
+                </button>`
+              ).join('')}
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-primary" id="wizNext">Continue</button>
+            </div>`;
+        }
+        if (step === 2) {
+          w.innerHTML = `
+            <div class="wizard-head">
+              <span class="section-kicker">Step 2 of 4</span>
+              <h2>Set budget &amp; timeline</h2>
+              <p>State your fixed budget in PKR and estimated duration.</p>
+            </div>
+            <label>Budget (PKR)
+              <input id="wizBudget" type="number" value="${_wizardData.budget || 85000}" min="1000" inputmode="numeric" />
+            </label>
+            <label>Expected duration
+              <select id="wizDuration">
+                <option ${(_wizardData.duration === 'Less than 1 week') ? 'selected' : ''}>Less than 1 week</option>
+                <option ${(!_wizardData.duration || _wizardData.duration === '2–3 weeks') ? 'selected' : ''}>2–3 weeks</option>
+                <option ${(_wizardData.duration === '1 month') ? 'selected' : ''}>1 month</option>
+                <option ${(_wizardData.duration === 'Ongoing / Long term') ? 'selected' : ''}>Ongoing / Long term</option>
+              </select>
+            </label>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-outline" id="wizBack">Back</button>
+              <button type="button" class="btn btn-primary" id="wizNext">Continue</button>
+            </div>`;
+        }
+        if (step === 3) {
+          w.innerHTML = `
+            <div class="wizard-head">
+              <span class="section-kicker">Step 3 of 4</span>
+              <h2>Scope, skills &amp; requirements</h2>
+              <p>Add technical requirements, skills, and deliverables.</p>
+            </div>
+            <label>Required Skills (comma-separated)
+              <input id="wizSkills" placeholder="e.g. React, Node.js, PostgreSQL" value="${escHtml(_wizardData.skills || '')}" />
+            </label>
+            <label>Project Description
+              <textarea id="wizDesc" rows="4" placeholder="Describe the overall scope and goals of the project...">${escHtml(_wizardData.description || '')}</textarea>
+            </label>
+            <label>Key Responsibilities (optional)
+              <textarea id="wizResp" rows="2" placeholder="e.g. Frontend UI build, API integrations, testing...">${escHtml(_wizardData.responsibilities || '')}</textarea>
+            </label>
+            <label>Requirements &amp; Eligibility (optional)
+              <textarea id="wizReqs" rows="2" placeholder="e.g. 2+ years experience, portfolio required...">${escHtml(_wizardData.requirements || '')}</textarea>
+            </label>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-outline" id="wizBack">Back</button>
+              <button type="button" class="btn btn-primary" id="wizNext">Review</button>
+            </div>`;
+        }
+        if (step === 4) {
+          w.innerHTML = `
+            <div class="wizard-head">
+              <span class="section-kicker">Step 4 of 4</span>
+              <h2>Review your job post</h2>
+              <p>Check the details before publishing to verified specialists.</p>
+            </div>
+            <div class="proposal-summary" style="background:#f4faf6;border:1px solid #d4ebd9;border-radius:12px;padding:16px;margin:14px 0;">
+              <h4 style="margin:0 0 6px;font-size:16px;color:var(--forest);">${escHtml(_wizardData.title || 'Untitled Job')}</h4>
+              <p style="margin:0 0 8px;font-size:13px;color:var(--muted);">${money(_wizardData.budget)} &middot; ${_wizardData.category || 'Development'} &middot; ${_wizardData.duration || '2–3 weeks'}</p>
+              ${_wizardData.skills ? `<p style="margin:4px 0;font-size:12px;"><strong>Skills:</strong> ${escHtml(_wizardData.skills)}</p>` : ''}
+              <p style="margin:6px 0 0;font-size:12px;color:#333;line-height:1.5;">${escHtml((_wizardData.description || '').slice(0, 150))}${(_wizardData.description || '').length > 150 ? '...' : ''}</p>
+            </div>
+            <div class="safe-banner">
+              <div class="safe-icon">&#9670;</div>
+              <div>
+                <strong>SafePay protection enabled</strong>
+                <span>Milestones are agreed and funded after choosing a specialist.</span>
+              </div>
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-outline" id="wizBack">Back</button>
+              <button type="button" class="btn btn-primary" id="publishJob">Publish Job</button>
+            </div>`;
+        }
 
         $('#wizNext')?.addEventListener('click', () => {
-          if (step === 1) { _wizardData.title = $('#wizTitle')?.value.trim() || ''; }
-          if (step === 2) { _wizardData.budget = Number($('#wizBudget')?.value) || 85000; _wizardData.duration = $('#wizDuration')?.value || '2\u20133 weeks'; }
-          if (step === 3) { _wizardData.skills = $('#wizSkills')?.value || ''; _wizardData.description = $('#wizDesc')?.value.trim() || ''; }
+          if (step === 1) {
+            const t = $('#wizTitle')?.value.trim();
+            if (!t) { toast('Please enter a job title'); return; }
+            _wizardData.title = t;
+            const selCat = $('.option-card.selected', w)?.dataset.cat;
+            if (selCat) _wizardData.category = selCat;
+          }
+          if (step === 2) {
+            _wizardData.budget = Number($('#wizBudget')?.value) || 85000;
+            _wizardData.duration = $('#wizDuration')?.value || '2–3 weeks';
+          }
+          if (step === 3) {
+            const desc = $('#wizDesc')?.value.trim();
+            if (!desc) { toast('Please provide a project description'); return; }
+            _wizardData.skills = $('#wizSkills')?.value.trim() || '';
+            _wizardData.description = desc;
+            _wizardData.responsibilities = $('#wizResp')?.value.trim() || '';
+            _wizardData.requirements = $('#wizReqs')?.value.trim() || '';
+          }
           wizardStep(step + 1);
         });
+
         $('#wizBack')?.addEventListener('click', () => wizardStep(step - 1));
         $('#publishJob')?.addEventListener('click', submitJob);
-        $$('.option-card', w).forEach(x => x.onclick = () => { $$('.option-card', w).forEach(y => y.classList.remove('selected')); x.classList.add('selected'); });
+
+        $$('.option-card', w).forEach(btn => {
+          btn.onclick = () => {
+            $$('.option-card', w).forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            if (btn.dataset.cat) _wizardData.category = btn.dataset.cat;
+          };
+        });
       }
 
       async function submitJob() {
-        const { title, description, budget } = _wizardData;
+        const { title, description, budget, skills, responsibilities, requirements, duration } = _wizardData;
         if (!title || !description || !budget) {
           toast('Please fill in job title, description and budget before publishing.');
           return;
         }
+
+        let fullDesc = description;
+        if (skills) {
+          fullDesc += `\n\nRequired Skills:\n${skills}`;
+        }
+        if (responsibilities) {
+          fullDesc += `\n\nResponsibilities:\n${responsibilities}`;
+        }
+        if (requirements) {
+          fullDesc += `\n\nRequirements:\n${requirements}`;
+        }
+        if (duration) {
+          fullDesc += `\n\nTimeline & Duration:\n${duration}`;
+        }
+
         const btn = $('#publishJob');
         if (btn) { btn.disabled = true; btn.textContent = 'Publishing\u2026'; }
         try {
-          const r = await apiAuth('/jobs', { method: 'POST', body: JSON.stringify({ title, description, budget: Number(budget) }) });
+          const r = await apiAuth('/jobs', {
+            method: 'POST',
+            body: JSON.stringify({ title, description: fullDesc, budget: Number(budget) })
+          });
           if (!r.ok) {
             const msg = Array.isArray(r.data?.message) ? r.data.message.join(', ') : (r.data?.message || 'Failed to post job.');
             toast(msg);
@@ -8374,7 +9623,7 @@
             return;
           }
           closeModals();
-          toast('Job published successfully!');
+          toast('\u2714 Job published successfully!');
           route('dashboard');
         } catch (e) {
           toast('Cannot reach the server. Is the backend running?');
@@ -8389,27 +9638,57 @@
         if (user?.role === 'CLIENT') { toast('Clients cannot submit proposals. Switch to a specialist account.'); return; }
         const j = jobs[state.currentJob];
         if (!j) return;
-        $('#proposalForm').innerHTML = `<div class="wizard-head"><span class="section-kicker">Submit proposal</span><h2 id="proposalTitle">Apply with a clear offer</h2><p>Your bid and delivery plan become part of the hiring conversation.</p></div><div class="proposal-summary"><h4>${escHtml(j.title)}</h4><p>${money(j.budget)} client budget &middot; ${escHtml(j.duration || '2\u20133 weeks')}</p></div><label>Your bid (PKR)<input id="propBid" value="${j.budget}" inputmode="numeric" /></label><label>Delivery time (days)<input id="propDays" value="14" inputmode="numeric" /></label><label>Cover note<textarea id="propCover" rows="6">I can deliver this with a milestone-based approach. I'll begin with a concise scope confirmation, then share progress inside the Paklance contract workspace.</textarea></label><button class="btn btn-primary btn-full" id="sendProposal">Submit proposal</button>`;
+        const jobId = j.id || state.currentJobId;
+        if (!jobId) { toast('Could not identify the selected job.'); return; }
+
+        $('#proposalForm').innerHTML = `
+          <div class="wizard-head">
+            <span class="section-kicker">Submit proposal</span>
+            <h2 id="proposalTitle">Apply with a clear offer</h2>
+            <p>Your bid and delivery plan become part of the hiring conversation with the client.</p>
+          </div>
+          <div class="proposal-summary" style="background:#f4faf6;border:1px solid #d8ebd0;border-radius:12px;padding:14px;margin:14px 0;">
+            <h4 style="margin:0 0 4px;font-size:15px;color:var(--forest);">${escHtml(j.title)}</h4>
+            <p style="margin:0;font-size:12px;color:var(--muted);">${money(j.budget)} client budget &middot; Fixed price project</p>
+          </div>
+          <label>Your proposed price (PKR)
+            <input id="propBid" type="number" value="${Number(j.budget) || 10000}" min="1" inputmode="numeric" />
+          </label>
+          <label>Estimated delivery time (days)
+            <input id="propDays" type="number" value="14" min="1" inputmode="numeric" />
+          </label>
+          <label>Cover letter / Delivery plan
+            <textarea id="propCover" rows="6" placeholder="Explain your relevant experience, proposed milestones, and delivery approach...">I have strong experience delivering similar projects with clean quality and milestone-based progress. I will provide structured updates inside the Paklance workspace.</textarea>
+          </label>
+          <button class="btn btn-primary btn-full" id="sendProposal">Submit proposal</button>`;
         openModal('#proposalModal');
 
         $('#sendProposal').onclick = async () => {
-          const jobId = j.id || state.currentJobId;
-          if (!jobId || !j._isReal) { toast('You can only apply to real jobs. This is a demo listing.'); return; }
           const bidAmount = Number($('#propBid')?.value);
           const deliveryDays = Number($('#propDays')?.value);
           const coverLetter = $('#propCover')?.value.trim();
-          if (!bidAmount || !deliveryDays || !coverLetter) { toast('Please fill in all proposal fields.'); return; }
+          if (!bidAmount || bidAmount <= 0) { toast('Please enter a valid bid amount.'); return; }
+          if (!deliveryDays || deliveryDays <= 0) { toast('Please enter estimated delivery days.'); return; }
+          if (!coverLetter) { toast('Please write a cover letter explaining your approach.'); return; }
+
           const btn = $('#sendProposal');
           if (btn) { btn.disabled = true; btn.textContent = 'Submitting\u2026'; }
           try {
-            const r = await apiAuth('/proposals', { method: 'POST', body: JSON.stringify({ jobId, coverLetter, bidAmount, deliveryDays }) });
+            const r = await apiAuth('/proposals', {
+              method: 'POST',
+              body: JSON.stringify({ jobId, coverLetter, bidAmount, deliveryDays })
+            });
             if (!r.ok) {
-              toast(Array.isArray(r.data?.message) ? r.data.message.join(', ') : (r.data?.message || 'Failed to submit proposal.'));
+              const msg = Array.isArray(r.data?.message) ? r.data.message.join(', ') : (r.data?.message || 'Failed to submit proposal.');
+              toast(msg);
               if (btn) { btn.disabled = false; btn.textContent = 'Submit proposal'; }
               return;
             }
             closeModals();
-            toast('Proposal submitted successfully!');
+            toast('\u2714 Proposal submitted successfully!');
+            if (typeof renderJobDetail === 'function' && state.currentJob !== null) {
+              renderJobDetail(state.currentJob);
+            }
           } catch (e) {
             toast('Cannot reach the server.');
             if (btn) { btn.disabled = false; btn.textContent = 'Submit proposal'; }

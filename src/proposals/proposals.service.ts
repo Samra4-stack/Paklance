@@ -44,6 +44,22 @@ export class ProposalsService {
 
     return this.prisma.proposal.findMany({
       where: { jobId },
+      include: {
+        User: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            headline: true,
+            city: true,
+            country: true,
+            avatarUrl: true,
+            skills: true,
+            hourlyRate: true,
+            availability: true,
+          },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     });
   }
@@ -60,11 +76,118 @@ export class ProposalsService {
     });
   }
 
+  async acceptProposal(userId: string, proposalId: string) {
+    const proposal = await this.prisma.proposal.findUnique({
+      where: { id: proposalId },
+      include: { job: true, User: true },
+    });
+    if (!proposal) throw new NotFoundException('Proposal not found');
+    if (proposal.job.clientId !== userId) {
+      throw new ForbiddenException(
+        'Only the job owner can accept proposals',
+      );
+    }
+
+    if (proposal.status === 'ACCEPTED') {
+      return proposal;
+    }
+
+    // Check if another proposal for this job is already accepted
+    const existingAccepted = await this.prisma.proposal.findFirst({
+      where: {
+        jobId: proposal.jobId,
+        status: 'ACCEPTED',
+        id: { not: proposalId },
+      },
+    });
+    if (existingAccepted) {
+      throw new BadRequestException(
+        'A proposal has already been accepted for this job',
+      );
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Mark this proposal as ACCEPTED
+      const accepted = await tx.proposal.update({
+        where: { id: proposalId },
+        data: { status: 'ACCEPTED' },
+        include: {
+          job: true,
+          User: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              headline: true,
+              avatarUrl: true,
+            },
+          },
+        },
+      });
+
+      // 2. Reject all other pending proposals for this job
+      await tx.proposal.updateMany({
+        where: {
+          jobId: proposal.jobId,
+          id: { not: proposalId },
+          status: 'PENDING',
+        },
+        data: { status: 'REJECTED' },
+      });
+
+      // 3. Create or link a draft contract if none exists
+      const existingContract = await tx.contract.findFirst({
+        where: {
+          jobId: proposal.jobId,
+          specialistId: proposal.freelancerId,
+        },
+      });
+
+      if (!existingContract) {
+        await tx.contract.create({
+          data: {
+            jobId: proposal.jobId,
+            clientId: userId,
+            specialistId: proposal.freelancerId,
+            status: 'DRAFT',
+          },
+        });
+      }
+
+      return accepted;
+    });
+  }
+
+  async rejectProposal(userId: string, proposalId: string) {
+    const proposal = await this.prisma.proposal.findUnique({
+      where: { id: proposalId },
+      include: { job: true },
+    });
+    if (!proposal) throw new NotFoundException('Proposal not found');
+    if (proposal.job.clientId !== userId) {
+      throw new ForbiddenException(
+        'Only the job owner can reject proposals',
+      );
+    }
+
+    return this.prisma.proposal.update({
+      where: { id: proposalId },
+      data: { status: 'REJECTED' },
+    });
+  }
+
   async updateStatus(
     userId: string,
     proposalId: string,
     dto: UpdateProposalStatusDto,
   ) {
+    if (dto.status === 'ACCEPTED') {
+      return this.acceptProposal(userId, proposalId);
+    }
+    if (dto.status === 'REJECTED') {
+      return this.rejectProposal(userId, proposalId);
+    }
+
     const proposal = await this.prisma.proposal.findUnique({
       where: { id: proposalId },
       include: { job: true },

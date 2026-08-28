@@ -65,6 +65,49 @@ export class ContractsController {
     return this.contractsService.findUserContracts(userId);
   }
 
+  @ApiOperation({ summary: 'Get files for a contract' })
+  @Roles(Role.CLIENT, Role.SPECIALIST, Role.ADMIN)
+  @Get(':id/files')
+  getContractFiles(
+    @Param('id') contractId: string,
+    @CurrentUser('id') userId: string,
+  ) {
+    return this.contractsService.getContractFiles(userId, contractId);
+  }
+
+  @ApiOperation({ summary: 'Upload file to contract' })
+  @Roles(Role.CLIENT, Role.SPECIALIST, Role.ADMIN)
+  @Post(':id/files')
+  uploadContractFile(
+    @Param('id') contractId: string,
+    @CurrentUser('id') userId: string,
+    @Body()
+    body: {
+      filename: string;
+      mimeType: string;
+      size: number;
+      fileData: string;
+    },
+  ) {
+    return this.contractsService.uploadContractFile(userId, contractId, {
+      originalname: body.filename,
+      mimetype: body.mimeType,
+      size: body.size,
+      fileData: body.fileData,
+    });
+  }
+
+  @ApiOperation({ summary: 'Get specific contract file' })
+  @Roles(Role.CLIENT, Role.SPECIALIST, Role.ADMIN)
+  @Get(':id/files/:fileId')
+  getContractFile(
+    @Param('id') contractId: string,
+    @Param('fileId') fileId: string,
+    @CurrentUser('id') userId: string,
+  ) {
+    return this.contractsService.getContractFile(userId, contractId, fileId);
+  }
+
   @ApiOperation({ summary: 'Get a single contract by ID' })
   @Roles(Role.CLIENT, Role.SPECIALIST, Role.ADMIN)
   @Get(':id')

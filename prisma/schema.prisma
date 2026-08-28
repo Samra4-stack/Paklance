@@ -9,14 +9,14 @@ datasource db {
 }
 
 model User {
-  id                             String          @id @default(uuid())
-  email                          String          @unique
+  id                             String              @id @default(uuid())
+  email                          String              @unique
   name                           String?
   passwordHash                   String
   role                           Role
-  createdAt                      DateTime        @default(now())
-  updatedAt                      DateTime        @updatedAt
-  availability                   Availability    @default(AVAILABLE)
+  createdAt                      DateTime            @default(now())
+  updatedAt                      DateTime            @updatedAt
+  availability                   Availability        @default(AVAILABLE)
   avatarUrl                      String?
   bio                            String?
   city                           String?
@@ -24,17 +24,21 @@ model User {
   headline                       String?
   hourlyRate                     Decimal?
   skills                         String[]
-  contractsAsClient              Contract[]      @relation("ClientContracts")
-  contractsAsSpecialist          Contract[]      @relation("SpecialistContracts")
-  disputesRaised                 Dispute[]       @relation("UserDisputes")
-  escrows                        Escrow[]        @relation("UserEscrows")
+  contractsAsClient              Contract[]          @relation("ClientContracts")
+  contractsAsSpecialist          Contract[]          @relation("SpecialistContracts")
+  disputesRaised                 Dispute[]           @relation("UserDisputes")
+  escrows                        Escrow[]            @relation("UserEscrows")
   jobs                           Job[]
   portfolioItems                 PortfolioItem[]
   Proposal                       Proposal[]
-  Review_Review_revieweeIdToUser Review[]        @relation("Review_revieweeIdToUser")
-  Review_Review_reviewerIdToUser Review[]        @relation("Review_reviewerIdToUser")
+  Review_Review_revieweeIdToUser Review[]            @relation("Review_revieweeIdToUser")
+  Review_Review_reviewerIdToUser Review[]            @relation("Review_reviewerIdToUser")
   verification                   Verification?
   wallets                        Wallet[]
+  payments                       Payment[]
+  payoutMethods                  PayoutMethod[]
+  withdrawalRequests             WithdrawalRequest[]
+  uploadedContractFiles          ContractFile[]      @relation("UserUploadedContractFiles")
 }
 
 model Verification {
@@ -75,6 +79,22 @@ model Contract {
   escrow       Escrow?
   milestones   Milestone[]
   Review       Review[]
+  payments     Payment[]
+  files        ContractFile[]
+}
+
+model ContractFile {
+  id           String   @id @default(uuid())
+  contractId   String
+  uploaderId   String
+  filename     String
+  originalName String
+  fileSize     Int
+  mimeType     String
+  fileData     String   // base64 encoded data URI or URL
+  createdAt    DateTime @default(now())
+  contract     Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  uploader     User     @relation("UserUploadedContractFiles", fields: [uploaderId], references: [id])
 }
 
 model Milestone {
@@ -131,10 +151,12 @@ model Wallet {
   id           String              @id @default(uuid())
   userId       String
   balance      Decimal             @default(0)
+  lockedBalance Decimal            @default(0)
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @updatedAt
   user         User                @relation(fields: [userId], references: [id])
   transactions WalletTransaction[]
+  withdrawals  WithdrawalRequest[]
 }
 
 model WalletTransaction {
@@ -144,6 +166,72 @@ model WalletTransaction {
   type      String
   createdAt DateTime @default(now())
   wallet    Wallet   @relation(fields: [walletId], references: [id])
+}
+
+model Payment {
+  id              String          @id @default(uuid())
+  contractId      String?
+  userId          String
+  amount          Decimal
+  currency        String          @default("PKR")
+  provider        PaymentProvider
+  status          PaymentStatus   @default(PENDING)
+  referenceId     String          @unique
+  gatewayTxnId    String?
+  gatewayResponse Json?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  contract        Contract?       @relation(fields: [contractId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
+}
+
+model PaymentWebhookLog {
+  id             String          @id @default(uuid())
+  provider       PaymentProvider
+  eventType      String?
+  referenceId    String?
+  payload        Json
+  headers        Json?
+  signatureValid Boolean
+  processed      Boolean         @default(false)
+  error          String?
+  createdAt      DateTime        @default(now())
+}
+
+model PayoutMethod {
+  id            String              @id @default(uuid())
+  userId        String
+  type          PayoutType
+  accountTitle  String
+  accountNumber String
+  bankName      String?
+  isDefault     Boolean             @default(false)
+  isVerified    Boolean             @default(true)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  user          User                @relation(fields: [userId], references: [id])
+  withdrawals   WithdrawalRequest[]
+}
+
+model WithdrawalRequest {
+  id                   String           @id @default(uuid())
+  userId               String
+  walletId             String
+  payoutMethodId       String?
+  amount               Decimal
+  fee                  Decimal          @default(0)
+  netAmount            Decimal
+  status               WithdrawalStatus @default(REQUESTED)
+  referenceId          String           @unique
+  payoutMethodSnapshot Json
+  adminNote            String?
+  failureReason        String?
+  processedAt          DateTime?
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+  user                 User             @relation(fields: [userId], references: [id])
+  wallet               Wallet           @relation(fields: [walletId], references: [id])
+  payoutMethod         PayoutMethod?    @relation(fields: [payoutMethodId], references: [id])
 }
 
 model PortfolioItem {
@@ -172,6 +260,7 @@ model Message {
   conversationId String
   senderId       String
   content        String
+  isDelivered    Boolean      @default(false)
   isRead         Boolean      @default(false)
   createdAt      DateTime     @default(now())
   Conversation   Conversation @relation(fields: [conversationId], references: [id])
@@ -271,3 +360,38 @@ enum ProposalStatus {
   REJECTED
   WITHDRAWN
 }
+
+enum PaymentProvider {
+  JAZZCASH
+  EASYPAISA
+  RAAST
+  BANK_TRANSFER
+  SANDBOX
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+  REFUNDED
+  TIMEOUT
+  MISMATCHED
+}
+
+enum PayoutType {
+  BANK
+  JAZZCASH
+  EASYPAISA
+  RAAST
+}
+
+enum WithdrawalStatus {
+  REQUESTED
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
