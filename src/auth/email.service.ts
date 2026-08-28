@@ -94,9 +94,9 @@ export class EmailService {
   async sendMail(options: SendEmailOptions): Promise<void> {
     const fromAddress =
       process.env.EMAIL_FROM ||
-      process.env.SMTP_FROM ||
       process.env.RESEND_FROM ||
-      'Paklance <onboarding@resend.dev>';
+      process.env.SMTP_FROM ||
+      'Paklance <support@paklance.com>';
 
     // 1. Priority: Resend REST API (Recommended for Vercel serverless)
     const resendApiKey = process.env.RESEND_API_KEY;
