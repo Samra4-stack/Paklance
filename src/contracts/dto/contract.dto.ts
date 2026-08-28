@@ -45,3 +45,26 @@ export class CreateContractDto {
   @Type(() => CreateMilestoneDto)
   milestones: CreateMilestoneDto[];
 }
+
+export class UploadContractFileDto {
+  @ApiProperty({ example: 'specification.pdf' })
+  @IsString()
+  @IsNotEmpty()
+  filename: string;
+
+  @ApiProperty({ example: 'application/pdf' })
+  @IsString()
+  @IsNotEmpty()
+  mimeType: string;
+
+  @ApiProperty({ example: 1048576 })
+  @Type(() => Number)
+  @IsNumber()
+  @IsPositive()
+  size: number;
+
+  @ApiProperty({ example: 'data:application/pdf;base64,...' })
+  @IsString()
+  @IsNotEmpty()
+  fileData: string;
+}

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { ContractsService } from './contracts.service';
-import { CreateContractDto } from './dto/contract.dto';
+import { CreateContractDto, UploadContractFileDto } from './dto/contract.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -81,19 +81,13 @@ export class ContractsController {
   uploadContractFile(
     @Param('id') contractId: string,
     @CurrentUser('id') userId: string,
-    @Body()
-    body: {
-      filename: string;
-      mimeType: string;
-      size: number;
-      fileData: string;
-    },
+    @Body() dto: UploadContractFileDto,
   ) {
     return this.contractsService.uploadContractFile(userId, contractId, {
-      originalname: body.filename,
-      mimetype: body.mimeType,
-      size: body.size,
-      fileData: body.fileData,
+      originalname: dto.filename,
+      mimetype: dto.mimeType,
+      size: dto.size,
+      fileData: dto.fileData,
     });
   }
 
