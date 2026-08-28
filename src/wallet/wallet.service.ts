@@ -101,11 +101,18 @@ export class WalletService {
         bankName: pm.bankName,
       };
     } else if (dto.accountTitle && dto.accountNumber) {
+      if (dto.type && dto.channel && dto.type !== dto.channel) {
+        throw new BadRequestException('Payout channel and type mismatch');
+      }
+      const resolvedType = dto.type || dto.channel;
+      if (!resolvedType) {
+        throw new BadRequestException('Payout channel or type must be specified');
+      }
       snapshot = {
-        type: dto.type || PayoutType.BANK,
+        type: resolvedType,
         accountTitle: dto.accountTitle.trim(),
         accountNumber: dto.accountNumber.trim(),
-        bankName: dto.type === PayoutType.BANK ? 'Bank Transfer (1Link)' : null,
+        bankName: resolvedType === PayoutType.BANK ? 'Bank Transfer (1Link)' : resolvedType,
       };
     } else {
       // Check if user has a default payout method

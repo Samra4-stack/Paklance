@@ -1,7 +1,12 @@
 import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { RegisterDto, LoginDto } from './dto/auth.dto';
+import {
+  RegisterDto,
+  LoginDto,
+  VerifyEmailDto,
+  ResendVerificationDto,
+} from './dto/auth.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -9,17 +14,32 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({
-    summary: 'Register a new user (CLIENT, SPECIALIST, or ADMIN)',
+    summary: 'Register a new user (CLIENT, SPECIALIST, or ADMIN) and send verification OTP',
   })
   @Post('register')
   register(@Body() body: RegisterDto) {
     return this.authService.register(body);
   }
 
-  @ApiOperation({ summary: 'Login and receive JWT token' })
+  @ApiOperation({ summary: 'Verify 6-digit email OTP to activate account and receive JWT' })
+  @HttpCode(HttpStatus.OK)
+  @Post('verify-email')
+  verifyEmail(@Body() body: VerifyEmailDto) {
+    return this.authService.verifyEmail(body);
+  }
+
+  @ApiOperation({ summary: 'Resend 6-digit email verification OTP with rate limiting' })
+  @HttpCode(HttpStatus.OK)
+  @Post('resend-verification')
+  resendVerification(@Body() body: ResendVerificationDto) {
+    return this.authService.resendVerification(body);
+  }
+
+  @ApiOperation({ summary: 'Login and receive JWT token (verified users only)' })
   @HttpCode(HttpStatus.OK)
   @Post('login')
   login(@Body() body: LoginDto) {
     return this.authService.login(body);
   }
 }
+

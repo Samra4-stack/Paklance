@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UsersService } from '../users/users.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { EmailService } from './email.service';
 
 const TEST_JWT_SECRET = 'test-secret-that-is-long-enough-for-testing';
 
@@ -34,7 +35,12 @@ const mockUsersService = {
   findByEmail: jest.fn(),
   findOne: jest.fn(),
 };
-const mockPrisma = { user: { findUnique: jest.fn() } };
+const mockPrisma = {
+  user: {
+    findUnique: jest.fn(),
+    update: jest.fn(),
+  },
+};
 
 describe('JWT_SECRET startup guard', () => {
   const originalEnv = process.env.JWT_SECRET;
@@ -88,6 +94,8 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         { provide: UsersService, useValue: mockUsersService },
+        { provide: PrismaService, useValue: mockPrisma },
+        { provide: EmailService, useValue: { sendVerificationOtp: jest.fn().mockResolvedValue(undefined) } },
       ],
     }).compile();
     authService = m.get<AuthService>(AuthService);
@@ -95,40 +103,53 @@ describe('AuthService', () => {
   });
   beforeEach(() => jest.clearAllMocks());
 
-  it('register returns user + accessToken', async () => {
-    const u = { ...mockUser };
+  it('register creates unverified account and sends OTP', async () => {
+    const u = { ...mockUser, isEmailVerified: false };
     delete (u as any).passwordHash;
     mockUsersService.create.mockResolvedValueOnce(u);
     const r = await authService.register({
       email: 'test@paklance.com',
       password: 'pass123',
+    });
+    expect(r).toHaveProperty('requiresVerification', true);
+    expect(r).toHaveProperty('email', 'test@paklance.com');
+  });
+
+  it('verifyEmail returns user + accessToken containing correct sub/email/role', async () => {
+    const verifiedUser = {
+      ...mockUser,
+      isEmailVerified: false,
+      emailVerifyOtp: '123456',
+      emailVerifyExpires: new Date(Date.now() + 600000),
+    };
+    mockPrisma.user.findUnique.mockResolvedValueOnce(verifiedUser);
+    mockPrisma.user.update.mockResolvedValueOnce({
+      ...mockUser,
+      isEmailVerified: true,
+      emailVerifyOtp: null,
+      emailVerifyExpires: null,
+    });
+
+    const r = await authService.verifyEmail({
+      email: mockUser.email,
+      otp: '123456',
     });
     expect(r).toHaveProperty('accessToken');
     expect(r.accessToken.split('.').length).toBe(3);
-  });
-
-  it('register token contains correct sub/email/role', async () => {
-    const u = { ...mockUser };
-    delete (u as any).passwordHash;
-    mockUsersService.create.mockResolvedValueOnce(u);
-    const r = await authService.register({
-      email: 'test@paklance.com',
-      password: 'pass123',
-    });
     const d = jwtService.verify(r.accessToken, { secret: TEST_JWT_SECRET });
     expect(d.sub).toBe(mockUser.id);
     expect(d.email).toBe(mockUser.email);
   });
 
   it('login throws UnauthorizedException for unknown email', async () => {
-    mockUsersService.findByEmail.mockResolvedValueOnce(null);
+    mockPrisma.user.findUnique.mockResolvedValueOnce(null);
     await expect(
       authService.login({ email: 'nobody@x.com', password: 'x' }),
     ).rejects.toThrow(UnauthorizedException);
   });
 
   it('login throws UnauthorizedException for wrong password', async () => {
-    mockUsersService.findByEmail.mockResolvedValueOnce(mockUser);
+    mockPrisma.user.findUnique.mockResolvedValueOnce({ ...mockUser, isEmailVerified: true });
     await expect(
       authService.login({ email: mockUser.email, password: 'wrongpassword' }),
     ).rejects.toThrow(UnauthorizedException);

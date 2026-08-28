@@ -18,6 +18,11 @@ export class WithdrawDto {
   @IsEnum(PayoutType)
   type?: PayoutType;
 
+  @ApiPropertyOptional({ enum: PayoutType, description: 'Payout channel type (alias for type)' })
+  @IsOptional()
+  @IsEnum(PayoutType)
+  channel?: PayoutType;
+
   @ApiPropertyOptional({ description: 'Account title if not using saved method' })
   @IsOptional()
   @IsString()

@@ -16,6 +16,10 @@ export class UsersService {
     email: string;
     password: string;
     role?: Role;
+    isEmailVerified?: boolean;
+    emailVerifyOtp?: string;
+    emailVerifyExpires?: Date;
+    emailVerifyLastSentAt?: Date;
   }): Promise<Omit<User, 'passwordHash'>> {
     const existingUser = await this.prisma.user.findUnique({
       where: { email: data.email },
@@ -32,6 +36,10 @@ export class UsersService {
         email: data.email,
         passwordHash,
         role: data.role || Role.SPECIALIST,
+        isEmailVerified: data.isEmailVerified ?? false,
+        emailVerifyOtp: data.emailVerifyOtp,
+        emailVerifyExpires: data.emailVerifyExpires,
+        emailVerifyLastSentAt: data.emailVerifyLastSentAt,
       },
     });
 

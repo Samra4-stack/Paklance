@@ -6,6 +6,9 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
+import { PrismaModule } from '../prisma/prisma.module';
+import { EmailService } from './email.service';
+
 /**
  * Resolves the JWT secret from the environment and throws a descriptive error
  * at startup if it is missing. This prevents the application from running with
@@ -26,6 +29,7 @@ function resolveJwtSecret(): string {
 @Module({
   imports: [
     UsersModule,
+    PrismaModule,
     PassportModule,
     JwtModule.register({
       secret: resolveJwtSecret(),
@@ -33,7 +37,7 @@ function resolveJwtSecret(): string {
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy, EmailService],
+  exports: [AuthService, EmailService],
 })
 export class AuthModule {}

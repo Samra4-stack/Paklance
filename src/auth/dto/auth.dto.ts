@@ -38,3 +38,23 @@ export class LoginDto {
   @IsNotEmpty()
   password: string;
 }
+
+export class VerifyEmailDto {
+  @ApiProperty({ example: 'user@example.com' })
+  @IsEmail({}, { message: 'Must be a valid email' })
+  @IsNotEmpty()
+  email: string;
+
+  @ApiProperty({ example: '123456', description: '6-digit OTP' })
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(6, { message: 'OTP must be 6 digits' })
+  otp: string;
+}
+
+export class ResendVerificationDto {
+  @ApiProperty({ example: 'user@example.com' })
+  @IsEmail({}, { message: 'Must be a valid email' })
+  @IsNotEmpty()
+  email: string;
+}

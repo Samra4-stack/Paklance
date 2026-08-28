@@ -16,6 +16,10 @@ model User {
   role                           Role
   createdAt                      DateTime            @default(now())
   updatedAt                      DateTime            @updatedAt
+  isEmailVerified                Boolean             @default(false)
+  emailVerifyOtp                 String?
+  emailVerifyExpires             DateTime?
+  emailVerifyLastSentAt         DateTime?
   availability                   Availability        @default(AVAILABLE)
   avatarUrl                      String?
   bio                            String?

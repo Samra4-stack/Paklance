@@ -6727,20 +6727,57 @@
       <div id="authError" role="alert"
         style="display:none;color:#DC2626;font-size:11px;margin-top:10px;background:#fef2f2;padding:8px;border-radius:8px;">
       </div>
-      <label for="authEmail">Email
-        <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email" aria-describedby="authError" />
-      </label>
-      <label for="authPassword">Password
-        <input id="authPassword" type="password" placeholder="••••••••" autocomplete="current-password" />
-      </label>
-      <label id="authRoleWrap" style="display:none" for="authRole">I am a...
-        <select id="authRole">
-          <option value="CLIENT">Client (hiring)</option>
-          <option value="SPECIALIST">Freelancer (working)</option>
-        </select>
-      </label>
-      <button class="btn btn-primary btn-full" id="authSubmitBtn">Log in</button>
+      <form id="authForm" autocomplete="on" onsubmit="return false;" style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+        <label for="authEmail" style="text-align:left;">Email
+          <input id="authEmail" name="email" type="email" placeholder="you@example.com" autocomplete="username email" required aria-describedby="authError" />
+        </label>
+        <label for="authPassword" style="text-align:left;">Password
+          <div class="password-input-wrap" style="position:relative;display:flex;align-items:center;">
+            <input id="authPassword" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required style="padding-right:42px;width:100%;" />
+            <button type="button" id="toggleAuthPassword" class="password-eye-btn" aria-label="Show password" style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;color:var(--muted);padding:6px;display:flex;align-items:center;justify-content:center;">
+              <span class="eye-icon" aria-hidden="true">&#128065;</span>
+            </button>
+          </div>
+        </label>
+        <label id="authRoleWrap" style="display:none;text-align:left;" for="authRole">I am a...
+          <select id="authRole" name="role">
+            <option value="CLIENT">Client (hiring)</option>
+            <option value="SPECIALIST">Freelancer (working)</option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-primary btn-full" id="authSubmitBtn">Log in</button>
+      </form>
       <small class="legal-copy">By continuing, you agree to Paklance's Terms and Privacy Policy.</small>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="otpModal" aria-hidden="true">
+    <div class="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="otpTitle">
+      <button class="modal-close" data-close-modal aria-label="Close dialog">×</button>
+      <div class="modal-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36">
+            <path class="bm-shield" d="M18 3.7 29 8v8.5c0 7.2-4.5 12.6-11 15.8C11.5 29.1 7 23.7 7 16.5V8l11-4.3Z" />
+            <path class="bm-p"
+              d="M13.2 24.4V11.6h5.6c3.5 0 5.7 1.8 5.7 4.8 0 3.1-2.3 4.9-5.8 4.9h-2.2v3.1h-3.3Zm3.3-6h2.2c1.6 0 2.5-.7 2.5-2s-.9-2-2.5-2h-2.2v4Z" />
+            <path class="bm-check" d="m20.8 24.7 1.7 1.7 3.8-4" />
+          </svg></span></div>
+      <h2 id="otpTitle">Verify your email</h2>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;">We sent a 6-digit code to <strong id="otpEmailTarget" style="color:var(--ink);">you@example.com</strong>. Enter it below to activate your account.</p>
+      <div id="otpError" role="alert"
+        style="display:none;color:#DC2626;font-size:12px;margin:10px 0;background:#fef2f2;padding:10px;border-radius:8px;border:1px solid #fca5a5;">
+      </div>
+      <div id="otpSuccess" role="status"
+        style="display:none;color:var(--forest);font-size:12px;margin:10px 0;background:#eaf4ed;padding:10px;border-radius:8px;border:1px solid #cce5d4;">
+      </div>
+      <form id="otpForm" onsubmit="return false;" style="display:flex;flex-direction:column;gap:12px;margin-top:10px;">
+        <label for="otpCode" style="font-weight:700;font-size:12px;text-align:left;">6-Digit Verification Code
+          <input id="otpCode" type="text" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" autocomplete="one-time-code" placeholder="123456" style="text-align:center;font-size:22px;letter-spacing:6px;font-weight:700;padding:10px;" required />
+        </label>
+        <button type="submit" class="btn btn-primary btn-full" id="otpSubmitBtn" style="margin-top:4px;">Verify &amp; Activate Account</button>
+      </form>
+      <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;">
+        <button type="button" class="btn btn-outline" style="font-size:12px;padding:6px 12px;" id="otpBackToLogin">Back to login</button>
+        <button type="button" class="text-link" style="font-size:12px;background:none;border:none;cursor:pointer;color:var(--forest);font-weight:600;" id="otpResendBtn">Resend Code</button>
+      </div>
     </div>
   </div>
   <div class="modal-backdrop" id="postJobModal" aria-hidden="true">
@@ -7289,8 +7326,10 @@
         closeModals();
 
         const dashViews = ['dashboard', 'contract', 'wallet', 'messages', 'disputes', 'admin'];
+        const mobileNavViews = ['dashboard', 'jobs', 'talent', 'contract', 'wallet', 'messages', 'disputes', 'admin', 'job-detail', 'profile', 'match'];
+        const isContractChatOpen = $('#contractFullscreenChat') && $('#contractFullscreenChat').style.display === 'flex';
         if ($('#siteFooter')) $('#siteFooter').style.display = dashViews.includes(name) ? 'none' : '';
-        if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && dashViews.includes(name)) ? 'grid' : 'none';
+        if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && !isContractChatOpen && (mobileNavViews.includes(name) || getToken())) ? 'grid' : (window.innerWidth <= 980 && mobileNavViews.includes(name) ? 'grid' : 'none');
         if ($('#mobileMenuPanel')) $('#mobileMenuPanel').classList.remove('open');
         if ($('#menuButton')) $('#menuButton').setAttribute('aria-expanded', 'false');
 
@@ -7556,14 +7595,18 @@
               statusBadge = `<span class="badge" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5;font-weight:600;padding:4px 10px;">&#10005; Rejected</span>`;
             }
 
+            const profileBtn = `<button class="btn btn-outline view-spec-profile-btn" data-profile-uid="${escHtml(p.freelancerId)}" style="font-size:12px;padding:8px 14px;">&#128100; View Profile</button>`;
+
             let actionsHtml = '';
             if (p.status === 'ACCEPTED') {
               actionsHtml = `
                 <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message Specialist</button>
+                ${profileBtn}
               `;
             } else if (p.status === 'REJECTED') {
               actionsHtml = `
                 <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message</button>
+                ${profileBtn}
               `;
             } else {
               // PENDING
@@ -7572,17 +7615,19 @@
                   <button class="btn btn-primary accept-proposal-action" style="font-size:12px;padding:8px 16px;background:var(--green);color:#fff;" data-prop-id="${escHtml(p.id)}" data-spec-name="${escHtml(specName)}" data-amount="${escHtml(p.bidAmount)}" data-delivery="${p.deliveryDays}">&#10003; Accept Proposal</button>
                   <button class="btn btn-outline reject-proposal-action" style="font-size:12px;padding:8px 14px;color:#c53030;border-color:#e2b4b4;" data-prop-id="${escHtml(p.id)}" data-spec-name="${escHtml(specName)}">&#10005; Reject</button>
                   <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message</button>
+                  ${profileBtn}
                 `;
               } else {
                 actionsHtml = `
                   <button class="btn btn-outline" style="font-size:12px;padding:8px 14px;" onclick="route('messages', { id: '${escHtml(p.freelancerId)}', name: '${escHtml(specName)}', role: 'Specialist' })">&#9993; Message</button>
+                  ${profileBtn}
                 `;
               }
             }
 
             return `
               <div class="proposal-received-card" id="proposalCard_${escHtml(p.id)}">
-                <div class="proposal-spec-head">
+                <div class="proposal-spec-head" style="cursor:pointer;" onclick="renderProfile(null, '${escHtml(p.freelancerId)}'); route('profile');">
                   <div style="display:flex;align-items:center;gap:12px;">
                     <span class="avatar" style="width:40px;height:40px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;">${escHtml(specInitials)}</span>
                     <div>
@@ -7771,6 +7816,17 @@
             }
           };
         });
+
+        $$('.view-spec-profile-btn').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            const uid = btn.dataset.profileUid;
+            if (uid) {
+              renderProfile(null, uid);
+              route('profile');
+            }
+          };
+        });
       }
 
 
@@ -7862,25 +7918,46 @@
           if (r.ok) myContracts = r.data || [];
         } catch (e) {}
 
-        // Fetch proposals for first 3 jobs
+        // Fetch proposals for posted jobs
         let proposalRows = [];
-        for (const job of myJobs.slice(0, 3)) {
+        for (const job of myJobs.slice(0, 5)) {
           try {
-            const pr = await api(`/proposals/job/${job.id}`);
-            if (pr.ok && pr.data?.length) {
-              pr.data.slice(0, 2).forEach(p => proposalRows.push({
-                jobTitle: job.title,
-                bidAmount: p.bidAmount,
-                deliveryDays: p.deliveryDays,
-                status: p.status,
-                id: p.id
-              }));
+            const pr = await apiAuth(`/proposals/job/${job.id}`);
+            if (pr.ok && Array.isArray(pr.data) && pr.data.length > 0) {
+              pr.data.forEach(p => {
+                const spec = p.User || {};
+                const specName = spec.name || spec.email?.split('@')[0] || 'Specialist';
+                const specInitials = (spec.name || spec.email || 'U').slice(0, 2).toUpperCase();
+                const specHeadline = spec.headline || 'Verified Specialist';
+                proposalRows.push({
+                  ...p,
+                  jobTitle: job.title,
+                  jobId: job.id,
+                  freelancerName: specName,
+                  freelancerInitials: specInitials,
+                  freelancerHeadline: specHeadline,
+                  freelancerId: p.freelancerId,
+                });
+              });
             }
           } catch (e) {}
         }
 
         const proposalHtml = proposalRows.length
-          ? proposalRows.map(p => `<div class="proposal-row"><span class="avatar">${p.status.slice(0, 2).toUpperCase()}</span><div><strong>${escHtml(p.jobTitle)}</strong><small>Bid: ${money(p.bidAmount)} &middot; ${p.deliveryDays} days</small></div><span class="badge ${p.status === 'ACCEPTED' ? 'verified' : ''}">${p.status}</span></div>`).join('')
+          ? proposalRows.map(p => `
+            <div class="proposal-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border-bottom:1px solid #edf3ef;">
+              <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
+                <span class="avatar" style="width:36px;height:36px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;flex-shrink:0;">${escHtml(p.freelancerInitials)}</span>
+                <div style="min-width:0;">
+                  <strong style="font-size:13px;color:var(--forest);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml(p.freelancerName)} <span style="font-size:11px;font-weight:normal;color:var(--muted);">&middot; ${escHtml(p.jobTitle)}</span></strong>
+                  <small style="color:var(--muted);font-size:11px;">Bid: ${money(p.bidAmount)} &middot; ${p.deliveryDays} days &middot; <span class="badge ${p.status === 'ACCEPTED' ? 'verified' : ''}" style="font-size:10px;padding:2px 6px;">${escHtml(p.status)}</span></small>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;flex-shrink:0;">
+                <button class="btn btn-outline dash-spec-profile-btn" data-spec-uid="${escHtml(p.freelancerId)}" style="font-size:11px;padding:5px 10px;">Profile</button>
+              </div>
+            </div>
+          `).join('')
           : '<p style="color:var(--muted);font-size:12px;padding:8px 0">No proposals received yet. Post a job to get started.</p>';
 
         const contractHtml = myContracts.length
@@ -7918,6 +7995,14 @@
         if ($('#dashPostJob')) $('#dashPostJob').onclick = openPostJob;
         if ($('#sidePostJob')) $('#sidePostJob').onclick = openPostJob;
         if ($('#notifyBtn')) $('#notifyBtn').onclick = openNotifications;
+        $$('.dash-spec-profile-btn', $('#dashboardMain')).forEach(b => {
+          b.onclick = () => {
+            if (b.dataset.specUid) {
+              renderProfile(null, b.dataset.specUid);
+              route('profile');
+            }
+          };
+        });
       }
 
       async function renderSpecialistDashboard() {
@@ -8246,9 +8331,9 @@
           document.body.style.overflow = '';
           document.documentElement.style.overflow = '';
           if ($('#siteHeader')) $('#siteHeader').style.display = '';
-          const activeView = $('.view.active')?.dataset.view;
-          const dashViews = ['dashboard', 'contract', 'wallet', 'messages', 'disputes', 'admin'];
-          if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && dashViews.includes(activeView)) ? 'grid' : 'none';
+          const activeView = $('.view.active')?.dataset.view || 'contract';
+          const mobileNavViews = ['dashboard', 'jobs', 'talent', 'contract', 'wallet', 'messages', 'disputes', 'admin', 'job-detail', 'profile', 'match'];
+          if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && (mobileNavViews.includes(activeView) || getToken())) ? 'grid' : 'none';
           findOrCreateContractConv();
         }
 
@@ -8324,18 +8409,39 @@
               $$('.contract-file-dl-btn', list).forEach(btn => {
                 btn.onclick = async () => {
                   const fid = btn.dataset.fileId;
-                  const fname = btn.dataset.filename;
+                  const fname = btn.dataset.filename || 'downloaded_file';
                   btn.disabled = true;
                   btn.textContent = 'Downloading…';
                   try {
                     const r2 = await apiAuth(`/contracts/${c.id}/files/${fid}`);
                     if (r2.ok && r2.data?.fileData) {
+                      const dataUrl = r2.data.fileData;
+                      let blobUrl = null;
+                      try {
+                        const parts = dataUrl.split(',');
+                        const mimeMatch = parts[0]?.match(/:(.*?);/);
+                        const mime = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
+                        const byteCharacters = atob(parts[1] || parts[0]);
+                        const byteArrays = new Uint8Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                          byteArrays[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const blob = new Blob([byteArrays], { type: mime });
+                        blobUrl = URL.createObjectURL(blob);
+                      } catch {
+                        blobUrl = null;
+                      }
+
                       const a = document.createElement('a');
-                      a.href = r2.data.fileData;
+                      a.href = blobUrl || dataUrl;
                       a.download = fname;
+                      a.target = '_blank';
                       document.body.appendChild(a);
                       a.click();
-                      document.body.removeChild(a);
+                      setTimeout(() => {
+                        document.body.removeChild(a);
+                        if (blobUrl) URL.revokeObjectURL(blobUrl);
+                      }, 2500);
                       toast(`✔ Downloaded "${fname}"`);
                     } else {
                       const err = r2.data?.message || 'Could not retrieve file.';
@@ -8863,10 +8969,11 @@
 
           const amountRaw = $('#wdAmount')?.value;
           const amount = Number(amountRaw);
-          const payoutMethodId = $('#wdSavedMethodSelect')?.value || undefined;
+          const rawMethodId = $('#wdSavedMethodSelect')?.value?.trim();
+          const payoutMethodId = rawMethodId ? rawMethodId : undefined;
           const accountTitle = $('#wdAccountTitle')?.value.trim();
           const accountNumber = $('#wdAccountNum')?.value.trim();
-          const channel = $('#wdMethod')?.value || 'BANK';
+          const selectedChannel = $('#wdMethod')?.value || 'BANK';
 
           if (!accountTitle || !accountNumber) {
             if (errEl) { errEl.textContent = 'Account title and account number are required.'; errEl.style.display = 'block'; }
@@ -8882,11 +8989,20 @@
           btn.disabled = true;
           btn.textContent = 'Submitting Request…';
 
+          const withdrawPayload = {
+            amount,
+            type: selectedChannel,
+            channel: selectedChannel,
+            accountTitle,
+            accountNumber,
+            ...(payoutMethodId ? { payoutMethodId } : {})
+          };
+
           try {
             const res = await apiAuth('/wallet/withdraw', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ amount, payoutMethodId, accountTitle, accountNumber, channel })
+              body: JSON.stringify(withdrawPayload)
             });
 
             if (res.ok) {
@@ -10685,19 +10801,96 @@
         $('#mobileLogin')?.addEventListener('click', () => openModal('#authModal'));
         $('#signupBtn')?.addEventListener('click', () => openModal('#onboardingModal'));
 
-        // === AUTH SUBMIT HANDLER ===
+        // === AUTH & OTP VERIFICATION HANDLERS ===
         let currentAuthMode = 'login';
+        let _pendingVerifyEmail = '';
+        let _resendTimer = null;
+        let _resendCountdown = 0;
+
+        function openOtpModal(email) {
+          _pendingVerifyEmail = email;
+          closeModals();
+          if ($('#otpEmailTarget')) $('#otpEmailTarget').textContent = email;
+          if ($('#otpCode')) $('#otpCode').value = '';
+          hideOtpMessages();
+          openModal('#otpModal');
+          startResendCooldown(60);
+          setTimeout(() => $('#otpCode')?.focus(), 150);
+        }
+
+        function startResendCooldown(seconds) {
+          _resendCountdown = seconds;
+          const btn = $('#otpResendBtn');
+          if (!btn) return;
+          btn.disabled = true;
+          btn.textContent = `Resend Code (${_resendCountdown}s)`;
+          clearInterval(_resendTimer);
+          _resendTimer = setInterval(() => {
+            _resendCountdown--;
+            if (_resendCountdown <= 0) {
+              clearInterval(_resendTimer);
+              btn.disabled = false;
+              btn.textContent = 'Resend Code';
+            } else {
+              btn.textContent = `Resend Code (${_resendCountdown}s)`;
+            }
+          }, 1000);
+        }
+
+        function showOtpError(msg) {
+          const el = $('#otpError');
+          if (!el) return;
+          el.textContent = msg;
+          el.style.display = 'block';
+          if ($('#otpSuccess')) $('#otpSuccess').style.display = 'none';
+        }
+
+        function showOtpSuccess(msg) {
+          const el = $('#otpSuccess');
+          if (!el) return;
+          el.textContent = msg;
+          el.style.display = 'block';
+          if ($('#otpError')) $('#otpError').style.display = 'none';
+        }
+
+        function hideOtpMessages() {
+          if ($('#otpError')) { $('#otpError').style.display = 'none'; $('#otpError').textContent = ''; }
+          if ($('#otpSuccess')) { $('#otpSuccess').style.display = 'none'; $('#otpSuccess').textContent = ''; }
+        }
+
         $('#authTabLogin')?.addEventListener('click', () => {
           currentAuthMode = 'login';
           showLoginTab();
+          $('#authPassword')?.setAttribute('autocomplete', 'current-password');
           $('#authTabLogin')?.setAttribute('aria-selected', 'true');
           $('#authTabSignup')?.setAttribute('aria-selected', 'false');
         });
         $('#authTabSignup')?.addEventListener('click', () => {
           currentAuthMode = 'signup';
           showSignupTab();
+          $('#authPassword')?.setAttribute('autocomplete', 'new-password');
           $('#authTabSignup')?.setAttribute('aria-selected', 'true');
           $('#authTabLogin')?.setAttribute('aria-selected', 'false');
+        });
+
+        // Password eye visibility toggle
+        $('#toggleAuthPassword')?.addEventListener('click', () => {
+          const p = $('#authPassword');
+          if (!p) return;
+          const isPassword = p.type === 'password';
+          p.type = isPassword ? 'text' : 'password';
+          const btn = $('#toggleAuthPassword');
+          if (btn) {
+            btn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+            btn.innerHTML = isPassword
+              ? '<span class="eye-icon" aria-hidden="true">&#128064;</span>'
+              : '<span class="eye-icon" aria-hidden="true">&#128065;</span>';
+          }
+        });
+
+        $('#authForm')?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          $('#authSubmitBtn')?.click();
         });
 
         $('#authSubmitBtn')?.addEventListener('click', async () => {
@@ -10718,13 +10911,18 @@
                 showAuthError(msg);
                 return;
               }
-              toast('Account created! You can now log in.');
-              currentAuthMode = 'login';
-              showLoginTab();
+              toast('✔ Verification code sent to your email!');
+              openOtpModal(email);
             } else {
               const r = await api('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
               if (!r.ok) {
-                showAuthError(r.data?.message || 'Invalid email or password.');
+                const errMsg = r.data?.message || 'Invalid email or password.';
+                if (typeof errMsg === 'string' && errMsg.toLowerCase().includes('email not verified')) {
+                  openOtpModal(email);
+                  showOtpError('Please verify your email before logging in. Enter the code sent to your inbox.');
+                  return;
+                }
+                showAuthError(errMsg);
                 return;
               }
               // Store BOTH the token and the full user object
@@ -10735,10 +10933,76 @@
               route('dashboard');
             }
           } catch (err) {
-            showAuthError('Cannot reach the server. Is the backend running on localhost:3000?');
+            showAuthError('Cannot reach the server. Is the backend running?');
           } finally {
             if (btn) { btn.disabled = false; btn.textContent = currentAuthMode === 'signup' ? 'Sign up' : 'Log in'; }
           }
+        });
+
+        // OTP Verification Handlers
+        $('#otpForm')?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          $('#otpSubmitBtn')?.click();
+        });
+
+        $('#otpSubmitBtn')?.addEventListener('click', async () => {
+          const otp = $('#otpCode')?.value.trim();
+          if (!otp || otp.length !== 6) {
+            showOtpError('Please enter the 6-digit verification code.');
+            return;
+          }
+          hideOtpMessages();
+
+          const btn = $('#otpSubmitBtn');
+          if (btn) { btn.disabled = true; btn.textContent = 'Verifying…'; }
+
+          try {
+            const res = await api('/auth/verify-email', {
+              method: 'POST',
+              body: JSON.stringify({ email: _pendingVerifyEmail, otp })
+            });
+
+            if (res.ok && res.data?.accessToken) {
+              setSession(res.data.accessToken, res.data.user);
+              closeModals();
+              toast('✔ Account verified and activated! Welcome to Paklance.');
+              updateHeaderAuthState();
+              route('dashboard');
+            } else {
+              const msg = res.data?.message || 'Verification failed. Please check the code.';
+              showOtpError(Array.isArray(msg) ? msg.join(', ') : msg);
+            }
+          } catch (e) {
+            showOtpError('Network error verifying code.');
+          } finally {
+            if (btn) { btn.disabled = false; btn.textContent = 'Verify & Activate Account'; }
+          }
+        });
+
+        $('#otpResendBtn')?.addEventListener('click', async () => {
+          if (!_pendingVerifyEmail) return;
+          const btn = $('#otpResendBtn');
+          if (btn) btn.disabled = true;
+          try {
+            const res = await api('/auth/resend-verification', {
+              method: 'POST',
+              body: JSON.stringify({ email: _pendingVerifyEmail })
+            });
+            if (res.ok) {
+              showOtpSuccess(res.data?.message || 'A new verification code has been dispatched.');
+              startResendCooldown(60);
+            } else {
+              showOtpError(res.data?.message || 'Failed to resend code.');
+            }
+          } catch {
+            showOtpError('Network error requesting new code.');
+          }
+        });
+
+        $('#otpBackToLogin')?.addEventListener('click', () => {
+          closeModals();
+          openModal('#authModal');
+          showLoginTab();
         });
 
         $('#authPassword')?.addEventListener('keydown', e => { if (e.key === 'Enter') $('#authSubmitBtn')?.click(); });
