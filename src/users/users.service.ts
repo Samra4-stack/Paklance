@@ -21,6 +21,7 @@ export class UsersService {
     emailVerifyExpires?: Date;
     emailVerifyLastSentAt?: Date;
   }): Promise<Omit<User, 'passwordHash'>> {
+    await this.prisma.ensureSchemaMigrated?.();
     const existingUser = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
@@ -97,6 +98,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
+    await this.prisma.ensureSchemaMigrated?.();
     return this.prisma.user.findUnique({
       where: { email },
     });
