@@ -78,7 +78,7 @@ describe('ContractsService File Operations', () => {
     ).rejects.toThrow(ForbiddenException);
   });
 
-  it('should reject file upload when file size exceeds 5MB', async () => {
+  it('should reject file upload when file size exceeds 3MB', async () => {
     mockPrisma.contract.findUnique.mockResolvedValue(mockContract);
 
     await expect(

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MessagingService } from './messaging.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { PushService } from '../push/push.service';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
 
 const mockPrismaService = {
@@ -8,6 +9,11 @@ const mockPrismaService = {
     findUnique: jest.fn(),
     findFirst: jest.fn(),
     create: jest.fn(),
+    findMany: jest.fn(),
+    update: jest.fn(),
+  },
+  user: {
+    findUnique: jest.fn(),
     findMany: jest.fn(),
   },
   message: {
@@ -19,6 +25,10 @@ const mockPrismaService = {
   },
 };
 
+const mockPushService = {
+  sendPushToUser: jest.fn(),
+};
+
 describe('MessagingService', () => {
   let service: MessagingService;
 
@@ -28,6 +38,7 @@ describe('MessagingService', () => {
       providers: [
         MessagingService,
         { provide: PrismaService, useValue: mockPrismaService },
+        { provide: PushService, useValue: mockPushService },
       ],
     }).compile();
 

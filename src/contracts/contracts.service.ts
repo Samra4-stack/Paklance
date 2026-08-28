@@ -274,9 +274,10 @@ export class ContractsService {
       );
     }
 
-    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-    if (file.size > MAX_FILE_SIZE) {
-      throw new BadRequestException('File exceeds maximum allowed size of 5MB');
+    const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB (safe for serverless transport)
+    const fileSize = Number(file.size) || 0;
+    if (fileSize > MAX_FILE_SIZE) {
+      throw new BadRequestException('File exceeds maximum allowed size of 3MB');
     }
 
     const allowedExtensions = [
@@ -290,7 +291,8 @@ export class ContractsService {
       '.jpeg',
       '.webp',
     ];
-    const ext = (file.originalname || '').toLowerCase();
+    const originalName = file.originalname || 'document.pdf';
+    const ext = originalName.toLowerCase();
     const isAllowed = allowedExtensions.some((allowed) => ext.endsWith(allowed));
     if (!isAllowed) {
       throw new BadRequestException(
@@ -300,22 +302,22 @@ export class ContractsService {
 
     let fileData = file.fileData;
     if (!fileData && file.buffer) {
-      fileData = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+      fileData = `data:${file.mimetype || 'application/octet-stream'};base64,${file.buffer.toString('base64')}`;
     }
     if (!fileData) {
       throw new BadRequestException('File content cannot be empty');
     }
 
-    const safeFilename = `${Date.now()}_${file.originalname.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+    const safeFilename = `${Date.now()}_${originalName.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
 
     return this.prisma.contractFile.create({
       data: {
         contractId,
         uploaderId: userId,
         filename: safeFilename,
-        originalName: file.originalname,
-        fileSize: file.size,
-        mimeType: file.mimetype,
+        originalName,
+        fileSize,
+        mimeType: file.mimetype || 'application/octet-stream',
         fileData,
       },
       include: {

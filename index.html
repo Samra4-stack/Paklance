@@ -2085,6 +2085,176 @@
       gap: 14px
     }
 
+    /* Dedicated Full-Screen Chat View */
+    .contract-fullscreen-chat {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      width: 100%;
+      height: 100dvh;
+      height: 100vh;
+      background: #f4f7f5;
+      z-index: 999999;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .fullscreen-chat-header {
+      height: 60px;
+      min-height: 60px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2ece5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .fullscreen-chat-header .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .fullscreen-chat-header .chat-back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--forest);
+      background: #eaf4ed;
+      border: 1px solid #cce5d4;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .fullscreen-chat-header .chat-back-btn:hover {
+      background: #d8ecde;
+    }
+
+    .fullscreen-chat-header .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .fullscreen-chat-header .user-details {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fullscreen-chat-header .user-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+
+    .fullscreen-chat-header .user-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1px;
+    }
+
+    .fullscreen-chat-body {
+      flex: 1 1 0%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 920px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .fullscreen-chat-composer {
+      background: #ffffff;
+      border-top: 1px solid #e2ece5;
+      padding: 10px 16px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      flex-shrink: 0;
+      z-index: 10;
+      box-sizing: border-box;
+    }
+
+    .fullscreen-chat-composer .composer-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fullscreen-chat-composer textarea {
+      flex: 1;
+      height: 42px;
+      min-height: 42px;
+      max-height: 120px;
+      padding: 10px 14px;
+      border: 1px solid #c9d8ce;
+      border-radius: 21px;
+      font-size: 14px;
+      outline: none;
+      resize: none;
+      font-family: inherit;
+      line-height: 1.4;
+      box-sizing: border-box;
+      background: #fafdfb;
+    }
+
+    .fullscreen-chat-composer textarea:focus {
+      border-color: var(--forest);
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(1, 65, 28, 0.12);
+    }
+
+    .fullscreen-chat-composer .send-btn {
+      padding: 10px 20px;
+      border-radius: 21px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      height: 42px;
+    }
+
     .workspace-card {
       background: white;
       border: 1px solid #dfe6e1;
@@ -7888,6 +8058,7 @@
           </div>
 
           <!-- MESSAGES TAB -->
+          <!-- MESSAGES TAB -->
           <div id="contractTabMessages" style="display:none;">
             <!-- Initial Contact Card View (Chat closed by default) -->
             <div id="contractContactCardWrap">
@@ -7902,7 +8073,7 @@
                         <strong style="font-size:15px;color:var(--ink);">${escHtml(otherParty.name || otherParty.email || 'Contract Partner')}</strong>
                         <span class="badge ${otherParty.role === 'SPECIALIST' ? 'verified' : ''}" style="font-size:10px;padding:2px 7px;">${escHtml(otherParty.role || 'Partner')}</span>
                       </div>
-                      <small style="color:var(--muted);font-size:11px;display:block;margin-top:2px;">${otherParty.headline ? escHtml(otherParty.headline) + ' · ' : ''}Click to open conversation</small>
+                      <small style="color:var(--muted);font-size:11px;display:block;margin-top:2px;">${otherParty.headline ? escHtml(otherParty.headline) + ' · ' : ''}Click to open full-screen conversation</small>
                       <p id="contractLastMsgPreview" style="margin:4px 0 0;font-size:12px;color:#4a5568;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:400px;">Direct contract chat</p>
                     </div>
                   </div>
@@ -7911,28 +8082,32 @@
               </div>
             </div>
 
-            <!-- Active Chat Interface (Opens ONLY on click) -->
-            <div id="contractChatPane" style="display:none;">
-              <section class="workspace-card" style="padding:0;overflow:hidden;">
-                <div style="padding:14px 18px;border-bottom:1px solid #e8ede9;display:flex;align-items:center;justify-content:space-between;background:#fff;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <button class="btn btn-light" id="contractChatBackBtn" style="padding:6px 12px;font-size:12px;font-weight:600;">&larr; Back</button>
-                    <span style="width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;">${escHtml((otherParty.name || 'U').slice(0,2).toUpperCase())}</span>
-                    <div>
-                      <strong style="font-size:14px;display:block;color:var(--ink);">${escHtml(otherParty.name || otherParty.email || 'Contract Partner')}</strong>
-                      <small style="color:var(--muted);font-size:11px;">${escHtml(otherParty.role || '')}${otherParty.headline ? ' · ' + escHtml(otherParty.headline) : ''}</small>
-                    </div>
+            <!-- Dedicated Full-Screen Chat View Overlay -->
+            <div id="contractFullscreenChat" class="contract-fullscreen-chat" style="display:none;">
+              <div class="fullscreen-chat-header">
+                <div class="header-left">
+                  <button class="chat-back-btn" id="contractChatBackBtn" aria-label="Back to contract">
+                    &larr; Back
+                  </button>
+                  <span class="user-avatar">${escHtml((otherParty.name || 'U').slice(0,2).toUpperCase())}</span>
+                  <div class="user-details">
+                    <span class="user-name">${escHtml(otherParty.name || otherParty.email || 'Contract Partner')}</span>
+                    <span class="user-subtitle">${escHtml(otherParty.role === 'SPECIALIST' ? (otherParty.headline || 'Specialist') : 'Client')}</span>
                   </div>
+                </div>
+                <div>
                   <span class="badge verified" style="font-size:10px;">SafePay Workspace</span>
                 </div>
-                <div id="contractChatBody" style="height:360px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;background:#f8fbf9;">
-                  <div style="text-align:center;color:var(--muted);font-size:12px;">Loading messages…</div>
+              </div>
+              <div class="fullscreen-chat-body" id="contractChatBody">
+                <div style="text-align:center;color:var(--muted);font-size:12px;padding:24px;">Loading messages…</div>
+              </div>
+              <div class="fullscreen-chat-composer">
+                <div class="composer-inner">
+                  <textarea id="contractChatInput" rows="1" placeholder="Type a message to ${escHtml(otherParty.name || 'your partner')}…"></textarea>
+                  <button class="btn btn-primary send-btn" id="contractSendChat">Send</button>
                 </div>
-                <div style="padding:12px 16px;border-top:1px solid #e8ede9;display:flex;gap:8px;background:#fff;">
-                  <input id="contractChatInput" placeholder="Write a message to ${escHtml(otherParty.name || 'your partner')}…" style="flex:1;padding:10px 14px;border:1px solid #d1dbd3;border-radius:10px;font-size:13px;outline:none;" />
-                  <button class="btn btn-primary" id="contractSendChat" style="padding:10px 18px;">Send</button>
-                </div>
-              </section>
+              </div>
             </div>
           </div>
 
@@ -7952,7 +8127,7 @@
                 <div style="text-align:center;color:var(--muted);padding:24px;font-size:13px;">Loading files…</div>
               </div>
               <div style="margin-top:16px;padding:10px 14px;background:#f8fbf9;border-radius:10px;border:1px dashed #d8e5dc;">
-                <p style="margin:0;font-size:11px;color:var(--muted);line-height:1.45;"><strong>Supported formats:</strong> PDF, DOCX, DOC, TXT, ZIP, PNG, JPG, JPEG, WEBP · <strong>Max file size:</strong> 5 MB · Files are encrypted and restricted strictly to contract participants.</p>
+                <p style="margin:0;font-size:11px;color:var(--muted);line-height:1.45;"><strong>Supported formats:</strong> PDF, DOCX, DOC, TXT, ZIP, PNG, JPG, JPEG, WEBP · <strong>Max file size:</strong> 3 MB · Files are encrypted and restricted strictly to contract participants.</p>
               </div>
             </section>
           </div>`;
@@ -8038,12 +8213,16 @@
         }
 
         function openContractChatView() {
-          $('#contractContactCardWrap').style.display = 'none';
-          $('#contractChatPane').style.display = 'block';
+          const chatOverlay = $('#contractFullscreenChat');
+          if (chatOverlay) chatOverlay.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+          document.documentElement.style.overflow = 'hidden';
+          if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = 'none';
+          if ($('#siteHeader')) $('#siteHeader').style.display = 'none';
           loadContractMessages(true);
           stopContractChatPoll();
           _contractChatPollTimer = setInterval(async () => {
-            if ($('#contractChatPane')?.style.display === 'none') { stopContractChatPoll(); return; }
+            if ($('#contractFullscreenChat')?.style.display === 'none') { stopContractChatPoll(); return; }
             if (_contractConvId) {
               try {
                 const r = await apiAuth(`/messaging/conversations/${_contractConvId}/messages`);
@@ -8062,8 +8241,14 @@
 
         function closeContractChatView() {
           stopContractChatPoll();
-          $('#contractChatPane').style.display = 'none';
-          $('#contractContactCardWrap').style.display = 'block';
+          const chatOverlay = $('#contractFullscreenChat');
+          if (chatOverlay) chatOverlay.style.display = 'none';
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+          if ($('#siteHeader')) $('#siteHeader').style.display = '';
+          const activeView = $('.view.active')?.dataset.view;
+          const dashViews = ['dashboard', 'contract', 'wallet', 'messages', 'disputes', 'admin'];
+          if ($('#mobileBottomNav')) $('#mobileBottomNav').style.display = (window.innerWidth <= 980 && dashViews.includes(activeView)) ? 'grid' : 'none';
           findOrCreateContractConv();
         }
 
@@ -8190,7 +8375,7 @@
               closeContractChatView();
               findOrCreateContractConv();
             } else {
-              stopContractChatPoll();
+              closeContractChatView();
             }
 
             if (tab === 'files') {
@@ -8218,13 +8403,13 @@
             statusEl.textContent = `Uploading "${file.name}" (${formatBytes(file.size)})…`;
           }
 
-          const MAX = 5 * 1024 * 1024;
+          const MAX = 3 * 1024 * 1024; // 3 MB platform limit
           if (file.size > MAX) {
             if (statusEl) {
               statusEl.style.background = '#fff0f0';
               statusEl.style.color = 'var(--danger)';
               statusEl.style.border = '1px solid #fecaca';
-              statusEl.textContent = `File size (${formatBytes(file.size)}) exceeds the maximum allowed limit of 5 MB.`;
+              statusEl.textContent = `File size (${formatBytes(file.size)}) exceeds the maximum allowed limit of 3 MB.`;
             }
             return;
           }
@@ -9550,20 +9735,99 @@
         startGlobalNotificationSync();
       }
 
-      // === 22B. MOBILE & BROWSER MESSAGE NOTIFICATION SYSTEM ===
+      // === 22B. MOBILE & BROWSER WEB PUSH & NOTIFICATION SYSTEM ===
       let _globalNotifPollTimer = null;
       let _knownMessageIds = new Set();
       let _notifInitialized = false;
       let _recentNotifList = [];
+      let _swRegistration = null;
 
-      function requestNotificationPermission() {
-        if ('Notification' in window) {
-          Notification.requestPermission().then(permission => {
-            updateNotificationDrawer();
-            if (permission === 'granted') {
-              toast('✔ Notifications enabled! You will receive alerts when messages arrive.');
+      function urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+        for (let i = 0; i < rawData.length; ++i) {
+          outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
+      }
+
+      async function subscribeToPushNotifications() {
+        if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+        if (!getToken()) return;
+
+        try {
+          const reg = _swRegistration || await navigator.serviceWorker.ready;
+          if (!reg || !reg.pushManager) return;
+
+          let subscription = await reg.pushManager.getSubscription();
+          if (!subscription) {
+            const res = await api('/push/vapid-public-key');
+            if (!res.ok || !res.data?.publicKey) return;
+
+            const convertedVapidKey = urlBase64ToUint8Array(res.data.publicKey);
+            subscription = await reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: convertedVapidKey
+            });
+          }
+
+          if (subscription) {
+            const subJson = subscription.toJSON();
+            await apiAuth('/push/subscribe', {
+              method: 'POST',
+              body: JSON.stringify({
+                endpoint: subJson.endpoint,
+                keys: subJson.keys
+              })
+            });
+          }
+        } catch (err) {
+          console.warn('Push subscription note:', err);
+        }
+      }
+
+      async function requestNotificationPermission() {
+        if (!('Notification' in window)) {
+          toast('Notifications are not supported by your browser.');
+          return;
+        }
+        try {
+          const permission = await Notification.requestPermission();
+          updateNotificationDrawer();
+          if (permission === 'granted') {
+            toast('✔ Mobile push notifications enabled!');
+            await subscribeToPushNotifications();
+          } else if (permission === 'denied') {
+            toast('Notification permission was blocked in browser settings.');
+          }
+        } catch (e) {
+          console.warn('Permission request error:', e);
+        }
+      }
+
+      function initServiceWorkerAndPush() {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => {
+              _swRegistration = reg;
+              if (Notification.permission === 'granted' && getToken()) {
+                subscribeToPushNotifications();
+              }
+            })
+            .catch(err => console.warn('Service worker registration note:', err));
+
+          navigator.serviceWorker.addEventListener('message', event => {
+            if (event.data?.type === 'PUSH_NOTIFICATION_CLICK') {
+              const data = event.data.data || {};
+              if (data.senderId) {
+                route('messages', { id: data.senderId, name: data.senderName });
+              } else {
+                route('messages');
+              }
             }
-          }).catch(() => {});
+          });
         }
       }
 
@@ -9575,7 +9839,7 @@
         if ('Notification' in window && Notification.permission === 'default') {
           permBanner = `
             <div style="margin-bottom:12px;padding:10px 14px;background:#eaf4ed;border:1px solid #cce5d4;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
-              <span style="font-size:12px;color:var(--forest);">Enable notifications for new messages</span>
+              <span style="font-size:12px;color:var(--forest);">Enable mobile alerts for new messages</span>
               <button class="btn btn-primary" id="btnReqNotifPerm" style="font-size:11px;padding:4px 10px;flex-shrink:0;">Enable</button>
             </div>`;
         }
@@ -9619,7 +9883,7 @@
         // 1. Native Web / Mobile Browser Notification
         if ('Notification' in window && Notification.permission === 'granted') {
           try {
-            const notif = new Notification(`New message from ${senderName}`, {
+            const notif = new Notification(`Paklance — ${senderName}`, {
               body: preview,
               icon: '/favicon.ico',
               tag: 'msg_' + messageId,
@@ -9660,6 +9924,9 @@
           if (_globalNotifPollTimer) { clearInterval(_globalNotifPollTimer); _globalNotifPollTimer = null; }
           return;
         }
+        if (Notification.permission === 'granted') {
+          subscribeToPushNotifications();
+        }
         if (_globalNotifPollTimer) return;
 
         const checkIncoming = async () => {
@@ -9696,7 +9963,7 @@
                   // Check if recipient is actively viewing this exact conversation
                   const activeView = $('.view.active')?.dataset.view;
                   const isViewingChat = activeView === 'messages' && (window._activeChatUser?.id === lm.senderId);
-                  const isViewingContractChat = activeView === 'contract' && $('#contractChatPane')?.style.display !== 'none';
+                  const isViewingContractChat = activeView === 'contract' && $('#contractFullscreenChat')?.style.display === 'flex';
 
                   if (!isViewingChat && !isViewingContractChat) {
                     const senderName = c.otherUser?.name || c.otherUser?.email?.split('@')[0] || 'User';
@@ -10515,6 +10782,7 @@
           if (h && $(`[data-view="${h}"]`)) route(h);
         });
 
+        initServiceWorkerAndPush();
         updateHeaderAuthState();
         const initial = safeGetInitialRoute();
         if (initial && $(`[data-view="${initial}"]`)) route(initial); else route('home');

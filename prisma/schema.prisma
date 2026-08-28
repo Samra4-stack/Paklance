@@ -275,6 +275,16 @@ model Notification {
   createdAt DateTime @default(now())
 }
 
+model PushSubscription {
+  id        String   @id @default(uuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Proposal {
   id           String         @id @default(uuid())
   jobId        String

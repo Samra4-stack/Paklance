@@ -32,9 +32,19 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         ? exceptionResponse.message || exceptionResponse
         : exceptionResponse;
 
+    // Log with full detail so Vercel runtime logs show the real cause
+    const errName =
+      exception instanceof Error
+        ? exception.constructor.name
+        : typeof exception;
+    const errMsg =
+      exception instanceof Error ? exception.message : String(exception);
+    const errStack =
+      exception instanceof Error ? exception.stack : '';
+
     this.logger.error(
-      `HTTP Status: ${status} | Error: ${JSON.stringify(message)} | Path: ${request.url}`,
-      exception instanceof Error ? exception.stack : '',
+      `[${errName}] HTTP ${status} | ${errMsg} | Path: ${request.url}`,
+      errStack,
     );
 
     response.status(status).json({
@@ -45,3 +55,4 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     });
   }
 }
+

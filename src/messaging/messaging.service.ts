@@ -6,10 +6,14 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { SendMessageDto } from './dto/send-message.dto';
+import { PushService } from '../push/push.service';
 
 @Injectable()
 export class MessagingService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly pushService: PushService,
+  ) {}
 
   async findOrCreateConversation(userId: string, otherUserId: string) {
     if (userId === otherUserId) {
@@ -61,6 +65,35 @@ export class MessagingService {
       where: { id: conversation.id },
       data: { updatedAt: new Date() },
     });
+
+    // Send Web Push notification to the receiver (never to the sender).
+    // Fetch sender name for notification title.
+    try {
+      const sender = await this.prisma.user.findUnique({
+        where: { id: senderId },
+        select: { name: true, email: true },
+      });
+      const senderName =
+        sender?.name || sender?.email?.split('@')[0] || 'Someone';
+      const preview =
+        dto.content.trim().length > 60
+          ? dto.content.trim().slice(0, 57) + '\u2026'
+          : dto.content.trim();
+
+      await this.pushService.sendPushToUser(dto.receiverId, {
+        title: `Paklance — ${senderName}`,
+        body: preview,
+        tag: `msg_${message.id}`,
+        data: {
+          url: '/#messages',
+          senderId,
+          senderName,
+          messageId: message.id,
+        },
+      });
+    } catch {
+      // Push failure must never break the message send flow
+    }
 
     return message;
   }
