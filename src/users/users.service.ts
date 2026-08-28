@@ -45,7 +45,10 @@ export class UsersService {
         },
       });
     } catch (createErr: any) {
-      if (createErr?.message?.includes('column') || createErr?.message?.includes('does not exist')) {
+      if (createErr?.code === 'P2002' || createErr instanceof ConflictException) {
+        throw new ConflictException('User with this email already exists');
+      }
+      try {
         user = await this.prisma.user.create({
           data: {
             email: data.email,
@@ -53,7 +56,7 @@ export class UsersService {
             role: data.role || Role.SPECIALIST,
           },
         });
-      } else {
+      } catch (fallbackErr: any) {
         throw createErr;
       }
     }
