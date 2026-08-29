@@ -144,12 +144,29 @@ export class ProposalsService {
       });
 
       if (!existingContract) {
-        await tx.contract.create({
+        const newContract = await tx.contract.create({
           data: {
             jobId: proposal.jobId,
             clientId: userId,
             specialistId: proposal.freelancerId,
             status: 'DRAFT',
+            milestones: {
+              create: [
+                {
+                  title: `Milestone 1: ${proposal.job?.title || 'Project Milestone'}`,
+                  description: `Delivery within ${proposal.deliveryDays || 7} days - ${String(proposal.coverLetter || '').slice(0, 150)}`,
+                  amount: proposal.bidAmount,
+                },
+              ],
+            },
+          },
+        });
+
+        await tx.escrow.create({
+          data: {
+            contractId: newContract.id,
+            userId,
+            balance: 0,
           },
         });
       }

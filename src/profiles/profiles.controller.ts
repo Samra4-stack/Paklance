@@ -40,6 +40,11 @@ export class ProfilesController {
     return this.profilesService.searchProfiles(query);
   }
 
+  @Get()
+  findAll(@Query() query: SearchProfilesDto) {
+    return this.profilesService.searchProfiles(query);
+  }
+
   @Get(':userId')
   getProfile(@Param('userId') userId: string) {
     return this.profilesService.getProfileByUserId(userId);

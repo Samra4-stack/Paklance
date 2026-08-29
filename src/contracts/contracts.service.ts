@@ -23,6 +23,27 @@ export class ContractsService {
     });
     if (!specialist) throw new NotFoundException('Specialist user not found');
 
+    const existingContract = await this.prisma.contract.findFirst({
+      where: { jobId: dto.jobId, specialistId: dto.specialistId },
+      include: { milestones: true, escrow: true },
+    });
+
+    if (existingContract) {
+      return this.findOne(existingContract.id);
+    }
+
+    const milestonesData = (dto.milestones && dto.milestones.length > 0)
+      ? dto.milestones.map((m) => ({
+          title: m.title,
+          description: m.description,
+          amount: m.amount,
+        }))
+      : [{
+          title: `Milestone 1: ${job.title}`,
+          description: `Initial deliverables for ${job.title}`,
+          amount: Number(job.budget) || 10000,
+        }];
+
     return this.prisma.$transaction(async (tx) => {
       const contract = await tx.contract.create({
         data: {
@@ -31,11 +52,7 @@ export class ContractsService {
           specialistId: dto.specialistId,
           status: ContractStatus.DRAFT,
           milestones: {
-            create: dto.milestones.map((m) => ({
-              title: m.title,
-              description: m.description,
-              amount: m.amount,
-            })),
+            create: milestonesData,
           },
         },
         include: { milestones: true },
@@ -165,18 +182,27 @@ export class ContractsService {
   }
 
   async findUserContracts(userId: string) {
-    return this.prisma.contract.findMany({
+    const contracts = await this.prisma.contract.findMany({
       where: {
         OR: [{ clientId: userId }, { specialistId: userId }],
       },
       include: {
         job: true,
-        client: { select: { id: true, name: true, email: true, avatarUrl: true } },
+        client: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            avatarUrl: true,
+          },
+        },
         specialist: {
           select: {
             id: true,
             name: true,
             email: true,
+            role: true,
             headline: true,
             avatarUrl: true,
           },
@@ -194,6 +220,24 @@ export class ContractsService {
       },
       orderBy: { createdAt: 'desc' },
     });
+
+    for (const c of contracts) {
+      if (!c.escrow || !c.milestones || c.milestones.length === 0) {
+        const healed = await this.prisma.$transaction(async (tx) => {
+          return this.autoHealContractRecords(
+            tx,
+            c.id,
+            c.clientId,
+            c.job?.title,
+            Number(c.job?.budget) || 10000,
+          );
+        });
+        c.escrow = healed.escrow;
+        c.milestones = healed.milestones;
+      }
+    }
+
+    return contracts;
   }
 
   async findOne(contractId: string) {
@@ -201,12 +245,21 @@ export class ContractsService {
       where: { id: contractId },
       include: {
         job: true,
-        client: { select: { id: true, name: true, email: true, avatarUrl: true } },
+        client: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            avatarUrl: true,
+          },
+        },
         specialist: {
           select: {
             id: true,
             name: true,
             email: true,
+            role: true,
             headline: true,
             avatarUrl: true,
           },
@@ -224,7 +277,61 @@ export class ContractsService {
       },
     });
     if (!contract) throw new NotFoundException('Contract not found');
+
+    if (!contract.escrow || !contract.milestones || contract.milestones.length === 0) {
+      const healed = await this.prisma.$transaction(async (tx) => {
+        return this.autoHealContractRecords(
+          tx,
+          contract.id,
+          contract.clientId,
+          contract.job?.title,
+          Number(contract.job?.budget) || 10000,
+        );
+      });
+      contract.escrow = healed.escrow;
+      contract.milestones = healed.milestones;
+    }
+
     return contract;
+  }
+
+  private async autoHealContractRecords(
+    tx: any,
+    contractId: string,
+    clientId: string,
+    jobTitle?: string,
+    jobBudget?: number,
+  ) {
+    let escrow = await tx.escrow.findUnique({ where: { contractId } });
+    if (!escrow) {
+      try {
+        escrow = await tx.escrow.create({
+          data: { contractId, userId: clientId, balance: 0 },
+        });
+      } catch (err) {
+        escrow = await tx.escrow.findUnique({ where: { contractId } });
+      }
+    }
+
+    const existingMilestones = await tx.milestone.findMany({
+      where: { contractId },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    let milestones = existingMilestones;
+    if (!existingMilestones || existingMilestones.length === 0) {
+      const defaultMilestone = await tx.milestone.create({
+        data: {
+          contractId,
+          title: `Milestone 1: ${jobTitle || 'Project Deliverables'}`,
+          description: `Delivery for ${jobTitle || 'contract'}`,
+          amount: jobBudget || 10000,
+        },
+      });
+      milestones = [defaultMilestone];
+    }
+
+    return { escrow, milestones };
   }
 
   async getContractFiles(userId: string, contractId: string) {

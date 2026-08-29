@@ -30,6 +30,21 @@ export class InitiatePaymentDto {
   @IsString()
   contractId?: string;
 
+  @ApiPropertyOptional({
+    description:
+      'Optional milestone ID to track which specific milestone is being funded. ' +
+      'Used for display and validation only — payments are recorded at contract level.',
+  })
+  @IsOptional()
+  @IsString()
+  milestoneId?: string;
+
+  // Backward‑compatible alias – some older client code still sends "milestone" instead of "milestoneId"
+  @ApiPropertyOptional({ description: '(Deprecated) Milestone ID alias' })
+  @IsOptional()
+  @IsString()
+  milestone?: string;
+
   @ApiPropertyOptional({ description: 'Optional payment description' })
   @IsOptional()
   @IsString()
@@ -40,6 +55,7 @@ export class InitiatePaymentDto {
   @IsString()
   returnUrl?: string;
 }
+
 
 export class SandboxSimulateDto {
   @ApiProperty({ description: 'Unique payment reference ID' })

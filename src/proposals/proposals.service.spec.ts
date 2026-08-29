@@ -19,6 +19,9 @@ const mockPrismaService = {
     findFirst: jest.fn(),
     create: jest.fn(),
   },
+  escrow: {
+    create: jest.fn(),
+  },
   $transaction: jest.fn((cb) => cb(mockPrismaService)),
 };
 
@@ -128,14 +131,16 @@ describe('ProposalsService', () => {
         },
         data: { status: 'REJECTED' },
       });
-      expect(mockPrismaService.contract.create).toHaveBeenCalledWith({
-        data: {
-          jobId: 'job-1',
-          clientId: 'client-1',
-          specialistId: 'spec-1',
-          status: 'DRAFT',
-        },
-      });
+      expect(mockPrismaService.contract.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            jobId: 'job-1',
+            clientId: 'client-1',
+            specialistId: 'spec-1',
+            status: 'DRAFT',
+          }),
+        }),
+      );
       expect(result.status).toBe('ACCEPTED');
     });
 

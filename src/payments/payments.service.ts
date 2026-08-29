@@ -44,13 +44,29 @@ export class PaymentsService {
     if (dto.contractId) {
       contract = await this.prisma.contract.findUnique({
         where: { id: dto.contractId },
-        include: { escrow: true },
+        include: { escrow: true, milestones: true },
       });
       if (!contract) throw new NotFoundException('Contract not found');
       if (contract.clientId !== userId) {
         throw new ForbiddenException(
           'Only the client can fund this contract milestone',
         );
+      }
+
+      // Map legacy 'milestone' alias to 'milestoneId' if provided
+      if (!dto.milestoneId && dto.milestone) {
+        dto.milestoneId = dto.milestone;
+      }
+
+      if (dto.milestoneId) {
+        const milestoneExists = contract.milestones?.some(
+          (m: any) => m.id === dto.milestoneId,
+        );
+        if (!milestoneExists) {
+          throw new BadRequestException(
+            'Milestone does not belong to this contract',
+          );
+        }
       }
     }
 
