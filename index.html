@@ -3323,10 +3323,11 @@
         left: 0;
         right: 0;
         z-index: 45;
-        background: white;
-        border-top: 1px solid #dfe6e1;
-        padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
-        box-shadow: 0 -8px 25px rgba(0, 0, 0, .06)
+        background: #ffffff;
+        border-top: 1px solid #eaecee;
+        border-radius: 16px 16px 0 0;
+        padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, .08), 0 -1px 6px rgba(0, 0, 0, .04)
       }
 
       .mobile-bottom-nav button {
@@ -3335,17 +3336,55 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1px;
-        color: #4d5955; /* WCAG AA fix: ≥4.5:1 on white */
-        padding: 5px
+        gap: 3px;
+        color: #9ba8a3;
+        padding: 6px 4px 4px;
+        transition: color .2s ease;
+        cursor: pointer;
+        position: relative
       }
 
       .mobile-bottom-nav button span {
-        font-size: 15px
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1
+      }
+
+      .mobile-bottom-nav button span svg {
+        width: 22px;
+        height: 22px;
+        transition: transform .2s ease
       }
 
       .mobile-bottom-nav small {
-        font-size: 8px
+        font-size: 9.5px;
+        font-weight: 500;
+        letter-spacing: .02em;
+        transition: color .2s ease
+      }
+
+      /* active-indicator pill dot */
+      .mobile-bottom-nav .mbn-indicator {
+        display: block;
+        width: 20px;
+        height: 3px;
+        border-radius: 2px;
+        background: transparent;
+        margin-bottom: 1px;
+        transition: background .2s ease
+      }
+
+      .mobile-bottom-nav button.active {
+        color: #1a2332
+      }
+
+      .mobile-bottom-nav button.active .mbn-indicator {
+        background: #1a2332
+      }
+
+      .mobile-bottom-nav button.active span svg {
+        transform: translateY(-1px)
       }
 
       .site-footer {
@@ -6737,11 +6776,31 @@
   </footer>
 
   <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile dashboard navigation">
-    <button data-route="dashboard" aria-label="Home dashboard"><span aria-hidden="true">⌂</span><small>Home</small></button>
-    <button data-route="jobs" aria-label="Find jobs"><span aria-hidden="true">⌕</span><small>Find</small></button>
-    <button data-route="contract" aria-label="My contracts"><span aria-hidden="true">◆</span><small>Contracts</small></button>
-    <button data-route="messages" aria-label="Messages"><span aria-hidden="true">✉</span><small>Messages</small></button>
-    <button data-route="wallet" aria-label="Wallet"><span aria-hidden="true">₨</span><small>Wallet</small></button>
+    <button data-route="dashboard" aria-label="Home dashboard">
+      <i class="mbn-indicator" aria-hidden="true"></i>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" focusable="false"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span>
+      <small>Home</small>
+    </button>
+    <button data-route="jobs" aria-label="Find jobs">
+      <i class="mbn-indicator" aria-hidden="true"></i>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></span>
+      <small>Find</small>
+    </button>
+    <button data-route="contract" aria-label="My contracts">
+      <i class="mbn-indicator" aria-hidden="true"></i>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><polyline points="9 17 11 19 15 15"/></svg></span>
+      <small>Contracts</small>
+    </button>
+    <button data-route="messages" aria-label="Messages">
+      <i class="mbn-indicator" aria-hidden="true"></i>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+      <small>Messages</small>
+    </button>
+    <button data-route="wallet" aria-label="Wallet">
+      <i class="mbn-indicator" aria-hidden="true"></i>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" focusable="false"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/><circle cx="16" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg></span>
+      <small>Wallet</small>
+    </button>
   </nav>
 
   <div class="modal-backdrop" id="authModal" aria-hidden="true">
