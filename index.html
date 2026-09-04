@@ -391,7 +391,9 @@
       padding: 11px;
       background: transparent;
       color: var(--charcoal);
-      min-width: 0
+      min-width: 0;
+      /* Prevent iPhone Safari auto-zoom: font-size must be ≥16px on mobile */
+      font-size: 16px
     }
 
     .hero-cta-row {
@@ -1539,7 +1541,9 @@
       background: transparent;
       padding: 12px 8px;
       outline: 0;
-      min-width: 0
+      min-width: 0;
+      /* Prevent iPhone Safari auto-zoom: font-size must be ≥16px on mobile */
+      font-size: 16px
     }
 
     .search-toolbar select {
@@ -3331,7 +3335,7 @@
         background: #ffffff;
         border-top: 1px solid #eaecee;
         border-radius: 16px 16px 0 0;
-        padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+        padding: 5px 4px calc(5px + env(safe-area-inset-bottom));
         box-shadow: 0 -4px 24px rgba(0, 0, 0, .08), 0 -1px 6px rgba(0, 0, 0, .04)
       }
 
@@ -3341,9 +3345,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 3px;
+        gap: 2px;
         color: #9ba8a3;
-        padding: 6px 4px 4px;
+        padding: 4px 4px 3px;
         transition: color .2s ease;
         cursor: pointer;
         position: relative
